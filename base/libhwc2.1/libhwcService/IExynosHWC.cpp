@@ -161,6 +161,16 @@ class BpExynosHWCService : public BpInterface<IExynosHWCService> {
         }
         return result;
     }
+    virtual int32_t setDisplayMultiThreadedPresent(const int32_t& displayId,
+                                                   const bool& enable) {
+        Parcel data, reply;
+        data.writeInterfaceToken(IExynosHWCService::getInterfaceDescriptor());
+        data.writeInt32(displayId);
+        data.writeBool(enable);
+        int result = remote()->transact(SET_DISPLAY_MULTI_THREADED_PRESENT, data, &reply);
+        if (result) ALOGE("SET_DISPLAY_MULTI_THREADED_PRESENT transact error(%d)", result);
+        return result;
+    }
 };
 
 IMPLEMENT_META_INTERFACE(ExynosHWCService, "android.hal.ExynosHWCService");
