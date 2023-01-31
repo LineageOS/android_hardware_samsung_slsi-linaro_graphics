@@ -755,8 +755,10 @@ class ExynosMPP {
     uint32_t getBufferType(uint64_t usage);
     uint32_t getBufferType(const buffer_handle_t handle);
     uint64_t getBufferUsage(uint64_t usage);
+    uint32_t getAlignedDstFullWidth(struct exynos_image& dst);
     bool needDstBufRealloc(struct exynos_image &dst, uint32_t index);
     bool canUsePrevFrame(struct exynos_image &src);
+    uint32_t getDstStrideAlignment(int format);
     android_dataspace_t getDstDataspace(int dstFormat, DisplayInfo &display,
                                         android_dataspace_t dstDataspace);
     int32_t setupDst(exynos_mpp_img_info *dstImgInfo);
