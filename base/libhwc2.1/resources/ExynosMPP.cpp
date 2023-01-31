@@ -1084,6 +1084,10 @@ uint64_t ExynosMPP::getBufferUsage(uint64_t usage) {
     return allocUsage;
 }
 
+uint32_t ExynosMPP::getAlignedDstFullWidth(struct exynos_image& dst) {
+    return pixel_align(dst.fullWidth, getDstStrideAlignment(dst.exynosFormat.halFormat()));
+}
+
 bool ExynosMPP::needDstBufRealloc(struct exynos_image &dst, uint32_t index) {
     MPP_LOGD(eDebugMPP | eDebugBuf, "index: %d++++++++", index);
 
@@ -1117,7 +1121,7 @@ bool ExynosMPP::needDstBufRealloc(struct exynos_image &dst, uint32_t index) {
 
     bool realloc = (mPrevAssignedDisplayType != assignedDisplay) ||
                    (formatToBpp(gmeta.format) < dst.exynosFormat.bpp()) ||
-                   ((gmeta.stride * gmeta.vstride) < (int)(dst.fullWidth * dst.fullHeight)) ||
+                   ((gmeta.stride * gmeta.vstride) < (int)(getAlignedDstFullWidth(dst) * dst.fullHeight)) ||
                    ((!isFormatSBWC(gmeta.format)) && dst.exynosFormat.isSBWC()) ||
                    (mDstImgs[index].bufferType != getBufferType(dst.usageFlags));
 
@@ -1375,6 +1379,14 @@ dstMetaInfo_t ExynosMPP::getDstMetaInfo(android_dataspace_t dstDataspace) {
     return metaInfo;
 }
 
+uint32_t ExynosMPP::getDstStrideAlignment(int format) {
+    /* In cases of Single-FD format, stride alignment should be matched. */
+    if (format == HAL_PIXEL_FORMAT_EXYNOS_YCbCr_420_SPN)
+        return 64;
+    else
+        return GET_M2M_DST_ALIGN(format);
+}
+
 int32_t ExynosMPP::setupDst(exynos_mpp_img_info *dstImgInfo) {
     int ret = NO_ERROR;
     bool isComposition = (mMaxSrcLayerNum > 1);
@@ -1410,7 +1422,7 @@ int32_t ExynosMPP::setupDst(exynos_mpp_img_info *dstImgInfo) {
         attribute |= AcrylicCanvas::ATTR_PROTECTED;
 
     if (mAssignedDisplayInfo.displayIdentifier.id != UINT32_MAX) {
-        int32_t xres = pixel_align(mAssignedDisplayInfo.xres, GET_M2M_DST_ALIGN(formatDesc.halFormat));
+        int32_t xres = pixel_align(mAssignedDisplayInfo.xres, getDstStrideAlignment(formatDesc.halFormat));
         int32_t yres = pixel_align(mAssignedDisplayInfo.yres, GET_M2M_DST_ALIGN(formatDesc.halFormat));
         mAcrylicHandle->setCanvasDimension(xres, yres);
     }
