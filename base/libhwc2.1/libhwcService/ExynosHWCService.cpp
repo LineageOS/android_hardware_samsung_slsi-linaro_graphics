@@ -270,7 +270,7 @@ int ExynosHWCService::getCPUPerfInfo(int display, int config, int32_t *cpuIDs, i
 
 int32_t ExynosHWCService::setDisplayMultiThreadedPresent(const int32_t& displayId,
                                                          const bool& enable) {
-    auto display = mHWCCtx->device->getDisplay(displayId);
+    auto display = mExynosDevice->getDisplay(displayId);
 
     if (display == nullptr) return -EINVAL;
 
