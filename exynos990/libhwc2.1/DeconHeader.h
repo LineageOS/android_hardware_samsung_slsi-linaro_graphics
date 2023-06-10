@@ -19,7 +19,7 @@
 #ifndef ___SAMSUNG_DECON_H__
 #define ___SAMSUNG_DECON_H__
 #include "DeconCommonHeader.h"
-#define S3C_FB_MAX_WIN (5)
+#define S3C_FB_MAX_WIN (6)
 #define MAX_DECON_WIN (6)
 #define DECON_WIN_UPDATE_IDX MAX_DECON_WIN
 #define MAX_PLANE_CNT (3)
