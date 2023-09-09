@@ -27,6 +27,7 @@
 #define DP_LINK_NAME  "11090000.displayport"
 #define DP_UEVENT_NAME  "change@/devices/platform/%s/extcon/extcon0"
 #define DP_CABLE_STATE_NAME "/sys/devices/platform/%s/extcon/extcon0/cable.%d/state"
+#define USE_DPU_SET_CONFIG
 
 #define WAIT_FENCE  1
 
