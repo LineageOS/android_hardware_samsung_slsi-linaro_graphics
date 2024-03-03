@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb98ee70_cf04fa97",
+        "filename": "base/libhwc2.1/display/ExynosDisplayDrmInterface.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 24387
+      },
+      "writtenOn": "2024-03-03T11:16:32Z",
+      "side": 1,
+      "message": "Currently I do not know how to properly fix this. If I have to pass it as parameter to the function goes up up up to the init... And it feels kind of wrong... Does someone has another approach or idea?\n\nThe fb interface works correctly, though.",
+      "revId": "8fa1125597ef71887df90aed28dfd812e9c96349",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
