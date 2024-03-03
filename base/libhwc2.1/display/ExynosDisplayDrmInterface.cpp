@@ -416,7 +416,7 @@ int32_t ExynosDisplayDrmInterface::chosePreferredConfig() {
 
     mPreferredModeId = mDrmConnector->get_preferred_mode_id();
     ALOGI("Preferred mode id: %d", mPreferredModeId);
-    err = setActiveConfig(mPreferredModeId, temp[mPreferredModeId]);
+    //err = setActiveConfig(exynosDisplay, mPreferredModeId, temp[mPreferredModeId]);
     return err;
 }
 
@@ -642,7 +642,7 @@ void ExynosDisplayDrmInterface::getDisplayHWInfo(uint32_t __unused &xres,
 }
 
 int32_t ExynosDisplayDrmInterface::setActiveConfigWithConstraints(
-    hwc2_config_t config, displayConfigs_t &displayConfig, bool test) {
+    ExynosDisplay __unused &exynosDisplay, hwc2_config_t config, displayConfigs_t &displayConfig, bool test) {
     HDEBUGLOGD(eDebugDisplayConfig, "%s:: %s config(%d)", __func__,
                mDisplayIdentifier.name.c_str(), config);
 
@@ -815,7 +815,8 @@ int32_t ExynosDisplayDrmInterface::clearActiveDrmMode() {
     return ret;
 }
 
-int32_t ExynosDisplayDrmInterface::setActiveConfig(hwc2_config_t config,
+int32_t ExynosDisplayDrmInterface::setActiveConfig(ExynosDisplay __unused &exynosDisplay,
+                                                   hwc2_config_t config,
                                                    displayConfigs_t __unused &displayConfig) {
     ALOGD("%s:: %s config(%d)", __func__, mDisplayIdentifier.name.c_str(), config);
     auto mode = std::find_if(mDrmConnector->modes().begin(), mDrmConnector->modes().end(),
