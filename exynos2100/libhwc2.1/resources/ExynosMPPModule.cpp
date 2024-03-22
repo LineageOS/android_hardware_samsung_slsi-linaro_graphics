@@ -183,9 +183,9 @@ bool ExynosMPPModule::isSharedMPPUsed()
             (mSubMPP[1]->mAssignedState & MPP_ASSIGN_STATE_ASSIGNED)) {
             HDEBUGLOGD(eDebugMPP, "Current MPP is virtaul 8K(%s), "
                     "but sub MPP(%s: %d, %s: %d) is already assigned..",
-                    this->mName.string(), mSubMPP[0]->mName.string(),
+                    this->mName.c_str(), mSubMPP[0]->mName.c_str(),
                     mSubMPP[0]->mAssignedState & MPP_ASSIGN_STATE_ASSIGNED,
-                    mSubMPP[1]->mName.string(),
+                    mSubMPP[1]->mName.c_str(),
                     mSubMPP[1]->mAssignedState & MPP_ASSIGN_STATE_ASSIGNED);
             return true;
         }
@@ -200,7 +200,7 @@ bool ExynosMPPModule::isSharedMPPUsed()
         (mVirtual8KMPP->mAssignedState & MPP_ASSIGN_STATE_ASSIGNED)) {
         HDEBUGLOGD(eDebugMPP, "Current MPP is virtaul 8K(%s), "
                 "but sub MPP(%s) is already assigned..",
-                this->mName.string(), mVirtual8KMPP->mName.string());
+                this->mName.c_str(), mVirtual8KMPP->mName.c_str());
         return true;
     }
 
