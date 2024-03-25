@@ -33,6 +33,24 @@
       "message": "Also please fix commit authorship and metadata",
       "revId": "5c8dd323c8ea60f17186b8e316ee28e34e65d67c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaa125dc_9fa818a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2644
+      },
+      "writtenOn": "2024-03-25T20:19:18Z",
+      "side": 1,
+      "message": "Is it really the same authorship when I also change isEmpty to empty? I just used two find...sed commands to generate this patch. I can change authorship/metadata if it is needed.",
+      "parentUuid": "4fabb73b_54643eff",
+      "revId": "5c8dd323c8ea60f17186b8e316ee28e34e65d67c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
