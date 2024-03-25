@@ -16,6 +16,23 @@
       "message": "JFYI, Tim already did BSP bring up for QPR2 here https://github.com/linux4-bringup-priv/android_hardware_samsung_slsi-linaro_graphics/commits/lineage-21.0/",
       "revId": "5c8dd323c8ea60f17186b8e316ee28e34e65d67c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fabb73b_54643eff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 24387
+      },
+      "writtenOn": "2024-03-25T20:00:22Z",
+      "side": 1,
+      "message": "Also please fix commit authorship and metadata",
+      "revId": "5c8dd323c8ea60f17186b8e316ee28e34e65d67c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
