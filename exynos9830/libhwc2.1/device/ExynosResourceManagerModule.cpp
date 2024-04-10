@@ -35,9 +35,9 @@ ExynosResourceManagerModule::ExynosResourceManagerModule()
         item2->mSharedMPP = item1;
     }
 
-    mLayerAttributePriority.resize(sizeof(product_layerAttributePriority)/sizeof(uint32_t));
+    mLayerAttributePriority.resize(sizeof(product_layerAttributePriority)/sizeof(product_layerAttributePriority[0]));
 
-    for (uint32_t i = 0; i < sizeof(product_layerAttributePriority)/sizeof(uint32_t); i++)
+    for (uint32_t i = 0; i < sizeof(product_layerAttributePriority)/sizeof(product_layerAttributePriority[0]); i++)
         mLayerAttributePriority.add(product_layerAttributePriority[i]);
 }
 
