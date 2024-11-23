@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef4b1062_315d1d0c",
+        "filename": "base/giantmscl/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-11-23T20:33:03Z",
+      "side": 1,
+      "message": "yeah, you\u0027re correct",
+      "parentUuid": "77f006e6_645d0dc0",
+      "revId": "9d129e62e646349b83693686930595166f2b7e01",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9a57548_ff8465ff",
         "filename": "base/giantmscl/test/Android.bp",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2024-11-23T20:19:28Z",
       "side": 1,
       "message": "Since the two modules are almost identical, wouldn\u0027t it be much more efficient to use defaults like i did in my commit?",
+      "revId": "9d129e62e646349b83693686930595166f2b7e01",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4eb0a035_920cc31b",
+        "filename": "base/giantmscl/test/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-11-23T20:33:03Z",
+      "side": 1,
+      "message": "likely",
+      "parentUuid": "c9a57548_ff8465ff",
       "revId": "9d129e62e646349b83693686930595166f2b7e01",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
