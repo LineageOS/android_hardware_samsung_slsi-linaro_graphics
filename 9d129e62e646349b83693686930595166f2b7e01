@@ -1,4 +1,39 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77f006e6_645d0dc0",
+        "filename": "base/giantmscl/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 34207
+      },
+      "writtenOn": "2024-11-23T20:19:28Z",
+      "side": 1,
+      "message": "The handling of cflags here definitely seems incorrect ;)\n\nOnly 9830 boardconfig has BOARD_USE_GIANT_MSCL set to true, therefore this will likely not work on other socs e.g. 9820.",
+      "revId": "9d129e62e646349b83693686930595166f2b7e01",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9a57548_ff8465ff",
+        "filename": "base/giantmscl/test/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 34207
+      },
+      "writtenOn": "2024-11-23T20:19:28Z",
+      "side": 1,
+      "message": "Since the two modules are almost identical, wouldn\u0027t it be much more efficient to use defaults like i did in my commit?",
+      "revId": "9d129e62e646349b83693686930595166f2b7e01",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ],
   "submitRequirementResults": []
 }
