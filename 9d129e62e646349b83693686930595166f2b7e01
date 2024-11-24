@@ -54,6 +54,24 @@
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8334e85f_b4132336",
+        "filename": "base/giantmscl/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 34207
+      },
+      "writtenOn": "2024-11-24T08:15:18Z",
+      "side": 1,
+      "message": "Though, this raises one more question. Should we adapt boardconfigs to this soong way of handling cflags, or should we add a new boardconfig that converts existing boardconfig variables to soong variables?",
+      "parentUuid": "7a19355a_8d851b31",
+      "revId": "9d129e62e646349b83693686930595166f2b7e01",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9a57548_ff8465ff",
