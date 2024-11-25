@@ -1,0 +1,34 @@
+cc_library_shared {
+    name: "libexynosscaler",
+
+    cflags: [
+        "-DLOG_TAG=\"libexynosscaler\"",
+    ] + select(soong_config_variable("libexynosscaler", "HAS_SCALER_ALIGN_RESTRICTION"), {
+        "true": ["-DSCALER_ALIGN_RESTRICTION"],
+        default: [],
+    }) + select(soong_config_variable("libexynosscaler", "SCALER_USE_PREMUL_FMT"), {
+        "true": ["-DSCALER_USE_PREMUL_FMT"],
+        default: [],
+    }),
+    shared_libs: [
+        "liblog",
+        "libutils",
+        "libcutils",
+        "libacryl",
+    ],
+
+    header_libs: [
+        "libcutils_headers",
+        "libsystem_headers",
+        "libhardware_headers",
+        "libexynos_headers",
+    ],
+
+    export_include_dirs: ["include"],
+
+    srcs: [
+        "libscaler.cpp",
+    ],
+
+    proprietary: true,
+}
