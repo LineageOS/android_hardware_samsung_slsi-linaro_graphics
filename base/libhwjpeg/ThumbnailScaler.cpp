@@ -24,6 +24,7 @@
 ThumbnailScaler *ThumbnailScaler::createInstance()
 {
 #ifdef USE_G2D_SCALER
+#error "wut"
     G2dThumbnailScaler *scaler = new G2dThumbnailScaler();
     if (scaler->available()) {
         ALOGI("Created thumbnail scaler: G2D Scaler");
