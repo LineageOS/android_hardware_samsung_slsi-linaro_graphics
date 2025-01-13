@@ -2123,6 +2123,16 @@ int64_t ExynosMPP::isSupported(DisplayInfo &display, struct exynos_image &src, s
     if (!isSupportLayerColorTransform(src, dst))
         return -eMPPUnsupportedColorTransform;
 
+    if (mMPPType == MPP_TYPE_M2M) {
+        // G2D currently always sets the canvas size as the aligned full-screen size
+        if (dst.x + dst.w > pixel_align(mAssignedDisplayInfo.xres, getDstStrideAlignment(dst.exynosFormat.halFormat()))) {
+            return -eMPPExceedCanvasWidth;
+        }
+        if (dst.y + dst.h > pixel_align(mAssignedDisplayInfo.yres, GET_M2M_DST_ALIGN(dst.exynosFormat.halFormat()))) {
+            return -eMPPExceedCanvasHeight;
+        }
+    }
+
     return NO_ERROR;
 }
 
