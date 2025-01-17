@@ -224,9 +224,9 @@ const format_description_t exynos_format_desc[] = {
     {HAL_PIXEL_FORMAT_IMPLEMENTATION_DEFINED, DECON_PIXEL_FORMAT_MAX, DRM_FORMAT_UNDEFINED,
      0, 0, 0, TYPE_UNDEF, false, String8("ImplDef"), 0}};
 
-#define FORMAT_MAX_CNT sizeof(exynos_format_desc) / sizeof(format_description)
+#define FORMAT_MAX_CNT 1//sizeof(exynos_format_desc) / sizeof(format_description)
 
-constexpr uint32_t kDefaultFormatIndex = FORMAT_MAX_CNT - 1;
+constexpr uint32_t kDefaultFormatIndex = 0;//FORMAT_MAX_CNT - 1;
 class ExynosFormat {
   public:
     ExynosFormat();
