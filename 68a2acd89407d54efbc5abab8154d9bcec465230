@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0baeb98_ead7957a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 34207
+      },
+      "writtenOn": "2025-01-17T16:54:18Z",
+      "side": 1,
+      "message": "Why are some soong configs in caps and some aren\u0027t?",
+      "revId": "68a2acd89407d54efbc5abab8154d9bcec465230",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
