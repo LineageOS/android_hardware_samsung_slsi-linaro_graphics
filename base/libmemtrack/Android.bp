@@ -1,0 +1,86 @@
+
+cc_library_shared {
+    name: "ionps",
+    proprietary: true,
+
+    shared_libs: [
+        "libc",
+        "libcutils",
+        "liblog",
+        "libion_exynos",
+    ],
+
+    srcs: [
+        "ionps.cpp",
+    ],
+}
+
+cc_defaults {
+    name: "memtrack_defaults",
+    relative_install_path: "hw",
+    proprietary: true,
+    compile_multilib: "both",
+
+    shared_libs: [
+        "liblog",
+        "libion_exynos",
+    ],
+    header_libs: [
+        "libcutils_headers",
+        "libsystem_headers",
+        "libhardware_headers",
+    ],
+
+    srcs: [
+        "memtrack_exynos.cpp",
+        "mali.cpp",
+        "ion.cpp",
+        "dmabuf.cpp",
+        "sgpu.cpp",
+    ],
+}
+
+cc_library_shared {
+    name: "memtrack.exynos850",
+    defaults: ["memtrack_defaults"],
+}
+
+cc_library_shared {
+    name: "memtrack.exynos2100",
+    defaults: ["memtrack_defaults"],
+}
+
+cc_library_shared {
+    name: "memtrack.exynos3830",
+    defaults: ["memtrack_defaults"],
+}
+
+cc_library_shared {
+    name: "memtrack.exynos7872",
+    defaults: ["memtrack_defaults"],
+}
+
+cc_library_shared {
+    name: "memtrack.exynos7885",
+    defaults: ["memtrack_defaults"],
+}
+
+cc_library_shared {
+    name: "memtrack.exynos9610",
+    defaults: ["memtrack_defaults"],
+}
+
+cc_library_shared {
+    name: "memtrack.exynos9820",
+    defaults: ["memtrack_defaults"],
+}
+
+cc_library_shared {
+    name: "memtrack.exynos9810",
+    defaults: ["memtrack_defaults"],
+}
+
+cc_library_shared {
+    name: "memtrack.exynos9830",
+    defaults: ["memtrack_defaults"],
+}
