@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6f72f90_85d80e74",
+        "filename": "base/hwc3/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 17401
+      },
+      "writtenOn": "2025-01-17T14:29:27Z",
+      "side": 1,
+      "message": "error: hardware/samsung_slsi-linaro/graphics/base/hwc3/Android.bp:16:1: module \"android.hardware.composer.hwc3-service.slsi\" variant \"android_vendor_arm64_armv8-a\": depends on multiple versions of the same aidl_interface: android.hardware.graphics.composer3-V2-ndk-source, android.hardware.graphics.composer3-V4-ndk-source",
+      "revId": "64e2830f2c2c90d4903fb419a6c44f4e53f49018",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}

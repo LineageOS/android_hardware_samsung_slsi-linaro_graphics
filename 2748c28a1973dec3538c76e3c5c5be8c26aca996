@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78321de0_3eb18105",
+        "filename": "base/libhwc2.1/utils/ExynosHWCFormat.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 17401
+      },
+      "writtenOn": "2025-01-17T14:29:27Z",
+      "side": 0,
+      "message": "have to figure out why this errors out",
+      "revId": "2748c28a1973dec3538c76e3c5c5be8c26aca996",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
