@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50a76062_3ccfc841",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 25925
+      },
+      "writtenOn": "2025-01-17T12:09:15Z",
+      "side": 1,
+      "message": "Maybe instead of hardcoding do something like google did?\nhttps://android-review.googlesource.com/c/platform/hardware/google/graphics/common/+/3285754",
+      "revId": "f2038dc73f1107f18c1644ba3142c61d043099a2",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
