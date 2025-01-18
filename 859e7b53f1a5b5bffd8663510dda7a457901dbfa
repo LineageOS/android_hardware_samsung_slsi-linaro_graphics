@@ -16,6 +16,24 @@
       "message": "While already at it, I don\u0027t think this was ever supposed to include the gchips one, probably meant to use libgralloc4_headers_exynos but with mk it wasn\u0027t easily visible where it was coming from.",
       "revId": "859e7b53f1a5b5bffd8663510dda7a457901dbfa",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40e120aa_4098744b",
+        "filename": "base/hwc3/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 25925
+      },
+      "writtenOn": "2025-01-18T16:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a2461a3_0d585799",
+      "revId": "859e7b53f1a5b5bffd8663510dda7a457901dbfa",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
