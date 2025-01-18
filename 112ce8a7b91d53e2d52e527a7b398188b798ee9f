@@ -34,6 +34,24 @@
       "parentUuid": "e02c59e5_1a7282f7",
       "revId": "112ce8a7b91d53e2d52e527a7b398188b798ee9f",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94d525e1_d5f33634",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 25925
+      },
+      "writtenOn": "2025-01-18T15:12:51Z",
+      "side": 1,
+      "message": "Yeah we never had BoardConfigCFlags included, but iirc they were needed for devices that are not on the LineageOS org so might make sense to eventually include the flags in the future.",
+      "parentUuid": "35f96779_0198aa61",
+      "revId": "112ce8a7b91d53e2d52e527a7b398188b798ee9f",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
