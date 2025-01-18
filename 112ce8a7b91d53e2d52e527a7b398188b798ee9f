@@ -52,6 +52,24 @@
       "parentUuid": "35f96779_0198aa61",
       "revId": "112ce8a7b91d53e2d52e527a7b398188b798ee9f",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a85ef521_8f6a28a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17401
+      },
+      "writtenOn": "2025-01-18T21:16:55Z",
+      "side": 1,
+      "message": "i grep\u0027d for all the flags and added all the ones that appear in header files in the hwc3 Android.bp",
+      "parentUuid": "94d525e1_d5f33634",
+      "revId": "112ce8a7b91d53e2d52e527a7b398188b798ee9f",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
