@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e02c59e5_1a7282f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 25925
+      },
+      "writtenOn": "2025-01-18T13:14:10Z",
+      "side": 1,
+      "message": "Might be a good idea to put all the common selects from libexynosdisplay and hwcomposer.$(TARGET_BOARD_PLATFORM) into a cc_defaults to deduplicate them a bit, also iirc some newer SoCs also needed some of these flags in hwc3 Android.mk for having it work",
+      "revId": "112ce8a7b91d53e2d52e527a7b398188b798ee9f",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
