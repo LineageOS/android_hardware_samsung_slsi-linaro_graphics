@@ -16,6 +16,24 @@
       "message": "error: hardware/samsung_slsi-linaro/graphics/base/hwc3/Android.bp:16:1: module \"android.hardware.composer.hwc3-service.slsi\" variant \"android_vendor_arm64_armv8-a\": depends on multiple versions of the same aidl_interface: android.hardware.graphics.composer3-V2-ndk-source, android.hardware.graphics.composer3-V4-ndk-source",
       "revId": "64e2830f2c2c90d4903fb419a6c44f4e53f49018",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f45439a_d4b58e99",
+        "filename": "base/hwc3/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 25925
+      },
+      "writtenOn": "2025-01-18T10:48:59Z",
+      "side": 1,
+      "message": "Not 100% sure but I think simply setting this to V4 here should be fine.\nCan\u0027t easily pick google\u0027s actual implementation for V4 unfortunately.",
+      "parentUuid": "b6f72f90_85d80e74",
+      "revId": "64e2830f2c2c90d4903fb419a6c44f4e53f49018",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
