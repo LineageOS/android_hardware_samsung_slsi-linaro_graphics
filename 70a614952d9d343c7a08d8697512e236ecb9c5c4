@@ -16,6 +16,24 @@
       "message": "Maybe something like \"platform/\" + flag_val + \"/\\*\\*/\\*.cpp\" would work here so we don\u0027t have to repeat almost the same lines over and over again?",
       "revId": "70a614952d9d343c7a08d8697512e236ecb9c5c4",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68de1eee_3df8476f",
+        "filename": "base/libhwc2.1/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 17401
+      },
+      "writtenOn": "2025-01-18T11:00:22Z",
+      "side": 1,
+      "message": "if that works, go for it",
+      "parentUuid": "c6df9935_c8160eea",
+      "revId": "70a614952d9d343c7a08d8697512e236ecb9c5c4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
