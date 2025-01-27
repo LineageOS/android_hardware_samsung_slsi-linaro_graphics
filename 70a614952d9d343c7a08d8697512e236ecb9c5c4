@@ -52,6 +52,24 @@
       "parentUuid": "68de1eee_3df8476f",
       "revId": "70a614952d9d343c7a08d8697512e236ecb9c5c4",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3ea93c7_d1c2bfae",
+        "filename": "base/libhwc2.1/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2025-01-27T20:51:02Z",
+      "side": 1,
+      "message": "follow up if anything",
+      "parentUuid": "68de1eee_3df8476f",
+      "revId": "70a614952d9d343c7a08d8697512e236ecb9c5c4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
