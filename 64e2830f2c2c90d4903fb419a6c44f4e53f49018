@@ -34,6 +34,24 @@
       "parentUuid": "b6f72f90_85d80e74",
       "revId": "64e2830f2c2c90d4903fb419a6c44f4e53f49018",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c4c49f4_93d4df7c",
+        "filename": "base/hwc3/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 17401
+      },
+      "writtenOn": "2025-01-27T20:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f45439a_d4b58e99",
+      "revId": "64e2830f2c2c90d4903fb419a6c44f4e53f49018",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
