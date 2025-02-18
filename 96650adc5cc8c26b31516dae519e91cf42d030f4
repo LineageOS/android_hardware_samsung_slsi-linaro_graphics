@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca340378_51e7a95e",
+        "filename": "base/libhwc2.1/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 25925
+      },
+      "writtenOn": "2025-02-18T06:30:08Z",
+      "side": 1,
+      "message": "This is already added above",
+      "revId": "96650adc5cc8c26b31516dae519e91cf42d030f4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97bd50db_f16365b3",
+        "filename": "base/libhwc2.1/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 25925
+      },
+      "writtenOn": "2025-02-18T06:30:08Z",
+      "side": 1,
+      "message": "From a quick look it looks like exynos9830 might need this too",
+      "revId": "96650adc5cc8c26b31516dae519e91cf42d030f4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
