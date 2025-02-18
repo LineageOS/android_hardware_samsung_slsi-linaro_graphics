@@ -183,7 +183,14 @@ cc_library_shared {
         "libdrmresource",
         "libdrm",
         "libprocessgroup",
-    ],
+    ] + select(soong_config_variable("exynos_hwc", "target_soc_base"), {
+        "exynos2100": [
+            "libhardware",
+            "libhidlbase",
+            "android.hardware.power@1.0",
+        ],
+        default: [],
+    }),
 
     srcs: [
         "device/ExynosDevice.cpp",
