@@ -16,6 +16,23 @@
       "message": "All works fine on 9830..",
       "revId": "c123824018bf0ac9a227a0f16583573cc1d56196",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f1ea22d_289c62f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2025-08-28T21:23:52Z",
+      "side": 1,
+      "message": "Functional on 9830.",
+      "revId": "c123824018bf0ac9a227a0f16583573cc1d56196",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
