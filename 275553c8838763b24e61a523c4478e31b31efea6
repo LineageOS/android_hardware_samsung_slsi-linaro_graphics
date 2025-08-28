@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59336053_99d93e10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2025-08-28T21:32:17Z",
+      "side": 1,
+      "message": "Functional on my x1s (exy9830).\nFixed-up version of Iaf1f6f10570b348ade6d34550fc2fa793ee30551.",
+      "revId": "275553c8838763b24e61a523c4478e31b31efea6",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
