@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ffc0e1a_be1dd52c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2025-08-30T22:51:51Z",
+      "side": 1,
+      "message": "and exynos9830?",
+      "revId": "c123824018bf0ac9a227a0f16583573cc1d56196",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2a3b3210_bff035ca",
