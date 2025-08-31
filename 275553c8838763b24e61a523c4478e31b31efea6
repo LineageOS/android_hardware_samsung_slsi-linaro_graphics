@@ -16,6 +16,23 @@
       "message": "Functional on my x1s (exy9830).\nFixed-up version of Iaf1f6f10570b348ade6d34550fc2fa793ee30551.",
       "revId": "275553c8838763b24e61a523c4478e31b31efea6",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d0f5b46_71d380e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2025-08-31T01:02:47Z",
+      "side": 1,
+      "message": "should have asked tis be on 22.2 - I pushed it back to 22.2",
+      "revId": "275553c8838763b24e61a523c4478e31b31efea6",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ],
   "submitRequirementResults": []
