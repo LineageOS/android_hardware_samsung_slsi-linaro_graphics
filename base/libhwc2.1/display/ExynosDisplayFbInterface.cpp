@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+#include "ExynosDisplay.h"
 #include "ExynosDisplayFbInterface.h"
 #include "ExynosHWCDebug.h"
 #include "ExynosFenceTracer.h"
