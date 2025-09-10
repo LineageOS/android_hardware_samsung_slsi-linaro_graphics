@@ -16,6 +16,24 @@
       "message": "A little more detail in the commit message would be useful. I can\u0027t see any reason why it doesn\u0027t work for you but works for every other device.",
       "revId": "3bd0b6eb3692ef4ee98ee72d36b040039f73b77b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b55b312_eafc97ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 28935
+      },
+      "writtenOn": "2025-09-10T21:32:01Z",
+      "side": 1,
+      "message": "I don\u0027t really know how to explain why it works for other devices.\nThe error occurs because the class referenced without the include is a forward declaration, eg \"class ExynosDisplay;\"\nofc it can\u0027t know about the \"invalidate\" function\nso the include actually includes the complete class definition",
+      "parentUuid": "275c1402_d2e8e7ca",
+      "revId": "3bd0b6eb3692ef4ee98ee72d36b040039f73b77b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
