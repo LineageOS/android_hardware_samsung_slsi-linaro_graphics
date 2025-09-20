@@ -34,6 +34,23 @@
       "parentUuid": "275c1402_d2e8e7ca",
       "revId": "3bd0b6eb3692ef4ee98ee72d36b040039f73b77b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13ed864b_af7fa543",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 34207
+      },
+      "writtenOn": "2025-09-20T19:01:34Z",
+      "side": 1,
+      "message": "Alright, i did a little digging. The original fix (I71aa6ac0d6d610c0da9965000f145eac6ca19e71) was not tested properly, and therefore it was not confirmed that the fix was indeed applied (which it wasn\u0027t). The faulty call is guarded under USE_DPU_SET_CONFIG, which is why it doesn\u0027t actually work on e.g. z3s nor cause this compilation error on exynos9830.",
+      "revId": "3bd0b6eb3692ef4ee98ee72d36b040039f73b77b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
