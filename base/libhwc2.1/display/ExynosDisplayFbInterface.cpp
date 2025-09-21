@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+#include "ExynosDisplay.h"
 #include "ExynosDisplayFbInterface.h"
 #include "ExynosHWCDebug.h"
 #include "ExynosFenceTracer.h"
@@ -203,6 +204,8 @@ int32_t ExynosDisplayFbInterface::setActiveConfig(ExynosDisplay &exynosDisplay,
 
     if (ret < 0) {
         ALOGE("%s EXYNOS_SET_DISPLAY_MODE failed errno : %d, ret: %d", __func__, errno, ret);
+    } else {
+        exynosDisplay.invalidate();
     }
 #endif
 
