@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "660d1b76_6f7bd605",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 34207
+      },
+      "writtenOn": "2025-09-22T17:15:16Z",
+      "side": 1,
+      "message": "I hope you\u0027re fine with this edit in the commit message.",
+      "revId": "65464d248fcc8a4d9f415b356be471d48803028d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
