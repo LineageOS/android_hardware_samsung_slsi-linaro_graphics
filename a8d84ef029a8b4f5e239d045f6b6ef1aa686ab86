@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb52cb82_b20dd41e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 34207
+      },
+      "writtenOn": "2025-09-29T18:38:03Z",
+      "side": 1,
+      "message": "Hold off until we ensure the affinity matches stock.",
+      "revId": "a8d84ef029a8b4f5e239d045f6b6ef1aa686ab86",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
