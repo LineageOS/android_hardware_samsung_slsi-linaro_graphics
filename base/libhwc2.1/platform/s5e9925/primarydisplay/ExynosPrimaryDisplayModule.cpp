@@ -15,14 +15,11 @@
  */
 
 #include <hardware/hardware.h>
-#include <hidl/HidlSupport.h>
-#include <android/hardware/power/1.0/IPower.h>
 #include "ExynosPrimaryDisplayModule.h"
 #include "ExynosHWCDebug.h"
 #include "ExynosLayer.h"
 #include "ExynosGraphicBuffer.h"
 
-using android::hardware::power::V1_0::IPower;
 using namespace vendor::graphics;
 
 ExynosPrimaryDisplayModule::ExynosPrimaryDisplayModule(DisplayIdentifier node)
@@ -84,25 +81,6 @@ int32_t ExynosPrimaryDisplayModule::setPerformanceSetting()
         } else {
             perfTuneMode = false;
         }
-    }
-
-    using ::android::hardware::power::V1_0::PowerHint;
-
-    /* TODO : call PowerHAL here for performace tune */
-    if ((perfTuneMode) && (mPerfTuneState == PERF_TUNE_OFF)) {
-        // On //
-        static sp<IPower> power = IPower::getService();
-        if (power != NULL) {
-            power->powerHint(PowerHint::VIDEO_DECODE, 0xffff0001);
-        }
-        mPerfTuneState = PERF_TUNE_ON;
-    } else if ((!perfTuneMode) && (mPerfTuneState == PERF_TUNE_ON)){
-        // Off //
-        static sp<IPower> power = IPower::getService();
-        if (power != NULL) {
-            power->powerHint(PowerHint::VIDEO_DECODE, 0xffff0000);
-        }
-        mPerfTuneState = PERF_TUNE_OFF;
     }
 
     return NO_ERROR;
