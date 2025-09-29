@@ -30,6 +30,10 @@ cc_defaults {
             "-DGRALLOC_VERSION1",
             "-DGRALLOC_VERSION3",
         ],
+        "four_sgr": [
+            "-DGRALLOC_VERSION1",
+            "-DGRALLOC_VERSION3",
+        ],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "GRALLOC_VERSION1"), {
         "true": ["-DGRALLOC_VERSION1"],
