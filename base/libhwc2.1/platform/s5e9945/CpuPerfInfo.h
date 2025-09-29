@@ -17,15 +17,17 @@
 #ifndef CPU_PERF_INFO_H
 #define CPU_PERF_INFO_H
 
-#define CPU_CLUSTER_CNT 3
-#define CPU_CLUSTER0_MASK   0xf  /* Little cluster */
-#define CPU_CLUSTER1_MASK   0x30 /* Middle cluster */
-#define CPU_CLUSTER2_MASK   0xc0 /* Big cluster */
+#define CPU_CLUSTER_CNT 4
+#define CPU_CLUSTER0_MASK   0xf  /* LITTLE cluster */
+#define CPU_CLUSTER1_MASK   0x70 /* MIDL cluster */
+#define CPU_CLUSTER2_MASK   0x180 /* MIDH cluster */
+#define CPU_CLUSTER3_MASK   0x300 /* BIG cluster */
 
 enum epic_scenario_no {
-    CPU_CL0_MIN_LOCK    = 100,
-    CPU_CL1_MIN_LOCK    = 102,
-    CPU_CL2_MIN_LOCK    = 104,
+    CPU_CL0_MIN_LOCK    = 1000,
+    CPU_CL1_MIN_LOCK    = 1100,
+    CPU_CL2_MIN_LOCK    = 1200,
+    CPU_CL3_MIN_LOCK    = 1300,
 };
 
 #define EPIC_LIBRARY_PATH "/vendor/lib64/libepic_helper.so"
@@ -45,9 +47,9 @@ typedef struct perfMap {
  * - If it's needed to set affinity to Middle and Big clusters, Write "CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK"
  * - If it's not needed to set affinity, write all MASKs */
 static std::map<uint32_t, perfMap> perfTable = {
-    {30, {CPU_CLUSTER0_MASK | CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK, {0, 0, 0}, 24}},
-    {60, {CPU_CLUSTER0_MASK | CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK, {0, 0, 0}, 8}},
-    {120, {CPU_CLUSTER0_MASK | CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK, {0, 0, 0}, 4}},
+    {30, {CPU_CLUSTER0_MASK | CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK | CPU_CLUSTER3_MASK, {0, 0, 0, 0}, 24}},
+    {60, {CPU_CLUSTER0_MASK | CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK | CPU_CLUSTER3_MASK, {0, 0, 0, 0}, 8}},
+    {120, {CPU_CLUSTER0_MASK | CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK | CPU_CLUSTER3_MASK, {0, 0, 0, 0}, 4}},
 };
 
 typedef struct cpuProp {
@@ -60,6 +62,7 @@ static std::map<uint32_t, cpuProp> cpuPropTable = {
     {0, {CPU_CLUSTER0_MASK, CPU_CL0_MIN_LOCK}},
     {1, {CPU_CLUSTER1_MASK, CPU_CL1_MIN_LOCK}},
     {2, {CPU_CLUSTER2_MASK, CPU_CL2_MIN_LOCK}},
+    {3, {CPU_CLUSTER3_MASK, CPU_CL3_MIN_LOCK}},
 };
 
 #endif
