@@ -78,6 +78,9 @@ cc_binary {
     ] + select(soong_config_variable("exynos_hwc", "uses_hwc_services"), {
         "true": [ "libExynosHWCService" ],
         default: [],
+    }) + select(soong_config_variable("exynos_hwc", "uses_display_color_interface"), {
+        "true": ["libdisplaycolor_interface"],
+        default: [],
     }),
 
     static_libs: [
