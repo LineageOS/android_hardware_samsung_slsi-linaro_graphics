@@ -32,7 +32,6 @@
 extern struct exynos_hwc_control exynosHWCControl;
 
 constexpr auto nsecsPerSec = std::chrono::nanoseconds(std::chrono::seconds(1)).count();
-constexpr auto nsecsPerMs = std::chrono::nanoseconds(std::chrono::milliseconds(1)).count();
 
 static constexpr const char* PROPERTY_BOOT_MODE = "persist.vendor.display.primary.boot_config";
 
@@ -92,6 +91,7 @@ int32_t ExynosPrimaryDisplay::setBootDisplayConfig(int32_t config) {
         return HWC2_ERROR_BAD_CONFIG;
 
     int refreshRate = round(nsecsPerSec / mode.vsyncPeriod * 0.1f) * 10;
+    int vsyncRate = round(static_cast<float>(nsecsPerSec) / mode.vsyncPeriod);
     char modeStr[PROPERTY_VALUE_MAX];
     int ret = snprintf(modeStr, sizeof(modeStr), "%dx%d@%d",
              mode.width, mode.height, refreshRate);
@@ -124,43 +124,45 @@ int32_t ExynosPrimaryDisplay::getPreferredDisplayConfigInternal(int32_t *outConf
     }
 
     int width, height;
-    int fps = 0;
+    int fps = 0, vsyncRate = 0;
 
     int ret = sscanf(modeStr, "%dx%d@%d", &width, &height, &fps);
     if ((ret < 3) || !fps) {
-        ALOGD("%s: unable to find boot config for mode: %s", __func__, modeStr);
+        ALOGW("%s: unable to find boot config for mode: %s", __func__, modeStr);
         return HWC2_ERROR_BAD_CONFIG;
     }
-
-    const auto vsyncPeriod = nsecsPerSec / fps;
-
-    for (auto const& [config, mode] : mDisplayConfigs) {
-        long delta = abs(vsyncPeriod - mode.vsyncPeriod);
-        if ((width == mode.width) && (height == mode.height) &&
-            (delta < nsecsPerMs)) {
-            ALOGD("%s: found preferred display config for mode: %s=%d",
-                  __func__, modeStr, config);
-            *outConfig = config;
-            return HWC2_ERROR_NONE;
-        }
+    if (lookupDisplayConfigs(width, height, fps, outConfig) != HWC2_ERROR_NONE) {
+        ALOGE("%s: kernel doesn't support mode: %s", __func__, modeStr);
+        return HWC2_ERROR_BAD_CONFIG;
     }
-    return HWC2_ERROR_BAD_CONFIG;
+    ret = setBootDisplayConfig(*outConfig);
+    if (ret == HWC2_ERROR_NONE)
+        ALOGI("%s: succeeded to replace %s with new format", __func__, modeStr);
+    else
+        ALOGE("%s: failed to replace %s with new format", __func__, modeStr);
+    return ret;
 }
 
 int32_t ExynosPrimaryDisplay::choosePreferredConfig()
 {
-    hwc2_config_t config;
-    int32_t bootConfig;
-    int32_t err = getPreferredDisplayConfigInternal(&bootConfig);
-    if (err == HWC2_ERROR_NONE && property_get_bool("sys.boot_completed", false) == true) {
-        config = static_cast<hwc2_config_t>(bootConfig);
+    int32_t err;
+    int32_t config = -1;
+    char modeStr[PROPERTY_VALUE_MAX] = "\0";
+    int32_t width = 0, height = 0, fps = 0;
+    if (property_get("persist.vendor.display.primary.boot_config", modeStr, "") > 0 &&
+        sscanf(modeStr, "%dx%d@%d", &width, &height, &fps) == 3) {
+        err = lookupDisplayConfigs(width, height, fps, &config);
+        
+        ALOGI("Preferred mode id: %d(%s)", config, modeStr);
 
-        if ((err = setActiveConfig(config)) < 0) {
+        if ((err = (config)) < 0) {
             ALOGE("failed to set default config, err %d", err);
         }
-        ALOGI("Preferred mode id: %d", config);
+    } else {
+        err = HWC2_ERROR_BAD_CONFIG;
     }
 
+    updateInternalDisplayConfigVariables(config);
     return err;
 }
 
