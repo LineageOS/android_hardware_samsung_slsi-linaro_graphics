@@ -32,7 +32,6 @@
 extern struct exynos_hwc_control exynosHWCControl;
 
 constexpr auto nsecsPerSec = std::chrono::nanoseconds(std::chrono::seconds(1)).count();
-constexpr auto nsecsPerMs = std::chrono::nanoseconds(std::chrono::milliseconds(1)).count();
 
 static constexpr const char* PROPERTY_BOOT_MODE = "persist.vendor.display.primary.boot_config";
 
@@ -132,35 +131,29 @@ int32_t ExynosPrimaryDisplay::getPreferredDisplayConfigInternal(int32_t *outConf
         return HWC2_ERROR_BAD_CONFIG;
     }
 
-    const auto vsyncPeriod = nsecsPerSec / fps;
-
-    for (auto const& [config, mode] : mDisplayConfigs) {
-        long delta = abs(vsyncPeriod - mode.vsyncPeriod);
-        if ((width == mode.width) && (height == mode.height) &&
-            (delta < nsecsPerMs)) {
-            ALOGD("%s: found preferred display config for mode: %s=%d",
-                  __func__, modeStr, config);
-            *outConfig = config;
-            return HWC2_ERROR_NONE;
-        }
-    }
-    return HWC2_ERROR_BAD_CONFIG;
+    return lookupDisplayConfigs(width, height, fps, outConfig);
 }
 
 int32_t ExynosPrimaryDisplay::choosePreferredConfig()
 {
-    hwc2_config_t config;
-    int32_t bootConfig;
-    int32_t err = getPreferredDisplayConfigInternal(&bootConfig);
-    if (err == HWC2_ERROR_NONE && property_get_bool("sys.boot_completed", false) == true) {
-        config = static_cast<hwc2_config_t>(bootConfig);
+    int32_t err;
+    int32_t config = -1;
+    char modeStr[PROPERTY_VALUE_MAX] = "\0";
+    int32_t width = 0, height = 0, fps = 0;
+    if (property_get("persist.vendor.display.primary.boot_config", modeStr, "") > 0 &&
+        sscanf(modeStr, "%dx%d@%d", &width, &height, &fps) == 3) {
+        err = lookupDisplayConfigs(width, height, fps, &config);
+        
+        ALOGI("Preferred mode id: %d(%s)", config, modeStr);
 
-        if ((err = setActiveConfig(config)) < 0) {
+        if ((err = (config)) < 0) {
             ALOGE("failed to set default config, err %d", err);
         }
-        ALOGI("Preferred mode id: %d", config);
+    } else {
+        err = HWC2_ERROR_BAD_CONFIG;
     }
 
+    updateInternalDisplayConfigVariables(config);
     return err;
 }
 

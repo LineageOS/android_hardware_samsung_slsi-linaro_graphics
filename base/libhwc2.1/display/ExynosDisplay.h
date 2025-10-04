@@ -1203,6 +1203,11 @@ class ExynosDisplay : public ExynosVsyncHandler {
     hdrInterface *createHdrInterfaceInstance();
     hdr10pMetaInterface *createHdr10PMetaInterfaceInstance();
 
+    int lookupDisplayConfigs(const int32_t& width,
+                                const int32_t& height,
+                                const int32_t& fps,
+                                int32_t* outConfig);
+                                
     virtual int32_t getDisplayMultiThreadedPresentSupport(bool& outSupport);
 
 #ifdef USE_DQE_INTERFACE
