@@ -60,7 +60,7 @@ enum {
 };
 
 enum {
-    L0 = 0, L1, L2, L3, L4, L5, L6, L7, L8, L9, L10, L11, L12, L13, L14, L15, WB
+    L0 = 0, L1, L2, L3, L4, L5, L6, L7, L8, L9, L10, L11, L12, L13, L14, L15, L16, WB
 };
 /*
  * pre_assign_info: all display_descriptors that want to reserve
@@ -119,6 +119,7 @@ const dpp_channel_map_t IDMA_CHANNEL_MAP[] = {
     {MPP_DPP_VG,     1, IDMA_VG1,    IDMA(L13)},
     {MPP_DPP_G,      3, IDMA_G3,     IDMA(L14)},
     {MPP_DPP_VGFS,   1, IDMA_VGFS1,  IDMA(L15)},
+    {MPP_DPP_VGFS,   2, IDMA_VGFS1,  IDMA(L16)},
     /* Virtual 8K */
     /* IDMA indecates first thing for shared DPP */
     {MPP_DPP_VGS,    2, IDMA_VGS8K,   IDMA(L3)},
