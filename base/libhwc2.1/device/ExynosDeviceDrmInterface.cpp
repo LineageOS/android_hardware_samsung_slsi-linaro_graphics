@@ -21,6 +21,7 @@
 #include <hardware/hwcomposer_defs.h>
 #include "DeconDrmHeader.h"
 #include "DrmDataType.h"
+#include "DeconCommonHeader.h"
 
 ExynosDeviceDrmInterface::ExynosDeviceDrmInterface()
     : mDrmDevice(nullptr) {
@@ -69,6 +70,21 @@ int32_t ExynosDeviceDrmInterface::getRestrictions(struct dpp_restrictions_info_v
                 break;
             }
             res = (struct drm_dpp_ch_restriction *)blob->data;
+            setDppChannelRestriction(mDPUInfo.dpuInfo.dpp_ch[channelId], *res);
+            drmModeFreePropertyBlob(blob);
+        } else if(plane->restrictions_property().id()) {
+            uint64_t blobId;
+            std::tie(ret, blobId) = plane->restrictions_property().value();
+            if (ret)
+                break;
+            struct drm_dpu_ch_restriction *res;
+            drmModePropertyBlobPtr blob = drmModeGetPropertyBlob(mDrmDevice->fd(), blobId);
+            if (!blob) {
+                ALOGE("Fail to get blob for restrictions(%" PRId64 ")", blobId);
+                ret = HWC2_ERROR_UNSUPPORTED;
+                break;
+            }
+            res = (struct drm_dpu_ch_restriction *)blob->data;
             setDppChannelRestriction(mDPUInfo.dpuInfo.dpp_ch[channelId], *res);
             drmModeFreePropertyBlob(blob);
         } else {
@@ -186,6 +202,38 @@ void ExynosDeviceDrmInterface::setDppChannelRestriction(struct dpp_ch_restrictio
     //common_restriction.restriction.src_w_rot_max = drm_restriction.restriction.src_w_rot_max;
     common_restriction.restriction.scale_down = drm_restriction.restriction.scale_down;
     common_restriction.restriction.scale_up = drm_restriction.restriction.scale_up;
+    common_restriction.restriction.format_cnt = 0;
+
+    /* scale ratio can't be 0 */
+    if (common_restriction.restriction.scale_down == 0)
+        common_restriction.restriction.scale_down = 1;
+    if (common_restriction.restriction.scale_up == 0)
+        common_restriction.restriction.scale_up = 1;
+}
+void ExynosDeviceDrmInterface::setDppChannelRestriction(struct dpp_ch_restriction &common_restriction,
+                                                        struct drm_dpu_ch_restriction &drm_restriction) {
+    common_restriction.id = drm_restriction.id.val;
+    common_restriction.attr = drm_restriction.attr.val;
+    common_restriction.restriction.src_f_w = drm_restriction.src_f_w.val;
+    common_restriction.restriction.src_f_h = drm_restriction.src_f_h.val;
+    common_restriction.restriction.src_w = drm_restriction.src_w.val;
+    common_restriction.restriction.src_h = drm_restriction.src_h.val;
+    common_restriction.restriction.src_x_align = drm_restriction.src_x_align.val;
+    common_restriction.restriction.src_y_align = drm_restriction.src_y_align.val;
+    common_restriction.restriction.dst_f_w = drm_restriction.dst_f_w.val;
+    common_restriction.restriction.dst_f_h = drm_restriction.dst_f_h.val;
+    common_restriction.restriction.dst_w = drm_restriction.dst_w.val;
+    common_restriction.restriction.dst_h = drm_restriction.dst_h.val;
+    common_restriction.restriction.dst_x_align = drm_restriction.dst_x_align.val;
+    common_restriction.restriction.dst_y_align = drm_restriction.dst_y_align.val;
+    common_restriction.restriction.blk_w = drm_restriction.blk_w.val;
+    common_restriction.restriction.blk_h = drm_restriction.blk_h.val;
+    common_restriction.restriction.blk_x_align = drm_restriction.blk_x_align.val;
+    common_restriction.restriction.blk_y_align = drm_restriction.blk_y_align.val;
+    common_restriction.restriction.src_h_rot_max = drm_restriction.src_h_rot_max.val;
+    //common_restriction.restriction.src_w_rot_max = drm_restriction.src_w_rot_max.val;
+    common_restriction.restriction.scale_down = drm_restriction.scale_down.val;
+    common_restriction.restriction.scale_up = drm_restriction.scale_up.val;
     common_restriction.restriction.format_cnt = 0;
 
     /* scale ratio can't be 0 */
