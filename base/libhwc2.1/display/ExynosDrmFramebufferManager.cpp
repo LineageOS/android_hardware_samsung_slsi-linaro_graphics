@@ -31,7 +31,7 @@ constexpr uint32_t SAJC_KEY_INDEX = 1;
 uint64_t getSBWCModifierBits(const format_description &format_desc) {
     uint32_t sbwcType = format_desc.type & FORMAT_SBWC_MASK;
 
-#ifndef SBWC_MOD_NONE // 5.10 has this unset
+#if !defined(SBWC_MOD_NONE) // 5.10 has this unset
     if (sbwcType == 0) {
         return 0;
     }
@@ -62,7 +62,7 @@ uint64_t getSBWCModifierBits(const format_description &format_desc) {
             return 0;
         }
     }
-#else // 5.15 kernels
+#elif !defined(SBWC_ALIGN_MASK) // 5.15 has this unset
     if (sbwcType == 0) {
         if ((format_desc.halFormat == HAL_PIXEL_FORMAT_EXYNOS_420_SPN_SBWC_DECOMP) ||
             (format_desc.halFormat == HAL_PIXEL_FORMAT_EXYNOS_P010_N_SBWC_DECOMP))
@@ -90,6 +90,44 @@ uint64_t getSBWCModifierBits(const format_description &format_desc) {
             return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_LOSSY, SBWCL_8B_50);
         case SBWC_LOSSY_75:
             return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_LOSSY, SBWCL_8B_75);
+        default:
+            return 0;
+        }
+    }
+#else // 6.1 kernels
+    bool alignment = 0;
+    if ((format_desc.halFormat == HAL_PIXEL_FORMAT_EXYNOS_YCbCr_420_SPN_256_SBWC) ||
+        (format_desc.halFormat == HAL_PIXEL_FORMAT_EXYNOS_YCbCr_420_SPN_10B_256_SBWC)) {
+            alignment = 1;
+    }
+
+    if (sbwcType == 0) {
+        if ((format_desc.halFormat == HAL_PIXEL_FORMAT_EXYNOS_420_SPN_SBWC_DECOMP) ||
+            (format_desc.halFormat == HAL_PIXEL_FORMAT_EXYNOS_P010_N_SBWC_DECOMP))
+            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_NONE, 0, alignment);
+        return 0;
+    }
+    if (sbwcType == SBWC_LOSSLESS)
+        return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_LOSSLESS, 0, alignment);
+
+    uint32_t bitType = format_desc.type & BIT_MASK;
+    if (bitType == BIT10) {
+        switch (sbwcType) {
+        case SBWC_LOSSY_40:
+            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_LOSSY, SBWCL_10B_40, alignment);
+        case SBWC_LOSSY_60:
+            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_LOSSY, SBWCL_10B_60, alignment);
+        case SBWC_LOSSY_80:
+            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_LOSSY, SBWCL_10B_80, alignment);
+        default:
+            return 0;
+        }
+    } else if (bitType == BIT8) {
+        switch (sbwcType) {
+        case SBWC_LOSSY_50:
+            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_LOSSY, SBWCL_8B_50, alignment);
+        case SBWC_LOSSY_75:
+            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_LOSSY, SBWCL_8B_75, alignment);
         default:
             return 0;
         }
