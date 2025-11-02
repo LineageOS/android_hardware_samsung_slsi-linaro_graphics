@@ -12,6 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+soong_config_string_variable {
+    name: "target_soc_base",
+    values: ["exynos9630", "s5e9945", "default"],
+}
+
 soong_config_module_type {
     name: "libacryl_cc_defaults",
     module_type: "cc_defaults",
@@ -22,7 +27,8 @@ soong_config_module_type {
         "default_blter",
         "g2d9810_hdr_plugin",
     ],
-    properties: [ "cflags", "shared_libs", ],
+    variables: ["target_soc_base"],
+    properties: [ "cflags", "shared_libs", "header_libs",],
 }
 
 libacryl_cc_defaults {
@@ -49,6 +55,17 @@ libacryl_cc_defaults {
         g2d9810_hdr_plugin: {
             cflags: ["-DLIBACRYL_G2D9810_HDR_PLUGIN"],
             shared_libs: ["%s"],
+        },
+        target_soc_base: {
+            exynos9630: {
+                header_libs: ["libhdrinterface_header_exynos9630"],
+            },
+            s5e9945: {
+                header_libs: ["libhdrinterface_header_s5e9945"],
+            },
+            conditions_default: {
+                header_libs: ["libhdrinterface_header_exynos9630"],
+            },
         },
     },
 }
@@ -83,7 +100,6 @@ cc_library_shared {
     ] + [
         "libexynos_headers"
     ] + [
-        "libhdrinterface_header_exynos9630",
         "libhdr10p_meta_interface_header",
     ],
 
