@@ -2603,6 +2603,7 @@ void ExynosResourceManager::makeDPURestrictions(
                  * the channel
                  */
                 mpp->addSizeRestrictions(rSrcSize, rDstSize, RESTRICTION_RGB);
+                mpp->initTDMInfo(dpuInfo->dpp_ch[i].port, dpuInfo->dpp_ch[i].dpuf_id);
             } else {
                 HWC_LOGE_NODISP("%s:: otfMPP is null for dpp channel(%d)",
                                 __func__, i);
