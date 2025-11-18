@@ -953,7 +953,7 @@ int32_t ExynosResourceManager::validateLayer(uint32_t index, ExynosDisplay *disp
     }
 
     if (layer->mLayerFlag & EXYNOS_HWC_FORCE_CLIENT_WFD)
-        return eFroceClientLayer;
+        return eForceClientLayer;
     if (layer->mLayerFlag & EXYNOS_HWC_FORCE_CLIENT_HDR_META_ERROR)
         return eInvalidVideoMetaData;
 

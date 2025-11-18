@@ -95,7 +95,7 @@ enum {
     eInvalidVideoMetaData = 0x00010000,
     eInvalidDispFrame = 0x00020000,
     eExceedMaxLayerNum = 0x00040000,
-    eFroceClientLayer = 0x00080000,
+    eForceClientLayer = 0x00080000,
     eRemoveDynamicMetadata = 0x00100000,
     eResourceAssignFail = 0x20000000,
     eMPPUnsupported = 0x40000000,
