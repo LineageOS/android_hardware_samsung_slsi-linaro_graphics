@@ -1,4 +1,3 @@
-
 cc_defaults {
     name: "libhwc2_defaults",
     proprietary: true,
@@ -114,7 +113,6 @@ cc_defaults {
     }),
 
     header_libs: [
-        "libhdrInterface_headers",
         "libhdr10p_meta_interface_header",
         "device_kernel_headers",
         "libhardware_legacy_headers",
@@ -125,6 +123,10 @@ cc_defaults {
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "uses_display_color_interface"), {
         "true": [ "libdisplaycolor_interface" ],
+        default: [],
+    }) + select(soong_config_variable("exynos_hwc", "libhdr_header_version"), {
+        "exynos9630": ["libhdrinterface_header_exynos9630"],
+        "default": ["libhdrinterface_header_default"],
         default: [],
     }),
 
