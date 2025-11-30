@@ -26,32 +26,31 @@ constexpr uint32_t SAJC_KEY_INDEX = 1;
 uint64_t FramebufferManager::getSBWCModifierBits(const format_description &format_desc) {
     uint32_t sbwcType = format_desc.type & FORMAT_SBWC_MASK;
     if (sbwcType == 0) {
-        if ((format_desc.halFormat == HAL_PIXEL_FORMAT_EXYNOS_420_SPN_SBWC_DECOMP) ||
-            (format_desc.halFormat == HAL_PIXEL_FORMAT_EXYNOS_P010_N_SBWC_DECOMP))
-            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_NONE, 0);
         return 0;
     }
-    if (sbwcType == SBWC_LOSSLESS)
-        return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_LOSSLESS, 0);
 
     uint32_t bitType = format_desc.type & BIT_MASK;
     if (bitType == BIT10) {
         switch (sbwcType) {
         case SBWC_LOSSY_40:
-            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_LOSSY, SBWCL_10B_40);
+            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_FORMAT_MOD_BLK_BYTENUM_32x2, SBWC_FORMAT_MOD_LOSSY);
         case SBWC_LOSSY_60:
-            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_LOSSY, SBWCL_10B_60);
+            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_FORMAT_MOD_BLK_BYTENUM_32x3, SBWC_FORMAT_MOD_LOSSY);
         case SBWC_LOSSY_80:
-            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_LOSSY, SBWCL_10B_80);
+            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_FORMAT_MOD_BLK_BYTENUM_32x4, SBWC_FORMAT_MOD_LOSSY);
+        case SBWC_LOSSLESS:
+            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_FORMAT_MOD_BLK_BYTENUM_32x5, SBWC_FORMAT_MOD_LOSSLESS);
         default:
             return 0;
         }
     } else if (bitType == BIT8) {
         switch (sbwcType) {
         case SBWC_LOSSY_50:
-            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_LOSSY, SBWCL_8B_50);
+            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_FORMAT_MOD_BLK_BYTENUM_32x2, SBWC_FORMAT_MOD_LOSSY);
         case SBWC_LOSSY_75:
-            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_MOD_LOSSY, SBWCL_8B_75);
+            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_FORMAT_MOD_BLK_BYTENUM_32x3, SBWC_FORMAT_MOD_LOSSY);
+        case SBWC_LOSSLESS:
+            return DRM_FORMAT_MOD_SAMSUNG_SBWC(SBWC_FORMAT_MOD_BLK_BYTENUM_32x4, SBWC_FORMAT_MOD_LOSSLESS);
         default:
             return 0;
         }
