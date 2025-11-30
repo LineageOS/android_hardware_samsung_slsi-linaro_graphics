@@ -32,9 +32,6 @@ class ExynosDeviceModule : public ExynosDevice {
             return false;
 #endif
         };
-        bool isEPICHandleInit = false;
-        virtual void setCPUClocksPerCluster(uint32_t fps);
-        epic_handle cl_min_handle[CPU_CLUSTER_CNT];
 };
 
 #endif

@@ -15,42 +15,6 @@
  */
 
 #include "ExynosDeviceModule.h"
-#include "ExynosDisplay.h"
-#include <cutils/properties.h>
 
-ExynosDeviceModule::ExynosDeviceModule() {
-}
-
-ExynosDeviceModule::~ExynosDeviceModule() {
-    if (isEPICHandleInit == true) {
-        for (uint32_t i = 0; i < cpuPropTable.size(); i++)
-            mEPICFreeFcnPtr(cl_min_handle[i]);
-    }
-}
-
-void ExynosDeviceModule::setCPUClocksPerCluster(uint32_t fps) {
-
-    if (mEPICHandle == nullptr)
-        return;
-
-    const auto its = perfTable.find(fps);
-    if (its == perfTable.end()) {
-        ALOGI("%s, %d fps not found in perfTable", __func__, fps);
-        return;
-    }
-    if (isEPICHandleInit == false) {
-        for (uint32_t i = 0; i < cpuPropTable.size(); i++)
-            cl_min_handle[i] = mEPICRequestFcnPtr(cpuPropTable[i].minLockId);
-        isEPICHandleInit = true;
-    } else {
-        for (uint32_t i = 0; i < cpuPropTable.size(); i++)
-            mEPICReleaseFcnPtr(cl_min_handle[i]);
-    }
-
-    for (uint32_t i = 0; i < cpuPropTable.size(); i++) {
-        mEPICAcquireOptionFcnPtr(cl_min_handle[i], perfTable[fps].minClock[i], 0);
-        ALOGI("CPU set : Cluster(%d), min_clock(%d)", i, perfTable[fps].minClock[i]);
-    }
-
-    return;
-}
+ExynosDeviceModule::ExynosDeviceModule() {}
+ExynosDeviceModule::~ExynosDeviceModule() {}

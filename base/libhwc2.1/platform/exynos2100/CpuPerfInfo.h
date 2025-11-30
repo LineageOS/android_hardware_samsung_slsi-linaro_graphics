@@ -22,14 +22,6 @@
 #define CPU_CLUSTER1_MASK   0x30 /* Middle cluster */
 #define CPU_CLUSTER2_MASK   0xc0 /* Big cluster */
 
-enum epic_scenario_no {
-    CPU_CL0_MIN_LOCK    = 100,
-    CPU_CL1_MIN_LOCK    = 102,
-    CPU_CL2_MIN_LOCK    = 104,
-};
-
-#define EPIC_LIBRARY_PATH "/vendor/lib64/libepic_helper.so"
-
 typedef struct perfMap {
     /* cpuIDs means bit map for CPU affinity settings
      * for example, If you want CPU 6,7 then set the value as 0xc0 */
@@ -48,18 +40,6 @@ static std::map<uint32_t, perfMap> perfTable = {
     {30, {CPU_CLUSTER0_MASK | CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK, {0, 0, 0}, 24}},
     {60, {CPU_CLUSTER0_MASK | CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK, {0, 0, 0}, 8}},
     {120, {CPU_CLUSTER0_MASK | CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK, {0, 0, 0}, 4}},
-};
-
-typedef struct cpuProp {
-    int32_t cpuMask;
-    int32_t minLockId;
-} cpuProp_t;
-
-/* Mapping 'CPU cluster mask' and 'EPIC scenario number' */
-static std::map<uint32_t, cpuProp> cpuPropTable = {
-    {0, {CPU_CLUSTER0_MASK, CPU_CL0_MIN_LOCK}},
-    {1, {CPU_CLUSTER1_MASK, CPU_CL1_MIN_LOCK}},
-    {2, {CPU_CLUSTER2_MASK, CPU_CL2_MIN_LOCK}},
 };
 
 #endif
