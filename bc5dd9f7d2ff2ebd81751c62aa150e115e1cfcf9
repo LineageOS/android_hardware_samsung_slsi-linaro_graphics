@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "522d308f_ef720d93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2025-12-01T20:18:58Z",
+      "side": 1,
+      "message": "for myself: don\u0027t forget to ff to 23.1.",
+      "revId": "bc5dd9f7d2ff2ebd81751c62aa150e115e1cfcf9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
