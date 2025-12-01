@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "451f750f_45b2ed21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 24387
+      },
+      "writtenOn": "2025-12-01T20:17:35Z",
+      "side": 1,
+      "message": "I would rather drop the entire boosting support from the BSP since it uses epic which we do not have",
+      "revId": "e60ec8fa9bd6ac1791a3a278f6086ffd7c46c511",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
