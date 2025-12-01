@@ -27,31 +27,31 @@ cc_binary {
         any @ flag_val: [ "-DSOC_VERSION=" + flag_val ],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USES_ARCH_ARM64"), {
-        "true": ["-DUSES_ARCH_ARM64"],
+        true: ["-DUSES_ARCH_ARM64"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USES_DOZEMODE"), {
-        "true": ["-DUSES_DOZEMODE"],
+        true: ["-DUSES_DOZEMODE"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USES_HWC_CPU_PERF_MODE"), {
-        "true": ["-DUSES_HWC_CPU_PERF_MODE"],
+        true: ["-DUSES_HWC_CPU_PERF_MODE"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USES_DUAL_DISPLAY"), {
-        "true": ["-DUSES_DUAL_DISPLAY"],
+        true: ["-DUSES_DUAL_DISPLAY"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USE_HDR_INTERFACE"), {
-        "true": ["-DUSE_HDR_INTERFACE"],
+        true: ["-DUSE_HDR_INTERFACE"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USE_DQE_INTERFACE"), {
-        "true": ["-DUSE_DQE_INTERFACE"],
+        true: ["-DUSE_DQE_INTERFACE"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USE_DISPLAY_COLOR_INTERFACE"), {
-        "true": ["-DUSE_DISPLAY_COLOR_INTERFACE"],
+        true: ["-DUSE_DISPLAY_COLOR_INTERFACE"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "ENABLE_DYNAMIC_RECOMP"), {
-        "true": ["-DENABLE_DYNAMIC_RECOMP"],
+        true: ["-DENABLE_DYNAMIC_RECOMP"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USE_NOT_RESERVED_FIELD"), {
-        "true": ["-DUSE_NOT_RESERVED_FIELD"],
+        true: ["-DUSE_NOT_RESERVED_FIELD"],
         default: [],
     }),
 
@@ -83,7 +83,7 @@ cc_binary {
         "libgralloc4_headers_exynos",
         "libhdrinterface_header",
     ] + select(soong_config_variable("exynos_hwc", "uses_display_color_interface"), {
-        "true": ["libdisplaycolor_interface"],
+        true: ["libdisplaycolor_interface"],
         default: [],
     }),
 
