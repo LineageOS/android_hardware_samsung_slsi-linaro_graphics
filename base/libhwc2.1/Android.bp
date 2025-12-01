@@ -9,16 +9,16 @@ cc_defaults {
         "-Wthread-safety",
         "-DBUILD_VARIANT_USER",
     ] + select(soong_config_variable("exynos_hwc", "HWC_SUPPORT_COLOR_TRANSFORM"), {
-        "true": ["-DHWC_SUPPORT_COLOR_TRANSFORM"],
+        true: ["-DHWC_SUPPORT_COLOR_TRANSFORM"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "HWC_SUPPORT_RENDER_INTENT"), {
-        "true": ["-DHWC_SUPPORT_RENDER_INTENT"],
+        true: ["-DHWC_SUPPORT_RENDER_INTENT"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USES_ARCH_ARM64"), {
-        "true": ["-DUSES_ARCH_ARM64"],
+        true: ["-DUSES_ARCH_ARM64"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USES_SAJC_FEATURE"), {
-        "true": ["-DUSES_SAJC_FEATURE"],
+        true: ["-DUSES_SAJC_FEATURE"],
         default: [],
     }) + select(soong_config_variable("arm_gralloc", "gralloc_version"), {
         "one": ["-DGRALLOC_VERSION1"],
@@ -36,55 +36,55 @@ cc_defaults {
         ],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "GRALLOC_VERSION1"), {
-        "true": ["-DGRALLOC_VERSION1"],
+        true: ["-DGRALLOC_VERSION1"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "GRALLOC_VERSION3"), {
-        "true": ["-DGRALLOC_VERSION3"],
+        true: ["-DGRALLOC_VERSION3"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USES_HDR_GLES_CONVERSION"), {
-        "true": ["-DUSES_HDR_GLES_CONVERSION"],
+        true: ["-DUSES_HDR_GLES_CONVERSION"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USES_DOZEMODE"), {
-        "true": ["-DUSES_DOZEMODE"],
+        true: ["-DUSES_DOZEMODE"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USES_HWC_CPU_PERF_MODE"), {
-        "true": ["-DUSES_HWC_CPU_PERF_MODE"],
+        true: ["-DUSES_HWC_CPU_PERF_MODE"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USES_DUAL_DISPLAY"), {
-        "true": ["-DUSES_DUAL_DISPLAY"],
+        true: ["-DUSES_DUAL_DISPLAY"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USE_HDR_INTERFACE"), {
-        "true": ["-DUSE_HDR_INTERFACE"],
+        true: ["-DUSE_HDR_INTERFACE"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USE_LIBHDR_PLUGIN"), {
-        "true": ["-DUSE_LIBHDR_PLUGIN"],
+        true: ["-DUSE_LIBHDR_PLUGIN"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USE_LIBHDR10P_META_PLUGIN"), {
-        "true": ["-DUSE_LIBHDR10P_META_PLUGIN"],
+        true: ["-DUSE_LIBHDR10P_META_PLUGIN"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USE_DQE_INTERFACE"), {
-        "true": ["-DUSE_DQE_INTERFACE"],
+        true: ["-DUSE_DQE_INTERFACE"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USE_DISPLAY_COLOR_INTERFACE"), {
-        "true": ["-DUSE_DISPLAY_COLOR_INTERFACE"],
+        true: ["-DUSE_DISPLAY_COLOR_INTERFACE"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "HWC_DISABLE_WIN_UPDATE"), {
-        "true": ["-DHWC_DISABLE_WIN_UPDATE"],
+        true: ["-DHWC_DISABLE_WIN_UPDATE"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "ENABLE_DYNAMIC_RECOMP"), {
-        "true": ["-DENABLE_DYNAMIC_RECOMP"],
+        true: ["-DENABLE_DYNAMIC_RECOMP"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "ENABLE_FORCE_GPU"), {
-        "true": ["-DENABLE_FORCE_GPU"],
+        true: ["-DENABLE_FORCE_GPU"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USE_NOT_RESERVED_FIELD"), {
-        "true": ["-DUSE_NOT_RESERVED_FIELD"],
+        true: ["-DUSE_NOT_RESERVED_FIELD"],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "MINIMUM_DISPLAY_BRIGHTNESS"), {
         any @ flag_val: [ "-DMINIMUM_DISPLAY_BRIGHTNESS=" + flag_val ],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "USES_VIRTUAL_DISPLAY"), {
-        "true": ["-DUSES_VIRTUAL_DISPLAY"],
+        true: ["-DUSES_VIRTUAL_DISPLAY"],
         default: [],
     }),
 
@@ -106,10 +106,10 @@ cc_defaults {
         any @ flag_val: [ flag_val ],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "uses_dqe_interface"), {
-        "true": [ "libdqeInterface" ],
+        true: [ "libdqeInterface" ],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "uses_display_color_interface"), {
-        "true": [ "libdisplaycolor_default" ],
+        true: [ "libdisplaycolor_default" ],
         default: [],
     }),
 
@@ -120,10 +120,10 @@ cc_defaults {
         "libbinder_headers",
         "libexynos_headers",
     ] + select(soong_config_variable("exynos_hwc", "uses_dqe_interface"), {
-        "true": [ "libdqeInterface_headers" ],
+        true: [ "libdqeInterface_headers" ],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "uses_display_color_interface"), {
-        "true": [ "libdisplaycolor_interface" ],
+        true: [ "libdisplaycolor_interface" ],
         default: [],
     }) + select(soong_config_variable("exynos_hwc", "libhdr_header_version"), {
         "exynos9630": ["libhdrinterface_header_exynos9630"],

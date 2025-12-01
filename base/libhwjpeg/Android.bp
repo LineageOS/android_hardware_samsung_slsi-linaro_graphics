@@ -18,7 +18,7 @@ cc_library_shared {
     cflags: [
         "-DLOG_TAG=\"exynos-libhwjpeg\"",
     ] + select(soong_config_variable("libhwjpeg", "LIBHWJPEG_USES_G2D"), {
-        "true": ["-DUSE_G2D_SCALER"],
+        true: ["-DUSE_G2D_SCALER"],
         default: [],
     }) + select(soong_config_variable("libhwjpeg", "HWJPEG_ANDROID_VERSION"), {
         any @ hwjpeg_android_version: ["-DHWJPEG_ANDROID_VERSION=" + hwjpeg_android_version],
