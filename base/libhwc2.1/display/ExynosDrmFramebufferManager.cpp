@@ -23,7 +23,7 @@
 constexpr uint32_t MAX_PLANE_NUM = 3;
 constexpr uint32_t SAJC_KEY_INDEX = 1;
 
-uint64_t getSBWCModifierBits(const format_description &format_desc) {
+uint64_t FramebufferManager::getSBWCModifierBits(const format_description &format_desc) {
     uint32_t sbwcType = format_desc.type & FORMAT_SBWC_MASK;
     if (sbwcType == 0) {
         if ((format_desc.halFormat == HAL_PIXEL_FORMAT_EXYNOS_420_SPN_SBWC_DECOMP) ||

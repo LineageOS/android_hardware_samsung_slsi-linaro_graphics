@@ -41,8 +41,10 @@ void removeFbs(int drmFd, std::list<uint32_t> &fbs);
 class FramebufferManager : public Singleton<FramebufferManager> {
   public:
     FramebufferManager(){};
-    ~FramebufferManager();
+    virtual ~FramebufferManager();
     void init(int drmFd);
+
+    virtual uint64_t getSBWCModifierBits(const format_description &format_desc);
 
     // get buffer for provided config, if a buffer with same config is already cached it will be
     // reused otherwise one will be allocated. returns fbId that can be used to attach to plane, any
