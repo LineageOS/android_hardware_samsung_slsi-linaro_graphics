@@ -25,24 +25,3 @@ ExynosVirtualDisplayFbInterfaceModule::ExynosVirtualDisplayFbInterfaceModule()
 ExynosVirtualDisplayFbInterfaceModule::~ExynosVirtualDisplayFbInterfaceModule()
 {
 }
-
-decon_idma_type ExynosVirtualDisplayFbInterfaceModule::getDeconDMAType(
-        uint32_t type, uint32_t index)
-{
-    return getDPPChannel(type, index);
-}
-
-decon_idma_type ExynosVirtualDisplayFbInterfaceModule::getSubDeconDMAType(decon_idma_type channel)
-{
-    return getSubDeconChannel(channel);
-}
-
-int32_t ExynosVirtualDisplayFbInterfaceModule::preProcessForVirtual8K(struct decon_win_config* savedVirtualWinConfig)
-{
-    return remakeConfigForVirtual8K(savedVirtualWinConfig, &mFbConfigData);
-}
-
-int32_t ExynosVirtualDisplayFbInterfaceModule::postProcessForVirtual8K(struct decon_win_config savedVirtualWinConfig)
-{
-    return restoreConfigForVirtual8K(savedVirtualWinConfig, &mFbConfigData, mVirtual8KDPPIndex, mDisplayIdentifier);
-}
