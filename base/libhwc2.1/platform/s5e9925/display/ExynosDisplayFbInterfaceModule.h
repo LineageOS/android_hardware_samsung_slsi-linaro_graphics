@@ -16,13 +16,4 @@
 
 #ifndef EXYNOS_DISPLAY_FB_INTERFACE_MODULE_H
 #define EXYNOS_DISPLAY_FB_INTERFACE_MODULE_H
-
-#include "ExynosDisplayFbInterface.h"
-
-decon_idma_type getDPPChannel(uint32_t type, uint32_t index);
-decon_idma_type getSubDeconChannel(decon_idma_type channel);
-int32_t remakeConfigForVirtual8K(struct decon_win_config* savedVirtualWinConfig,
-        decon_win_config_data *fbConfigData);
-int32_t restoreConfigForVirtual8K(struct decon_win_config savedVirtualWinConfig,
-        decon_win_config_data *fbConfigData, int32_t virtualDPPindex, DisplayIdentifier &display);
 #endif
