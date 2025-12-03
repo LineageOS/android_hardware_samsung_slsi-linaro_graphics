@@ -24,16 +24,5 @@ class ExynosPrimaryDisplayFbInterfaceModule : public ExynosPrimaryDisplayFbInter
     public:
         ExynosPrimaryDisplayFbInterfaceModule();
         virtual ~ExynosPrimaryDisplayFbInterfaceModule();
-        virtual decon_idma_type getDeconDMAType(
-                uint32_t type, uint32_t index) override;
-
-        /* MSC vOTF */
-        virtual int32_t configFromDisplayConfig(decon_win_config &config,
-                const exynos_win_config_data &display_config);
-
-        /* virtual 8K */
-        virtual decon_idma_type getSubDeconDMAType(decon_idma_type channel);
-        virtual int32_t preProcessForVirtual8K(struct decon_win_config* savedVirtualWinConfig);
-        virtual int32_t postProcessForVirtual8K(struct decon_win_config savedVirtualWinConfig);
 };
 #endif
