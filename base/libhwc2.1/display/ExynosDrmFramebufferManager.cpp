@@ -318,7 +318,13 @@ int32_t FramebufferManager::getBuffer(const uint32_t displayType,
             modifiers[0] |= DRM_FORMAT_MOD_ARM_AFBC(compressed_modifier);
         } else if (config.compressionInfo.type == COMP_TYPE_SAJC) {
             uint32_t compressed_block_size = config.compressionInfo.SAJCMaxBlockSize;
+#if !defined(SAJC_4K_MODE) // 5.10/5.15 has this unset
             modifiers[0] |= DRM_FORMAT_MOD_SAMSUNG_SAJC(compressed_block_size);
+#else // 6.1 kernels
+            // HACK: We don't have logic to fetch SW_Mode,
+            // So let's just keep the old behavior for now.
+            modifiers[0] |= DRM_FORMAT_MOD_SAMSUNG_SAJC(compressed_block_size, 0);
+#endif
             //SAJC buffer has 2 planes//
             planeNum++;
         } else {
