@@ -25,9 +25,3 @@ ExynosVirtualDisplayFbInterfaceModule::ExynosVirtualDisplayFbInterfaceModule()
 ExynosVirtualDisplayFbInterfaceModule::~ExynosVirtualDisplayFbInterfaceModule()
 {
 }
-
-decon_idma_type ExynosVirtualDisplayFbInterfaceModule::getDeconDMAType(
-        uint32_t type, uint32_t index)
-{
-    return getDPPChannel(type, index);
-}
