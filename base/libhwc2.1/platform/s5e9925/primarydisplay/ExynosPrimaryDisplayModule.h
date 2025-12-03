@@ -19,11 +19,6 @@
 #include "ExynosDisplay.h"
 #include "ExynosPrimaryDisplay.h"
 
-enum {
-    PERF_TUNE_OFF = 0,
-    PERF_TUNE_ON = 1,
-};
-
 class ExynosPrimaryDisplayModule : public ExynosPrimaryDisplay {
     public:
         ExynosPrimaryDisplayModule(DisplayIdentifier node);
@@ -42,8 +37,6 @@ class ExynosPrimaryDisplayModule : public ExynosPrimaryDisplay {
             return mPlugState;
 #endif
         }
-        virtual int32_t setPerformanceSetting() override;
-        int32_t mPerfTuneState;
 };
 
 #endif
