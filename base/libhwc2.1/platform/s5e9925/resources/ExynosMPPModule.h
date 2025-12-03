@@ -51,6 +51,7 @@ class ExynosMPPModule : public ExynosMPP {
         virtual bool isCapacityExceptionCondition(float totalUsedCapacity, float requiredCapacity, struct exynos_image &src);
         virtual bool scaleAllowedByDPPPerformance(DisplayInfo &display,
                 struct exynos_image &src, struct exynos_image &dst) override;
+        virtual void initTDMInfo(uint32_t hwBlockIndex, uint32_t axiPortIndex);
     public:
         ExynosMPP *mSubMPP[2]; //This MPP points sub physical MPP if MPP is virtual8K otf
         ExynosMPP *mVirtual8KMPP = NULL; //This MPP points virtual 8K otf MPP.
