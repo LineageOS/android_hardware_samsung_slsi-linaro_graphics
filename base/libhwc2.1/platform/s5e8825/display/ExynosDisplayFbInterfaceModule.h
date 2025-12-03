@@ -16,8 +16,4 @@
 
 #ifndef EXYNOS_DISPLAY_FB_INTERFACE_MODULE_H
 #define EXYNOS_DISPLAY_FB_INTERFACE_MODULE_H
-
-#include "ExynosDisplayFbInterface.h"
-
-decon_idma_type getDPPChannel(uint32_t type, uint32_t index);
 #endif

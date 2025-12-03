@@ -25,9 +25,3 @@ ExynosExternalDisplayFbInterfaceModule::ExynosExternalDisplayFbInterfaceModule()
 ExynosExternalDisplayFbInterfaceModule::~ExynosExternalDisplayFbInterfaceModule()
 {
 }
-
-decon_idma_type ExynosExternalDisplayFbInterfaceModule::getDeconDMAType(
-        uint32_t type, uint32_t index)
-{
-    return getDPPChannel(type, index);
-}

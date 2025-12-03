@@ -24,7 +24,5 @@ class ExynosVirtualDisplayFbInterfaceModule : public ExynosVirtualDisplayFbInter
     public:
         ExynosVirtualDisplayFbInterfaceModule();
         virtual ~ExynosVirtualDisplayFbInterfaceModule();
-        virtual decon_idma_type getDeconDMAType(
-                uint32_t type, uint32_t index) override;
 };
 #endif
