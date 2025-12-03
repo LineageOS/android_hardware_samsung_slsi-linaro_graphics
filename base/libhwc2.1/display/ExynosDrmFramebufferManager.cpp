@@ -15,10 +15,15 @@
  */
 #define ATRACE_TAG (ATRACE_TAG_GRAPHICS | ATRACE_TAG_HAL)
 #include <xf86drm.h>
-#include "exynos_drm_modifier.h"
 #include "ExynosDrmFramebufferManager.h"
-#include "ExynosHWCHelper.h"
+#include "ExynosHWCHelper.h"f
 #include "ExynosHWCDebug.h"
+
+#if __has_include(<drm/exynos_drm_modifier.h>)
+#  include <drm/exynos_drm_modifier.h>
+#else
+#  include "exynos_drm_modifier.h"
+#endif
 
 constexpr uint32_t MAX_PLANE_NUM = 3;
 constexpr uint32_t SAJC_KEY_INDEX = 1;
