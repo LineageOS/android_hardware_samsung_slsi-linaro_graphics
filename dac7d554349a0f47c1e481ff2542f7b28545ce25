@@ -51,6 +51,24 @@
       "parentUuid": "696363cc_03c7ec5d",
       "revId": "dac7d554349a0f47c1e481ff2542f7b28545ce25",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e4d0e5e_a25604fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 34207
+      },
+      "writtenOn": "2025-12-03T13:36:46Z",
+      "side": 1,
+      "message": "You can just add a header with only the class definition",
+      "parentUuid": "6d61b553_3bd4abb1",
+      "revId": "dac7d554349a0f47c1e481ff2542f7b28545ce25",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
