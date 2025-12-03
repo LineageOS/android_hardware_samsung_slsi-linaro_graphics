@@ -26,10 +26,10 @@ constexpr uint32_t TDM_OVERLAP_MARGIN = 68;
 constexpr uint32_t kSramSBWCWidthAlign = 32;
 constexpr uint32_t kSramSBWCWidthMargin = kSramSBWCWidthAlign - 1;
 constexpr uint32_t kSramSBWCRotWidthAlign = 4;
-constexpr uint32_t kSramAFBC8B4BAlign = 8;
-constexpr uint32_t kSramAFBC8B4BMargin = kSramAFBC8B4BAlign - 1;
-constexpr uint32_t kSramAFBC2BAlign = 16;
-constexpr uint32_t kSramAFBC2BMargin = kSramAFBC2BAlign - 1;
+constexpr uint32_t kSramSAJC8B4BAlign = 8;
+constexpr uint32_t kSramSAJC8B4BMargin = kSramSAJC8B4BAlign - 1;
+constexpr uint32_t kSramSAJC2BAlign = 16;
+constexpr uint32_t kSramSAJC2BMargin = kSramSAJC2BAlign - 1;
 
 ExynosResourceManagerModule::ExynosResourceManagerModule()
         : ExynosResourceManager()
@@ -422,22 +422,22 @@ uint32_t ExynosResourceManagerModule::calculateHWResourceAmount(ExynosDisplay *d
         } else if (compressed) {
             /* Align for 8,4Byte/pixel formats */
             if (formatToBpp(format) > 16) {
-                width = pixel_align(width + kSramAFBC8B4BMargin, kSramAFBC8B4BAlign);
+                width = pixel_align(width + kSramSAJC8B4BMargin, kSramSAJC8B4BAlign);
             } else {
                 /* Align for 2Byte/pixel formats */
-                width = pixel_align(width + kSramAFBC2BMargin, kSramAFBC2BAlign);
+                width = pixel_align(width + kSramSAJC2BMargin, kSramSAJC2BAlign);
             }
         }
         widthIndex = findWidthIndex(width);
 
-        /* AFBC amount */
+        /* SAJC amount */
         if (compressed) {
             formatIndex = (isFormatRgb(format) ? RGB : 0) | formatBPP;
             if (sramAmountMap.find(sramAmountParams(TDM_ATTR_SAJC, formatIndex, widthIndex)) !=
                 sramAmountMap.end())
                 SRAMtotal +=
                         sramAmountMap.at(sramAmountParams(TDM_ATTR_SAJC, formatIndex, widthIndex));
-            HDEBUGLOGD(eDebugTDM, "+ AFBC : %d", SRAMtotal);
+            HDEBUGLOGD(eDebugTDM, "+ SAJC : %d", SRAMtotal);
         }
 
         /* SBWC amount */
@@ -500,7 +500,7 @@ uint32_t ExynosResourceManagerModule::calculateHWResourceAmount(ExynosDisplay *d
     }
 
     HDEBUGLOGD(eDebugTDM,
-               "mppSrc(%p) needed SRAM(%d), SCALE(%d), AFBC(%d), CSC(%d), SBWC(%d), WCG(%d), "
+               "mppSrc(%p) needed SRAM(%d), SCALE(%d), SAJC(%d), CSC(%d), SBWC(%d), WCG(%d), "
                "ROT(%d)",
                mppSrc->mSrcImg.bufferHandle, SRAMtotal,
                needHWResource(display, mppSrc->mSrcImg, mppSrc->mDstImg, TDM_ATTR_SCALE),
@@ -518,11 +518,11 @@ int32_t ExynosResourceManagerModule::otfMppReordering(ExynosDisplay *display,
                                                       struct exynos_image &src,
                                                       struct exynos_image &dst)
 {
-    int orderingType = isAFBCCompressed(src.bufferHandle)
-            ? ORDER_AFBC
+    int orderingType = isSAJCCompressed(src.bufferHandle)
+            ? ORDER_SAJC
             : (needHdrProcessing(display, src, dst) ? ORDER_WCG : ORDER_AXI);
 
-    int usedAFBCCount[DPU_BLOCK_CNT] = {0};
+    int usedSAJCCount[DPU_BLOCK_CNT] = {0};
     int usedWCGCount[DPU_BLOCK_CNT] = {0};
     int usedBlockCount[DPU_BLOCK_CNT] = {0};
     int usedAXIPortCount[AXI_PORT_CNT] = {0};
@@ -542,15 +542,15 @@ int32_t ExynosResourceManagerModule::otfMppReordering(ExynosDisplay *display,
 
         if (l->mPhysicalType != r->mPhysicalType) return l->mPhysicalType < r->mPhysicalType;
 
-        if (orderingType == ORDER_AFBC) {
-            /* AFBC balancing */
-            if ((l->mAttr & MPP_ATTR_AFBC) != (r->mAttr & MPP_ATTR_AFBC))
-                return (l->mAttr & MPP_ATTR_AFBC) > (r->mAttr & MPP_ATTR_AFBC);
-            if (l->mAttr & MPP_ATTR_AFBC) {
-                /* If layer is AFBC, DPU block that AFBC HW block belongs
+        if (orderingType == ORDER_SAJC) {
+            /* SAJC balancing */
+            if ((l->mAttr & MPP_ATTR_SAJC) != (r->mAttr & MPP_ATTR_SAJC))
+                return (l->mAttr & MPP_ATTR_SAJC) > (r->mAttr & MPP_ATTR_SAJC);
+            if (l->mAttr & MPP_ATTR_SAJC) {
+                /* If layer is SAJC, DPU block that SAJC HW block belongs
                  * which has not been used much should be placed in the front */
-                if (usedAFBCCount[l->mHWBlockId] != usedAFBCCount[r->mHWBlockId])
-                    return usedAFBCCount[l->mHWBlockId] < usedAFBCCount[r->mHWBlockId];
+                if (usedSAJCCount[l->mHWBlockId] != usedSAJCCount[r->mHWBlockId])
+                    return usedSAJCCount[l->mHWBlockId] < usedSAJCCount[r->mHWBlockId];
             }
         } else if (orderingType == ORDER_WCG) {
             /* WCG balancing */
@@ -580,17 +580,17 @@ int32_t ExynosResourceManagerModule::otfMppReordering(ExynosDisplay *display,
         ExynosMPPModule *mpp = (ExynosMPPModule *)it;
         uint32_t bId = mpp->getHWBlockId();
         uint32_t aId = mpp->getAXIPortId();
-        bool isAFBC = false;
+        bool isSAJC = false;
         bool isWCG = false;
 
         if (mpp->mAssignedState & MPP_ASSIGN_STATE_ASSIGNED) {
             ExynosMPPSource *mppSrc = mpp->mAssignedSources[0];
             if ((mppSrc->mSourceType == MPP_SOURCE_LAYER) &&
                 (mppSrc->mSrcImg.bufferHandle != nullptr)) {
-                if ((mpp->mAttr & MPP_ATTR_AFBC) &&
-                    (isAFBCCompressed(mppSrc->mSrcImg.bufferHandle))) {
-                    isAFBC = true;
-                    usedAFBCCount[bId]++;
+                if ((mpp->mAttr & MPP_ATTR_SAJC) &&
+                    (isSAJCCompressed(mppSrc->mSrcImg.bufferHandle))) {
+                    isSAJC = true;
+                    usedSAJCCount[bId]++;
                 } else if ((mpp->mAttr & MPP_ATTR_WCG) &&
                            (needHdrProcessing(display, mppSrc->mSrcImg, mppSrc->mDstImg))) {
                     isWCG = true;
@@ -599,12 +599,12 @@ int32_t ExynosResourceManagerModule::otfMppReordering(ExynosDisplay *display,
             } else if (mppSrc->mSourceType == MPP_SOURCE_COMPOSITION_TARGET) {
                 ExynosCompositionInfo *info = (ExynosCompositionInfo *)mppSrc;
                 // ESTEVAN_TBD
-                // if ((mpp->mAttr & MPP_ATTR_AFBC) && (info->mCompressionInfo.type ==
-                // COMP_TYPE_AFBC)) {
-                if ((mpp->mAttr & MPP_ATTR_AFBC) &&
-                    (isAFBCCompressed(mppSrc->mSrcImg.bufferHandle))) {
-                    isAFBC = true;
-                    usedAFBCCount[bId]++;
+                // if ((mpp->mAttr & MPP_ATTR_SAJC) && (info->mCompressionInfo.type ==
+                // COMP_TYPE_SAJC)) {
+                if ((mpp->mAttr & MPP_ATTR_SAJC) &&
+                    (isSAJCCompressed(mppSrc->mSrcImg.bufferHandle))) {
+                    isSAJC = true;
+                    usedSAJCCount[bId]++;
                 } else if ((mpp->mAttr & MPP_ATTR_WCG) &&
                            (needHdrProcessing(display, info->mSrcImg, info->mDstImg))) {
                     isWCG = true;
@@ -612,8 +612,8 @@ int32_t ExynosResourceManagerModule::otfMppReordering(ExynosDisplay *display,
                 }
             }
 
-            HDEBUGLOGD(eDebugLoadBalancing, "%s is assigned (AFBC:%d, WCG:%d), is %s",
-                       mpp->mName.string(), isAFBC, isWCG,
+            HDEBUGLOGD(eDebugLoadBalancing, "%s is assigned (SAJC:%d, WCG:%d), is %s",
+                       mpp->mName.string(), isSAJC, isWCG,
                        (mppSrc->mSourceType == MPP_SOURCE_LAYER) ? "Layer" : "Client Target");
             usedBlockCount[bId]++;
             usedAXIPortCount[aId]++;
@@ -621,10 +621,10 @@ int32_t ExynosResourceManagerModule::otfMppReordering(ExynosDisplay *display,
     }
 
     HDEBUGLOGD(eDebugLoadBalancing,
-               "Sorting by %s ordering, AFBC(used DPUF0:%d, DPUF1:%d), AXI(used AXI0:%d, AXI1:%d), "
+               "Sorting by %s ordering, SAJC(used DPUF0:%d, DPUF1:%d), AXI(used AXI0:%d, AXI1:%d), "
                "BLOCK(used DPUF0:%d, DPUF1:%d)",
-               (orderingType == ORDER_AFBC) ? "AFBC" : "_AXI", usedAFBCCount[DPUF0],
-               usedAFBCCount[DPUF1], usedAXIPortCount[AXI0], usedAXIPortCount[AXI1],
+               (orderingType == ORDER_SAJC) ? "SAJC" : "_AXI", usedSAJCCount[DPUF0],
+               usedSAJCCount[DPUF1], usedAXIPortCount[AXI0], usedAXIPortCount[AXI1],
                usedBlockCount[DPUF0], usedBlockCount[DPUF1]);
 
     std::sort(otfMPPs.begin(), otfMPPs.end(), orderPolicy);

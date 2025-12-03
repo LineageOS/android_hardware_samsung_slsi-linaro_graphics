@@ -56,7 +56,7 @@
 #define VOTF_BUF_INDEX_MAX 15
 
 typedef enum assignOrderType {
-    ORDER_AFBC,
+    ORDER_SAJC,
     ORDER_WCG,
     ORDER_AXI,
 } assignOrderType_t;
