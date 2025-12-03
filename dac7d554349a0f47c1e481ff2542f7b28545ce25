@@ -33,6 +33,24 @@
       "message": "I don\u0027t think so since they\u0027re just modules. Only the folders have to be kept for the header inclusion in bp.",
       "revId": "dac7d554349a0f47c1e481ff2542f7b28545ce25",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d61b553_3bd4abb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2025-12-03T13:35:28Z",
+      "side": 1,
+      "message": "Nevermind.\nhardware/samsung_slsi-linaro/graphics/base/libhwc2.1/externaldisplay/ExynosExternalDisplay.cpp:23:10: fatal error: \u0027ExynosDisplayFbInterfaceModule.h\u0027 file not found\n   23 | #include \"ExynosDisplayFbInterfaceModule.h\"",
+      "parentUuid": "696363cc_03c7ec5d",
+      "revId": "dac7d554349a0f47c1e481ff2542f7b28545ce25",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
