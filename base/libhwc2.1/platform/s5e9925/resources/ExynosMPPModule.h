@@ -21,7 +21,6 @@
 #define MAX_DPP_ROT_SRC_SIZE (3840*2160)
 #define MAX_DPP_8K_SRC_SIZE  (7680*4320)
 
-static constexpr uint32_t VGFS_AFBC_WIDTH_LIMIT = 2048;
 class ExynosMPPModule : public ExynosMPP {
     public:
         ExynosMPPModule(uint32_t physicalType, uint32_t logicalType, const char *name,
@@ -39,7 +38,6 @@ class ExynosMPPModule : public ExynosMPP {
         virtual bool isSupportedCompression(struct exynos_image &src);
         virtual uint32_t getDstWidthAlign(struct exynos_image &dst);
         virtual uint32_t getSrcMaxCropSize(struct exynos_image &src);
-        virtual uint32_t getSrcMaxCropWidth(struct exynos_image &src);
         virtual uint32_t getSrcMaxCropHeight(struct exynos_image &src);
         virtual bool hasEnoughCapa(DisplayInfo &display, struct exynos_image &src,
                 struct exynos_image &dst, float totalUsedCapa) override;
