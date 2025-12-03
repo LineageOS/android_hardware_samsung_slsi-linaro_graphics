@@ -70,8 +70,8 @@ bool ExynosMPPModule::isSupportedTransform(struct exynos_image &src)
         /* If it's not a roatation, flip is allowed */
         if ((src.transform & HAL_TRANSFORM_ROT_90) == 0)
         {
-            /* but flip is not allowed for SBWC, AFBC */
-            if ((src.exynosFormat.isSBWC() || ((src.compressionInfo.type == COMP_TYPE_AFBC) || (src.compressionInfo.type == COMP_TYPE_SBWC)))
+            /* but flip is not allowed for SBWC */
+            if (((src.exynosFormat.isSBWC()) || (src.compressionInfo.type == COMP_TYPE_SBWC))
                 && (src.transform != 0)) {
                 return false;
             } else {
@@ -81,9 +81,9 @@ bool ExynosMPPModule::isSupportedTransform(struct exynos_image &src)
             return false;
         }
     case MPP_DPP_VGRFS:
-        /* Flip is not allowed for SBWC, AFBC. but rotation is allowed. */
+        /* Flip is not allowed for SBWC. but rotation is allowed. */
         if ((src.transform & HAL_TRANSFORM_ROT_90) == 0) {
-            if ((src.exynosFormat.isSBWC() || ((src.compressionInfo.type == COMP_TYPE_AFBC) || (src.compressionInfo.type == COMP_TYPE_SBWC)))
+            if (((src.exynosFormat.isSBWC()) || (src.compressionInfo.type == COMP_TYPE_SBWC))
                 && (src.transform != 0)) {
                 return false;
             }
@@ -118,14 +118,6 @@ uint32_t ExynosMPPModule::getSrcMaxCropSize(struct exynos_image &src)
         return ExynosMPP::getSrcMaxCropSize(src);
 
     return ExynosMPP::getSrcMaxCropSize(src);
-}
-
-uint32_t ExynosMPPModule::getSrcMaxCropWidth(struct exynos_image &src)
-{
-    if ((mPhysicalType == MPP_DPP_VGFS) && (src.compressionInfo.type == COMP_TYPE_AFBC))
-        return VGFS_AFBC_WIDTH_LIMIT;
-    else
-        return ExynosMPP::getSrcMaxCropWidth(src);
 }
 
 uint32_t ExynosMPPModule::getSrcMaxCropHeight(struct exynos_image &src)
