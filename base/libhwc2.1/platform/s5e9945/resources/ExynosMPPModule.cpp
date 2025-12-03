@@ -38,6 +38,11 @@ ExynosMPPModule::~ExynosMPPModule()
 {
 }
 
+void ExynosMPPModule::initTDMInfo(uint32_t hwBlockIndex, uint32_t axiPortIndex) {
+    mHWBlockId = hwBlockIndex;
+    mAXIPortId = axiPortIndex;
+}
+
 uint32_t ExynosMPPModule::getDstWidthAlign(struct exynos_image &dst)
 {
     if (((dst.exynosFormat == HAL_PIXEL_FORMAT_EXYNOS_YCbCr_420_SPN_S10B) ||
