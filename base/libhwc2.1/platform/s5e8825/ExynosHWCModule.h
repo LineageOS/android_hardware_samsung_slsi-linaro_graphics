@@ -165,7 +165,6 @@ const exynos_display_t AVAILABLE_DISPLAY_UNITS[] = {
 #define DISPLAY_COUNT sizeof(AVAILABLE_DISPLAY_UNITS)/sizeof(exynos_display_t)
 
 const uint32_t ATTRIBUTE_PRIORITY_LIST[] = {
-    ATTRIBUTE_AFBC_NO_RESTRICTION,
     ATTRIBUTE_HDR10PLUS,
 };
 
