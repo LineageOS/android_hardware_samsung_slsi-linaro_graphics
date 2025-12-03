@@ -57,6 +57,29 @@
 
 #define VOTF_BUF_INDEX_MAX 15
 
+typedef enum assignOrderType {
+    ORDER_SAJC,
+    ORDER_WCG,
+    ORDER_AXI,
+} assignOrderType_t;
+
+typedef enum DPUblockId {
+    DPUF0,
+    DPUF1,
+    DPU_BLOCK_CNT,
+} DPUblockId_t;
+
+const std::unordered_map<DPUblockId_t, String8> DPUBlocks = {
+    {DPUF0, String8("DPUF0")},
+    {DPUF1, String8("DPUF1")},
+};
+
+typedef enum AXIPortId {
+    AXI0,
+    AXI1,
+    AXI_PORT_CNT,
+} AXIPortId_t;
+
 enum {
     HWC_DISPLAY_NONE_BIT = 0
 };
@@ -74,6 +97,9 @@ struct exynos_mpp_t {
     uint32_t physical_index;
     uint32_t logical_index;
     uint32_t pre_assign_info;
+    // For TDM
+    uint32_t hw_block_index;
+    uint32_t axi_port_index;
 };
 
 struct vOtfInfo_t {
@@ -185,26 +211,38 @@ enum {
 };
 
 const exynos_mpp_t AVAILABLE_OTF_MPP_UNITS[] = {
-    {MPP_DPP_G, MPP_LOGICAL_DPP_G, "DPP_G3", 3, 0, HWC_DISPLAY_PRIMARY_BIT},
-    {MPP_DPP_G, MPP_LOGICAL_DPP_G, "DPP_G2", 2, 0, HWC_DISPLAY_PRIMARY_BIT},
-    {MPP_DPP_G, MPP_LOGICAL_DPP_G, "DPP_G1", 1, 0, HWC_DISPLAY_PRIMARY_BIT},
-    {MPP_DPP_G, MPP_LOGICAL_DPP_G, "DPP_G0", 0, 0, HWC_DISPLAY_PRIMARY_BIT},
-    {MPP_DPP_GF, MPP_LOGICAL_DPP_GF, "DPP_GF3", 3, 0, HWC_DISPLAY_PRIMARY_BIT},
-    {MPP_DPP_GF, MPP_LOGICAL_DPP_GF, "DPP_GF2", 2, 0, HWC_DISPLAY_PRIMARY_BIT},
-    {MPP_DPP_GF, MPP_LOGICAL_DPP_GF, "DPP_GF1", 1, 0, HWC_DISPLAY_EXTERNAL2_BIT},
-    {MPP_DPP_GF, MPP_LOGICAL_DPP_GF, "DPP_GF0", 0, 0, HWC_DISPLAY_EXTERNAL_BIT},
-    {MPP_DPP_VG, MPP_LOGICAL_DPP_VG, "DPP_VG1", 1, 0, HWC_DISPLAY_PRIMARY_BIT},
-    {MPP_DPP_VG, MPP_LOGICAL_DPP_VG, "DPP_VG0", 0, 0, HWC_DISPLAY_PRIMARY_BIT},
-    {MPP_DPP_VGS, MPP_LOGICAL_DPP_VGS, "DPP_VGS1", 1, 0, HWC_DISPLAY_VIRTUAL_BIT | HWC_DISPLAY_EXTERNAL2_BIT},
-    {MPP_DPP_VGS, MPP_LOGICAL_DPP_VGS, "DPP_VGS0", 0, 0, HWC_DISPLAY_VIRTUAL_BIT | HWC_DISPLAY_EXTERNAL2_BIT},
-    {MPP_DPP_VGFS, MPP_LOGICAL_DPP_VGFS, "DPP_VGFS1", 1, 0, HWC_DISPLAY_VIRTUAL_BIT | HWC_DISPLAY_EXTERNAL_BIT},
-    {MPP_DPP_VGFS, MPP_LOGICAL_DPP_VGFS, "DPP_VGFS0", 0, 0, HWC_DISPLAY_VIRTUAL_BIT | HWC_DISPLAY_EXTERNAL_BIT},
-   {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS1", 1, 0, HWC_DISPLAY_VIRTUAL_BIT},
-    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS0", 0, 0, HWC_DISPLAY_PRIMARY_BIT},
-    /* virtual 8K */
-    {MPP_DPP_VGS, MPP_LOGICAL_DPP_VGS8K, "DPP_VGS8K", 2, 0, HWC_DISPLAY_VIRTUAL_BIT | HWC_DISPLAY_EXTERNAL2_BIT},
-    {MPP_DPP_VGFS, MPP_LOGICAL_DPP_VGFS8K, "DPP_VGFS8K", 2, 0, HWC_DISPLAY_VIRTUAL_BIT | HWC_DISPLAY_EXTERNAL_BIT},
-    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS8K, "DPP_VGRFS8K", 2, 0, HWC_DISPLAY_VIRTUAL_BIT}
+    {MPP_DPP_G, MPP_LOGICAL_DPP_G, "DPP_G0", 0, 0, HWC_DISPLAY_PRIMARY_BIT,
+            static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI0)},
+    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS0", 0, 0, HWC_DISPLAY_PRIMARY_BIT,
+            static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI0)},
+    {MPP_DPP_GF, MPP_LOGICAL_DPP_GF, "DPP_GF0", 0, 0, HWC_DISPLAY_EXTERNAL_BIT,
+            static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI0)},
+    {MPP_DPP_VGS, MPP_LOGICAL_DPP_VGS, "DPP_VGS0", 0, 0, HWC_DISPLAY_VIRTUAL_BIT | HWC_DISPLAY_EXTERNAL2_BIT,
+            static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI0)},
+    {MPP_DPP_GF, MPP_LOGICAL_DPP_GF, "DPP_GF1", 1, 0, HWC_DISPLAY_EXTERNAL2_BIT,
+            static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_VG, MPP_LOGICAL_DPP_VG, "DPP_VG0", 0, 0, HWC_DISPLAY_PRIMARY_BIT,
+            static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_G, MPP_LOGICAL_DPP_G, "DPP_G1", 1, 0, HWC_DISPLAY_PRIMARY_BIT,
+            static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_VGFS, MPP_LOGICAL_DPP_VGFS, "DPP_VGFS0", 0, 0, HWC_DISPLAY_VIRTUAL_BIT | HWC_DISPLAY_EXTERNAL_BIT,
+            static_cast<uint32_t>(DPUF0), static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_G, MPP_LOGICAL_DPP_G, "DPP_G2", 2, 0, HWC_DISPLAY_PRIMARY_BIT,
+            static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_VGRFS, MPP_LOGICAL_DPP_VGRFS, "DPP_VGRFS1", 1, 0, HWC_DISPLAY_VIRTUAL_BIT,
+            static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_GF, MPP_LOGICAL_DPP_GF, "DPP_GF2", 2, 0, HWC_DISPLAY_PRIMARY_BIT,
+            static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_VGS, MPP_LOGICAL_DPP_VGS, "DPP_VGS1", 1, 0, HWC_DISPLAY_VIRTUAL_BIT | HWC_DISPLAY_EXTERNAL2_BIT,
+            static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI1)},
+    {MPP_DPP_GF, MPP_LOGICAL_DPP_GF, "DPP_GF3", 3, 0, HWC_DISPLAY_PRIMARY_BIT,
+            static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI0)},
+    {MPP_DPP_VG, MPP_LOGICAL_DPP_VG, "DPP_VG1", 1, 0, HWC_DISPLAY_PRIMARY_BIT,
+            static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI0)},
+    {MPP_DPP_G, MPP_LOGICAL_DPP_G, "DPP_G3", 3, 0, HWC_DISPLAY_PRIMARY_BIT,
+            static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI0)},
+    {MPP_DPP_VGFS, MPP_LOGICAL_DPP_VGFS, "DPP_VGFS1", 1, 0, HWC_DISPLAY_VIRTUAL_BIT | HWC_DISPLAY_EXTERNAL_BIT,
+            static_cast<uint32_t>(DPUF1), static_cast<uint32_t>(AXI0)}
 };
 
 const exynos_mpp_t AVAILABLE_M2M_MPP_UNITS[] = {
@@ -266,5 +304,241 @@ const display_resource_info_t RESOURCE_INFO_TABLE[] = {
     {getDisplayId(HWC_DISPLAY_EXTERNAL, 0), 1, 1, {1, 0}},
     {getDisplayId(HWC_DISPLAY_EXTERNAL, 1), 1, 2, {2, 1}},
 #endif
+};
+
+/*
+ * Note :
+ * When External or Virtual display is connected,
+ * Primary amount = total - others
+ */
+class HWResourceIndexes {
+    private:
+        tdm_attr_t attr;
+        DPUblockId_t DPUBlockNo;
+        int displayId;
+
+    public:
+        HWResourceIndexes(tdm_attr_t _attr, DPUblockId_t _DPUBlockNo, int _displayId)
+            : attr(_attr), DPUBlockNo(_DPUBlockNo), displayId(_displayId) {}
+        bool operator<(const HWResourceIndexes& rhs) const {
+            if (attr != rhs.attr) return attr < rhs.attr;
+
+            if (DPUBlockNo != rhs.DPUBlockNo) return DPUBlockNo < rhs.DPUBlockNo;
+
+            if (displayId != rhs.displayId) return displayId < rhs.displayId;
+
+            return false;
+        }
+};
+
+typedef struct HWResourceAmounts {
+    int maxAssignedAmount;
+    int totalAmount;
+} HWResourceAmounts_t;
+
+/* Note :
+ * When External or Virtual display is connected,
+ * Primary amount = total - others */
+
+const std::map<HWResourceIndexes, HWResourceAmounts_t> HWResourceTables = {
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 80}},
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, HWC_DISPLAY_EXTERNAL), {80, 80}},
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, HWC_DISPLAY_VIRTUAL),  {80, 80}},
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, HWC_DISPLAY_PRIMARY),  {80, 80}},
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 80}},
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 80}},
+
+    {HWResourceIndexes(TDM_ATTR_SCALE, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 2}},
+    {HWResourceIndexes(TDM_ATTR_SCALE, DPUF0, HWC_DISPLAY_EXTERNAL), {2, 2}},
+    {HWResourceIndexes(TDM_ATTR_SCALE, DPUF0, HWC_DISPLAY_VIRTUAL),  {2, 2}},
+    {HWResourceIndexes(TDM_ATTR_SCALE, DPUF1, HWC_DISPLAY_PRIMARY),  {2, 2}},
+    {HWResourceIndexes(TDM_ATTR_SCALE, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 2}},
+    {HWResourceIndexes(TDM_ATTR_SCALE, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 2}},
+
+    {HWResourceIndexes(TDM_ATTR_SBWC, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 2}},
+    {HWResourceIndexes(TDM_ATTR_SBWC, DPUF0, HWC_DISPLAY_EXTERNAL), {2, 2}},
+    {HWResourceIndexes(TDM_ATTR_SBWC, DPUF0, HWC_DISPLAY_VIRTUAL),  {2, 2}},
+    {HWResourceIndexes(TDM_ATTR_SBWC, DPUF1, HWC_DISPLAY_PRIMARY),  {2, 2}},
+    {HWResourceIndexes(TDM_ATTR_SBWC, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 2}},
+    {HWResourceIndexes(TDM_ATTR_SBWC, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 2}},
+
+    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 4}},
+    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF0, HWC_DISPLAY_EXTERNAL), {4, 4}},
+    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF0, HWC_DISPLAY_VIRTUAL),  {4, 4}},
+    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF1, HWC_DISPLAY_PRIMARY),  {4, 4}},
+    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 4}},
+    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 4}},
+
+    {HWResourceIndexes(TDM_ATTR_ITP, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 4}},
+    {HWResourceIndexes(TDM_ATTR_ITP, DPUF0, HWC_DISPLAY_EXTERNAL), {4, 4}},
+    {HWResourceIndexes(TDM_ATTR_ITP, DPUF0, HWC_DISPLAY_VIRTUAL),  {4, 4}},
+    {HWResourceIndexes(TDM_ATTR_ITP, DPUF1, HWC_DISPLAY_PRIMARY),  {4, 4}},
+    {HWResourceIndexes(TDM_ATTR_ITP, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 4}},
+    {HWResourceIndexes(TDM_ATTR_ITP, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 4}},
+
+    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 2}},
+    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF0, HWC_DISPLAY_EXTERNAL), {2, 2}},
+    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF0, HWC_DISPLAY_VIRTUAL),  {2, 2}},
+    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF1, HWC_DISPLAY_PRIMARY),  {2, 2}},
+    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 2}},
+    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 2}},
+};
+
+typedef enum lbWidthIndex {
+    LB_W_8_512,
+    LB_W_513_1024,
+    LB_W_1025_1536,
+    LB_W_1537_2048,
+    LB_W_2049_2304,
+    LB_W_2305_2560,
+    LB_W_2561_3072,
+    LB_W_3073_INF,
+} lbWidthIndex_t;
+
+typedef struct lbWidthBoundary {
+    uint32_t widthDownto;
+    uint32_t widthUpto;
+} lbWidthBoundary_t;
+
+const std::map<lbWidthIndex_t, lbWidthBoundary_t> LB_WIDTH_INDEX_MAP = {
+    {LB_W_8_512,     {8, 512}},
+    {LB_W_513_1024,  {513, 1024}},
+    {LB_W_1025_1536, {1025, 1536}},
+    {LB_W_1537_2048, {1537, 2048}},
+    {LB_W_2049_2304, {2049, 2304}},
+    {LB_W_2305_2560, {2035, 2560}},
+    {LB_W_2561_3072, {2561, 3072}},
+    {LB_W_3073_INF,  {3073, 0xffff}},
+};
+
+class sramAmountParams {
+private:
+    tdm_attr_t attr;
+    uint32_t formatProperty;
+    lbWidthIndex_t widthIndex;
+
+public:
+    sramAmountParams(tdm_attr_t _attr, uint32_t _formatProperty, lbWidthIndex_t _widthIndex)
+          : attr(_attr), formatProperty(_formatProperty), widthIndex(_widthIndex) {}
+    bool operator<(const sramAmountParams& rhs) const {
+        if (attr != rhs.attr) return attr < rhs.attr;
+
+        if (formatProperty != rhs.formatProperty) return formatProperty < rhs.formatProperty;
+
+        if (widthIndex != rhs.widthIndex) return widthIndex < rhs.widthIndex;
+
+        return false;
+    }
+};
+
+enum {
+    SBWC_Y = 0,
+    SBWC_UV,
+    NON_SBWC_Y,
+    NON_SBWC_UV,
+};
+
+const std::map<sramAmountParams, uint32_t> sramAmountMap = {
+    /** Non rotation **/
+    /** BIT8 = 32bit format **/
+    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_8_512),     4},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_513_1024),  4},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_1025_1536), 8},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_1537_2048), 8},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_2049_2304), 12},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_2305_2560), 12},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_2561_3072), 12},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_3073_INF),  16},
+
+    /** 16bit format **/
+    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_8_512),     2},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_513_1024),  2},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_1025_1536), 4},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_1537_2048), 4},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_2049_2304), 6},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_2305_2560), 6},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_2561_3072), 6},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_3073_INF),  8},
+
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_8_512),     1},
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_513_1024),  1},
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_1025_1536), 1},
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_1537_2048), 1},
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_2049_2304), 2},
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_2305_2560), 2},
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_2561_3072), 2},
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_3073_INF),  2},
+
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_8_512),     2},
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_513_1024),  2},
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_1025_1536), 2},
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_1537_2048), 2},
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_2049_2304), 2},
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_2305_2560), 2},
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_2561_3072), 2},
+    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_3073_INF),  2},
+
+    /** Rotation **/
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_8_512),     4},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_513_1024),  8},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_1025_1536), 12},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_1537_2048), 16},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_2049_2304), 18},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_2305_2560), 18},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_2561_3072), 18},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_3073_INF),  18},
+
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_8_512),     2},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_513_1024),  4},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_1025_1536), 6},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_1537_2048), 8},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_2049_2304), 10},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_2305_2560), 10},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_2561_3072), 10},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_3073_INF),  10},
+
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_8_512),     2},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_513_1024),  4},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_1025_1536), 6},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_1537_2048), 8},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_2049_2304), 9},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_2305_2560), 9},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_2561_3072), 9},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_3073_INF),  9},
+
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_8_512),     2},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_513_1024),  2},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_1025_1536), 4},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_1537_2048), 4},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_2049_2304), 6},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_2305_2560), 6},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_2561_3072), 6},
+    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_3073_INF),  6},
+
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_8_512),     2},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_513_1024),  4},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_1025_1536), 6},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_1537_2048), 8},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_2049_2304), 9},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_2305_2560), 9},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_2561_3072), 9},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_3073_INF),  9},
+
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_8_512),     2},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_513_1024),  2},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_1025_1536), 4},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_1537_2048), 4},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_2049_2304), 6},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_2305_2560), 6},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_2561_3072), 6},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_3073_INF),  6},
+
+    {sramAmountParams(TDM_ATTR_ITP, BIT8, LB_W_3073_INF),  2},
+    {sramAmountParams(TDM_ATTR_ITP, BIT10, LB_W_3073_INF), 2},
+
+    /* It's meaning like ow,
+     * FORMAT_YUV_MASK == has no alpha, FORMAT_RGB_MASK == has alpha */
+    {sramAmountParams(TDM_ATTR_SCALE, FORMAT_YUV_MASK, LB_W_3073_INF), 12},
+    {sramAmountParams(TDM_ATTR_SCALE, FORMAT_RGB_MASK, LB_W_3073_INF), 16}
 };
 #endif
