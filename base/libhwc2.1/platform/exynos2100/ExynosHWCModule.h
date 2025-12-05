@@ -55,6 +55,8 @@
 
 #define VOTF_BUF_INDEX_MAX 15
 
+#define HAS_FINGERPRINT_MASK_LAYER
+
 enum {
     HWC_DISPLAY_NONE_BIT = 0
 };
