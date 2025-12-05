@@ -448,10 +448,10 @@ int32_t ExynosDisplayFbInterface::configFromDisplayConfig(decon_win_config &conf
             config.state = config.DECON_WIN_STATE_BUFFER;
         else if (display_config.state == display_config.WIN_STATE_CURSOR)
             config.state = config.DECON_WIN_STATE_CURSOR;
+#ifdef DECON_WIN_STATE_FINGERPRINT
         else if (display_config.state == display_config.WIN_STATE_FINGERPRINT)
-        // START FINGERPRINT MASK HANDLING
             config.state = config.DECON_WIN_STATE_FINGERPRINT;
-        // END FINGERPRINT MASK HANDLING
+#endif
 
         config.fd_idma[0] = display_config.fd_idma[0];
         config.fd_idma[1] = display_config.fd_idma[1];

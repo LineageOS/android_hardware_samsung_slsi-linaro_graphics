@@ -60,6 +60,8 @@
         }                                                                  \
     } while (false)
 
+#define EXYNOS_UDFPS_PRESSED_LAYER_ZORDER 0xFF
+
 typedef hwc2_composition_t exynos_composition;
 
 class ExynosLayer;

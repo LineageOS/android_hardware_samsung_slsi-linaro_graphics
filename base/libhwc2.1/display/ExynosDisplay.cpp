@@ -1848,21 +1848,17 @@ int ExynosDisplay::deliverWinConfigData(DevicePresentInfo &presentInfo) {
 #endif
         ret = 0;
     } else {
-        // START FINGERPRINT MASK HANDLING
-        for (size_t i = 0; i < mLayers.size(); i++) {
-            DISPLAY_LOGI("%s : FOD MASK LAYER: layer: %zu, zorder: %u", __func__, i, mLayers[i]->mZOrder);
-            buffer_handle_t handle = mLayers[i]->mLayerBuffer;
-            if ((handle != NULL) && mLayers[i]->mZOrder == 0xff) { // uStack_70._4_1_ >> 2 & 1
+        for (size_t i = mLayers.size() - 1; i >= 0; i--) {
+            if (mLayers[i]->mZOrder == EXYNOS_UDFPS_PRESSED_LAYER_ZORDER) {
                 for (size_t j = 0; j < mDpuData.configs.size(); j++) {
-                    if (mDpuData.configs[j].state == mDpuData.configs[j].WIN_STATE_BUFFER) { // if (*piVar8 == 2) {
-                        mDpuData.configs[j].state = mDpuData.configs[j].WIN_STATE_FINGERPRINT; // *piVar8 = 0x20000;
-                        DISPLAY_LOGI("%s : Mask layer for indisplay fingerprint is shown", __func__);
+                    if (mDpuData.configs[j].state == mDpuData.configs[j].WIN_STATE_BUFFER) {
+                        mDpuData.configs[j].state = mDpuData.configs[j].WIN_STATE_FINGERPRINT;
+                        HDEBUGLOGD(eDebugWinConfig, "Sent UDFPS Mask layer command to DECON.");
                         break;
                     }
                 }
             }
         }
-        // END FINGERPRINT MASK HANDLING
         bool waitFence = (mDisplayInterface->mType == INTERFACE_TYPE_DRM);
 #ifdef WAIT_FENCE
         waitFence = true;
