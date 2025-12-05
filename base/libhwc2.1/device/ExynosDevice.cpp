@@ -102,7 +102,7 @@ ExynosDevice::ExynosDevice()
     PredefinedFormat::init();
     ExynosMPP::initDefaultMppFormats();
 
-    hwcDebug = 0;
+    hwcDebug = eDebugTDM | eDebugLoadBalancing;
 
     mInterfaceType = getDeviceInterfaceType();
     ALOGD("%s : interface type(%d)", __func__, mInterfaceType);

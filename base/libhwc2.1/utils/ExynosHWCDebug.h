@@ -20,9 +20,11 @@
 #include "ExynosHWC.h"
 #include "ExynosHWCHelper.h"
 
+/*
 #ifdef BUILD_VARIANT_USER
 #define DISABLE_HWC_DEBUG
 #endif
+*/
 
 enum {
     eDebugDefault = 0x00000001,
