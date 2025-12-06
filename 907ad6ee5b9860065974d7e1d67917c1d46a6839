@@ -159,6 +159,23 @@
       "parentUuid": "6842c2bb_211e1ae9",
       "revId": "907ad6ee5b9860065974d7e1d67917c1d46a6839",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80fb6a34_9bc3f9d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 24387
+      },
+      "writtenOn": "2025-12-06T20:06:05Z",
+      "side": 1,
+      "message": "I think that this implementation is okay for now. It is just sufficient to explain in the commit message what are the headers to be moved to uapi which has been done and update the kernel headers present in the BSP for non-lineage build.",
+      "revId": "907ad6ee5b9860065974d7e1d67917c1d46a6839",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
