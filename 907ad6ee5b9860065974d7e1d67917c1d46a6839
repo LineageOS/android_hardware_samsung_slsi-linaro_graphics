@@ -16,6 +16,24 @@
       "message": "I\u0027d rather override the method in FramebufferManager.",
       "revId": "907ad6ee5b9860065974d7e1d67917c1d46a6839",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "218e5110_a3ad6f2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2025-12-06T19:15:15Z",
+      "side": 1,
+      "message": "I couldn\u0027t get such implementation to work, at least not without modifying too much of the codebase.",
+      "parentUuid": "4bebf9b7_7e7c9337",
+      "revId": "907ad6ee5b9860065974d7e1d67917c1d46a6839",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
