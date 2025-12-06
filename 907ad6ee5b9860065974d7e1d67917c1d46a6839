@@ -123,6 +123,24 @@
       "message": "Furthermore I\u0027ve looked at a few kernels and the header matches between versions, so I think this is the right way.",
       "revId": "907ad6ee5b9860065974d7e1d67917c1d46a6839",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6842c2bb_211e1ae9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 34207
+      },
+      "writtenOn": "2025-12-06T19:31:10Z",
+      "side": 1,
+      "message": "With all the special handling the two different versions, overriding the whole method instead isn\u0027t all that much code.",
+      "parentUuid": "b4180fc1_889493f8",
+      "revId": "907ad6ee5b9860065974d7e1d67917c1d46a6839",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
