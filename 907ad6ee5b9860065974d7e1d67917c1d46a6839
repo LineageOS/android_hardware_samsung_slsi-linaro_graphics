@@ -34,6 +34,24 @@
       "parentUuid": "4bebf9b7_7e7c9337",
       "revId": "907ad6ee5b9860065974d7e1d67917c1d46a6839",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8bf67a3_7fe8fdeb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 34207
+      },
+      "writtenOn": "2025-12-06T19:17:22Z",
+      "side": 1,
+      "message": "It\u0027d be mostly just s/FramebufferManager/FramebufferManagerModule and adding the right includes.\n\nPossibly, in another commit, i\u0027d add dummy implementations for the other modules as well if the header doesn\u0027t exist.",
+      "parentUuid": "218e5110_a3ad6f2c",
+      "revId": "907ad6ee5b9860065974d7e1d67917c1d46a6839",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
