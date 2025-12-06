@@ -52,6 +52,24 @@
       "parentUuid": "218e5110_a3ad6f2c",
       "revId": "907ad6ee5b9860065974d7e1d67917c1d46a6839",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b522c9d9_67a2c072",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2025-12-06T19:18:51Z",
+      "side": 1,
+      "message": "I think using kernel headers is the right way. Even if we override the method, headers still have to match. What is the problem with this implementation?",
+      "parentUuid": "f8bf67a3_7fe8fdeb",
+      "revId": "907ad6ee5b9860065974d7e1d67917c1d46a6839",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
