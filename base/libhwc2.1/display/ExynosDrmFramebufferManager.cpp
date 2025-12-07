@@ -321,9 +321,11 @@ int32_t FramebufferManager::getBuffer(const uint32_t displayType,
 #if !defined(SAJC_4K_MODE) // 5.10/5.15 has this unset
             modifiers[0] |= DRM_FORMAT_MOD_SAMSUNG_SAJC(compressed_block_size);
 #else // 6.1 kernels
-            // HACK: We don't have logic to fetch SW_Mode,
-            // So let's just keep the old behavior for now.
-            modifiers[0] |= DRM_FORMAT_MOD_SAMSUNG_SAJC(compressed_block_size, 0);
+            // check decompiled from stock blob
+            // get_sajc_sw_mode return the raw sw_mode value which can either be 0x17 (sw_mode 1, 4k swizzle)
+            // or 0x1B (sw_mode 0, 64k swizzle), however kernel drm modifier expects 0 or 1
+            uint32_t sw_mode = (config.compressionInfo.SAJCSwMode == 0x17) ? SAJC_4K_MODE : SAJC_64K_MODE;
+            modifiers[0] |= DRM_FORMAT_MOD_SAMSUNG_SAJC(compressed_block_size, sw_mode);
 #endif
             //SAJC buffer has 2 planes//
             planeNum++;
