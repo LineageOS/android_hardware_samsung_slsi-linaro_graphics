@@ -120,6 +120,7 @@ typedef struct CompressionInfo {
     uint32_t type = COMP_TYPE_NONE;
     uint32_t SAJCMaxBlockSize = 0;
     uint32_t SAJCHeaderOffset = 0;
+    uint32_t SAJCSwMode = 0;
 } compressionInfo_t;
 
 /*
