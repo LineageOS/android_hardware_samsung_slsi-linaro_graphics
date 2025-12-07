@@ -27,6 +27,7 @@
 
 constexpr uint32_t MAX_PLANE_NUM = 3;
 constexpr uint32_t SAJC_KEY_INDEX = 1;
+constexpr uint32_t SAJC_SWIZZLE_4KB_R_X  = 0x00000017;
 
 uint64_t getSBWCModifierBits(const format_description &format_desc) {
     uint32_t sbwcType = format_desc.type & FORMAT_SBWC_MASK;
@@ -321,9 +322,13 @@ int32_t FramebufferManager::getBuffer(const uint32_t displayType,
 #if !defined(SAJC_4K_MODE) // 5.10/5.15 has this unset
             modifiers[0] |= DRM_FORMAT_MOD_SAMSUNG_SAJC(compressed_block_size);
 #else // 6.1 kernels
-            // HACK: We don't have logic to fetch SW_Mode,
-            // So let's just keep the old behavior for now.
-            modifiers[0] |= DRM_FORMAT_MOD_SAMSUNG_SAJC(compressed_block_size, 0);
+            // get_sajc_sw_mode (which populates config.compressionInfo.SAJCSwMode) returns
+            // the dcc_sw_mode value which has been written by gralloc at allocation time,
+            // which can either be 0x17 (sw_mode 1, 4k swizzle) or 0x1B (sw_mode 0, 64k swizzle).
+            // However kernel drm modifier expects 0 or 1. This logic matches what the stock
+            // e1s libexynosdisplay is doing.
+            uint32_t sw_mode = (config.compressionInfo.SAJCSwMode == SAJC_SWIZZLE_4KB_R_X) ? SAJC_4K_MODE : SAJC_64K_MODE;
+            modifiers[0] |= DRM_FORMAT_MOD_SAMSUNG_SAJC(compressed_block_size, sw_mode);
 #endif
             //SAJC buffer has 2 planes//
             planeNum++;
