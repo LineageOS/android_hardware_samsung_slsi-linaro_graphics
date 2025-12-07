@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89378729_1b181427",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 34207
+      },
+      "writtenOn": "2025-12-07T20:41:45Z",
+      "side": 1,
+      "message": "Maybe we could just check whether the zorder is defined for determining if the code should be compiled or not?",
+      "revId": "c319d9cf4cda0d83d8c8d5d13be0d5cdb2d0c58a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
