@@ -502,6 +502,7 @@ compressionInfo_t getCompressionInfo(buffer_handle_t handle) {
         if (isSAJCCompressed(handle)) {
             compressionInfo.SAJCMaxBlockSize = ExynosGraphicBufferMeta::get_sajc_independent_block_size(handle);
             compressionInfo.SAJCHeaderOffset = ExynosGraphicBufferMeta::get_sajc_key_offset(handle);
+            compressionInfo.SAJCSwMode = ExynosGraphicBufferMeta::get_sajc_sw_mode(handle);
         }
     }
 
