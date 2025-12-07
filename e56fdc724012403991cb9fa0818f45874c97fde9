@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57961051_5e6a851d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 34207
+      },
+      "writtenOn": "2025-12-07T20:35:07Z",
+      "side": 1,
+      "message": "There\u0027s no need to account for boosting udfps on touch.",
+      "revId": "e56fdc724012403991cb9fa0818f45874c97fde9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
