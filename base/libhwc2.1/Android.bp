@@ -173,7 +173,10 @@ cc_library_shared {
 
     cflags: [
         "-DLOG_TAG=\"hwc-display\"",
-    ],
+    ] + select(soong_config_variable("samsungUdfpsVars", "dim_layer_zorder"), {
+        any @ dim_layer_zorder: ["-DUDFPS_DIM_LAYER_ZORDER=" + dim_layer_zorder],
+        default: ["-DUDFPS_DIM_LAYER_ZORDER=0"],
+    }),
 
     export_shared_lib_headers: [
         "libdrm",
