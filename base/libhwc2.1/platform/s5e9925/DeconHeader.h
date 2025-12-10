@@ -77,10 +77,6 @@ enum decon_idma_type {
   IDMA_VGRFS0,
   IDMA_VGRFS1,
   ODMA_WB,
-  /* virtual */
-  IDMA_VGS8K,
-  IDMA_VGFS8K,
-  IDMA_VGRFS8K,
   MAX_DECON_DMA_TYPE,
 };
 struct decon_user_window {
@@ -104,15 +100,6 @@ enum dpp_split_en {
 enum dpp_split_direction {
     DPP_SPLIT_VERTICAL = 0,
     DPP_SPLIT_HORIZONTAL = 1,
-};
-struct aux_frame {
-    /* DMA infomation for 8k split */
-    enum dpp_split_en spl_en;
-    /* DMA/DPP infomation for 8k split */
-    u32 padd_w;
-    u32 padd_h;
-    /* DPP infomation for 8k split */
-    enum dpp_split_direction spl_drtn;
 };
 struct decon_frame {
   int x;
@@ -147,8 +134,6 @@ struct decon_win_config {
       struct decon_win_rect transparent_area;
       struct decon_win_rect opaque_area;
       struct decon_frame src;
-      /* auxiliary source framebuffer coordinates */
-      struct aux_frame        aux_src;
     };
   };
   struct decon_frame dst;
