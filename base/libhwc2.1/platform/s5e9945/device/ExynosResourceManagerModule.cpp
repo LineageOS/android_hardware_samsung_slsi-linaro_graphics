@@ -288,7 +288,7 @@ uint32_t ExynosResourceManagerModule::calculateHWResourceAmount(ExynosDisplay *d
     HDEBUGLOGD(eDebugTDM, "mppSrc(%p) SRAM calculation start", mppSrc->mSrcImg.bufferHandle);
 
     int32_t transform = mppSrc->mSrcImg.transform;
-    int32_t compressed = mppSrc->mSrcImg.compressionInfo.type;
+    int32_t compressed = mppSrc->mSrcImg.compressionInfo.type == COMP_TYPE_SAJC;
     bool rotation = (transform & HAL_TRANSFORM_ROT_90) ? true : false;
 
     int32_t width = mppSrc->mSrcImg.w;
@@ -311,7 +311,7 @@ uint32_t ExynosResourceManagerModule::calculateHWResourceAmount(ExynosDisplay *d
                 return it->first;
             }
         }
-        return LB_W_3073_INF;
+        return LB_W_2049_INF;
     };
 
     /* Caluclate SRAM amount */
@@ -334,16 +334,12 @@ uint32_t ExynosResourceManagerModule::calculateHWResourceAmount(ExynosDisplay *d
                 SRAMtotal +=
                         sramAmountMap.at(sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, widthIndex));
         } else {
-            /* sramAmountMap has SRAM for both Y and UV */
+            /* sramAmountMap only has SRAM for Y and UV combined */
             widthIndex = findWidthIndex(width);
-            if (sramAmountMap.find(sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | formatBPP,
+            if (sramAmountMap.find(sramAmountParams(TDM_ATTR_ROT_90, formatBPP,
                                                     widthIndex)) != sramAmountMap.end())
                 SRAMtotal += sramAmountMap.at(
-                        sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | formatBPP, widthIndex));
-            if (sramAmountMap.find(sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | formatBPP,
-                                                    widthIndex)) != sramAmountMap.end())
-                SRAMtotal += sramAmountMap.at(
-                        sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | formatBPP, widthIndex));
+                        sramAmountParams(TDM_ATTR_ROT_90, formatBPP, widthIndex));
         }
         HDEBUGLOGD(eDebugTDM, "+ rotation : %d", SRAMtotal);
     } else {
@@ -372,22 +368,19 @@ uint32_t ExynosResourceManagerModule::calculateHWResourceAmount(ExynosDisplay *d
 
         /* SBWC amount */
         if (isFormatSBWC(format)) {
-            if (sramAmountMap.find(sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, widthIndex)) !=
+            if (sramAmountMap.find(sramAmountParams(TDM_ATTR_SBWC, formatBPP, widthIndex)) !=
                 sramAmountMap.end())
-                SRAMtotal += sramAmountMap.at(sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, widthIndex));
-            if (sramAmountMap.find(sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, widthIndex)) !=
-                sramAmountMap.end())
-                SRAMtotal += sramAmountMap.at(sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, widthIndex));
+                SRAMtotal += sramAmountMap.at(sramAmountParams(TDM_ATTR_SBWC, formatBPP, widthIndex));
             HDEBUGLOGD(eDebugTDM, "+ SBWC : %d", SRAMtotal);
         }
     }
 
     /* ITP (CSC) amount */
     if (isFormatYUV(format)) {
-        /** ITP has no size difference, Use width index as LB_W_3073_INF **/
-        if (sramAmountMap.find(sramAmountParams(TDM_ATTR_ITP, formatBPP, LB_W_3073_INF)) !=
+        /** ITP has no size difference, Use width index as LB_W_2049_INF **/
+        if (sramAmountMap.find(sramAmountParams(TDM_ATTR_ITP, formatBPP, LB_W_2049_INF)) !=
             sramAmountMap.end())
-            SRAMtotal += sramAmountMap.at(sramAmountParams(TDM_ATTR_ITP, formatBPP, LB_W_3073_INF));
+            SRAMtotal += sramAmountMap.at(sramAmountParams(TDM_ATTR_ITP, formatBPP, LB_W_2049_INF));
         HDEBUGLOGD(eDebugTDM, "+ YUV : %d", SRAMtotal);
     }
 
@@ -411,11 +404,11 @@ uint32_t ExynosResourceManagerModule::calculateHWResourceAmount(ExynosDisplay *d
         else
             formatIndex = FORMAT_YUV_MASK;
 
-        /** Scale has no size difference, Use width index as LB_W_3073_INF **/
-        if (sramAmountMap.find(sramAmountParams(TDM_ATTR_SCALE, formatIndex, LB_W_3073_INF)) !=
+        /** Scale has no size difference, Use width index as LB_W_2049_INF **/
+        if (sramAmountMap.find(sramAmountParams(TDM_ATTR_SCALE, formatIndex, LB_W_2049_INF)) !=
             sramAmountMap.end())
             SRAMtotal +=
-                    sramAmountMap.at(sramAmountParams(TDM_ATTR_SCALE, formatIndex, LB_W_3073_INF));
+                    sramAmountMap.at(sramAmountParams(TDM_ATTR_SCALE, formatIndex, LB_W_2049_INF));
         HDEBUGLOGD(eDebugTDM, "+ Scale : %d", SRAMtotal);
     }
 
