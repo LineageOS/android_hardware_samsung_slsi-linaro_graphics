@@ -40,28 +40,6 @@ ExynosResourceManagerModule::ExynosResourceManagerModule()
 
     for (uint32_t i = 0; i < sizeof(product_layerAttributePriority)/sizeof(product_layerAttributePriority[0]); i++)
         mLayerAttributePriority.add(product_layerAttributePriority[i]);
-
-    for (auto mpp: mOtfMPPs) {
-        ExynosMPPModule *cur = (ExynosMPPModule*)mpp;
-        cur->mVirtual8KMPP = cur->mSubMPP[0] = cur->mSubMPP[1] = NULL;
-    }
-
-    for (size_t i = 0; i < (sizeof(VIRTUAL_CHANNEL_PAIR_MAP) / sizeof(virtual_dpp_map)); i++) {
-        virtual_dpp_map_t map = VIRTUAL_CHANNEL_PAIR_MAP[i];
-        for (auto otfMPP: mOtfMPPs) {
-            if ((map.logicalType == otfMPP->mLogicalType) &&
-                (map.physicalIndex == otfMPP->mPhysicalIndex) &&
-                (map.physicalType == otfMPP->mPhysicalType)) {
-                ExynosMPPModule *cur = (ExynosMPPModule*)otfMPP;
-                if (cur) {
-                    cur->mSubMPP[0] = getExynosMPP(map.physicalType, map.physicalIndex1);
-                    cur->mSubMPP[1] = getExynosMPP(map.physicalType, map.physicalIndex2);
-                    ((ExynosMPPModule *)(cur->mSubMPP[0]))->mVirtual8KMPP = otfMPP;
-                    ((ExynosMPPModule *)(cur->mSubMPP[1]))->mVirtual8KMPP = otfMPP;
-                }
-            }
-        }
-    }
 }
 
 ExynosResourceManagerModule::~ExynosResourceManagerModule()
@@ -108,53 +86,6 @@ uint32_t ExynosResourceManagerModule::getExceptionScenarioFlag(ExynosMPP *mpp) {
         ret |= static_cast<uint32_t>(DisableType::DISABLE_SCENARIO);
 
     return ret;
-}
-
-void ExynosResourceManagerModule::setVirtualOtfMPPsRestrictions()
-{
-    for (uint32_t i = 0; i < mOtfMPPs.size(); i++) {
-        // mAttr should be updated with updated feature_table
-        if ((mOtfMPPs[i]->mLogicalType == MPP_LOGICAL_DPP_VGS8K) ||
-                (mOtfMPPs[i]->mLogicalType == MPP_LOGICAL_DPP_VGFS8K) ||
-                (mOtfMPPs[i]->mLogicalType == MPP_LOGICAL_DPP_VGRFS8K))
-        {
-            mOtfMPPs[i]->mAttr &= (~MPP_ATTR_DIM) & (~MPP_ATTR_WINDOW_UPDATE) & (~MPP_ATTR_BLOCK_MODE);
-            for (uint32_t j = 0; j < RESTRICTION_MAX; j++) {
-                /* Src min/max size */
-                mOtfMPPs[i]->mSrcSizeRestrictions[j].minCropWidth = mOtfMPPs[i]->mSrcSizeRestrictions[j].maxCropWidth;
-                mOtfMPPs[i]->mSrcSizeRestrictions[j].minCropHeight = mOtfMPPs[i]->mSrcSizeRestrictions[j].maxCropHeight;
-                mOtfMPPs[i]->mSrcSizeRestrictions[j].maxCropWidth = VIRTUAL_8K_WIDTH;
-            }
-        }
-    }
-
-    for (uint32_t i = 0; i < mOtfMPPs.size(); i++) {
-        for (uint32_t j = 0; j < RESTRICTION_MAX; j++) {
-            ExynosMPP *mpp = mOtfMPPs[i];
-            HDEBUGLOGD(eDebugMPP, "\tModified mSrcSizeRestrictions[%d], "
-                    "[%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d]",
-                    i, mpp->mSrcSizeRestrictions[j].maxDownScale, mpp->mSrcSizeRestrictions[j].maxUpScale,
-                    mpp->mSrcSizeRestrictions[j].maxFullWidth, mpp->mSrcSizeRestrictions[j].maxFullHeight,
-                    mpp->mSrcSizeRestrictions[j].minFullWidth, mpp->mSrcSizeRestrictions[j].minFullHeight,
-                    mpp->mSrcSizeRestrictions[j].fullWidthAlign, mpp->mSrcSizeRestrictions[j].fullHeightAlign,
-                    mpp->mSrcSizeRestrictions[j].maxCropWidth, mpp->mSrcSizeRestrictions[j].maxCropHeight,
-                    mpp->mSrcSizeRestrictions[j].minCropWidth, mpp->mSrcSizeRestrictions[j].minCropHeight,
-                    mpp->mSrcSizeRestrictions[j].cropXAlign, mpp->mSrcSizeRestrictions[j].cropYAlign,
-                    mpp->mSrcSizeRestrictions[j].cropWidthAlign, mpp->mSrcSizeRestrictions[j].cropHeightAlign);
-            HDEBUGLOGD(eDebugMPP, "\ttModified mDstSizeRestrictions[%d], "
-                    "[%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d]",
-                    i, mpp->mDstSizeRestrictions[j].maxDownScale, mpp->mDstSizeRestrictions[j].maxUpScale,
-                    mpp->mDstSizeRestrictions[j].maxFullWidth, mpp->mDstSizeRestrictions[j].maxFullHeight,
-                    mpp->mDstSizeRestrictions[j].minFullWidth, mpp->mDstSizeRestrictions[j].minFullHeight,
-                    mpp->mDstSizeRestrictions[j].fullWidthAlign, mpp->mDstSizeRestrictions[j].fullHeightAlign,
-                    mpp->mDstSizeRestrictions[j].maxCropWidth, mpp->mDstSizeRestrictions[j].maxCropHeight,
-                    mpp->mDstSizeRestrictions[j].minCropWidth, mpp->mDstSizeRestrictions[j].minCropHeight,
-                    mpp->mDstSizeRestrictions[j].cropXAlign, mpp->mDstSizeRestrictions[j].cropYAlign,
-                    mpp->mDstSizeRestrictions[j].cropWidthAlign, mpp->mDstSizeRestrictions[j].cropHeightAlign);
-        }
-    }
-
-    return;
 }
 
 void ExynosResourceManagerModule::preAssignWindows()
