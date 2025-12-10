@@ -317,10 +317,10 @@ typedef struct HWResourceAmounts {
  * Primary amount = total - others */
 
 const std::map<HWResourceIndexes, HWResourceAmounts_t> HWResourceTables = {
-    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 80}},
-    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, HWC_DISPLAY_EXTERNAL), {80, 80}},
-    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, HWC_DISPLAY_VIRTUAL),  {80, 80}},
-    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, HWC_DISPLAY_PRIMARY),  {80, 80}},
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 40}},
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, HWC_DISPLAY_EXTERNAL), {40, 80}},
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, HWC_DISPLAY_VIRTUAL),  {40, 80}},
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, HWC_DISPLAY_PRIMARY),  {40, 80}},
     {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 80}},
     {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 80}},
 
@@ -338,37 +338,33 @@ const std::map<HWResourceIndexes, HWResourceAmounts_t> HWResourceTables = {
     {HWResourceIndexes(TDM_ATTR_SBWC, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 2}},
     {HWResourceIndexes(TDM_ATTR_SBWC, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 2}},
 
-    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 4}},
-    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF0, HWC_DISPLAY_EXTERNAL), {4, 4}},
-    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF0, HWC_DISPLAY_VIRTUAL),  {4, 4}},
-    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF1, HWC_DISPLAY_PRIMARY),  {4, 4}},
-    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 4}},
-    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 4}},
+    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 2}},
+    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF0, HWC_DISPLAY_EXTERNAL), {2, 2}},
+    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF0, HWC_DISPLAY_VIRTUAL),  {2, 2}},
+    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF1, HWC_DISPLAY_PRIMARY),  {2, 2}},
+    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 2}},
+    {HWResourceIndexes(TDM_ATTR_SAJC, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 2}},
 
-    {HWResourceIndexes(TDM_ATTR_ITP, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 4}},
-    {HWResourceIndexes(TDM_ATTR_ITP, DPUF0, HWC_DISPLAY_EXTERNAL), {4, 4}},
-    {HWResourceIndexes(TDM_ATTR_ITP, DPUF0, HWC_DISPLAY_VIRTUAL),  {4, 4}},
-    {HWResourceIndexes(TDM_ATTR_ITP, DPUF1, HWC_DISPLAY_PRIMARY),  {4, 4}},
-    {HWResourceIndexes(TDM_ATTR_ITP, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 4}},
-    {HWResourceIndexes(TDM_ATTR_ITP, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 4}},
+    {HWResourceIndexes(TDM_ATTR_ITP, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 3}},
+    {HWResourceIndexes(TDM_ATTR_ITP, DPUF0, HWC_DISPLAY_EXTERNAL), {3, 3}},
+    {HWResourceIndexes(TDM_ATTR_ITP, DPUF0, HWC_DISPLAY_VIRTUAL),  {3, 3}},
+    {HWResourceIndexes(TDM_ATTR_ITP, DPUF1, HWC_DISPLAY_PRIMARY),  {3, 3}},
+    {HWResourceIndexes(TDM_ATTR_ITP, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 3}},
+    {HWResourceIndexes(TDM_ATTR_ITP, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 3}},
 
-    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 2}},
-    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF0, HWC_DISPLAY_EXTERNAL), {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF0, HWC_DISPLAY_VIRTUAL),  {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF1, HWC_DISPLAY_PRIMARY),  {2, 2}},
-    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 2}},
-    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 2}},
+    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 4}},
+    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF0, HWC_DISPLAY_EXTERNAL), {4, 4}},
+    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF0, HWC_DISPLAY_VIRTUAL),  {4, 4}},
+    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF1, HWC_DISPLAY_PRIMARY),  {4, 4}},
+    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 4}},
+    {HWResourceIndexes(TDM_ATTR_ROT_90, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 4}},
 };
 
 typedef enum lbWidthIndex {
     LB_W_8_512,
     LB_W_513_1024,
-    LB_W_1025_1536,
-    LB_W_1537_2048,
-    LB_W_2049_2304,
-    LB_W_2305_2560,
-    LB_W_2561_3072,
-    LB_W_3073_INF,
+    LB_W_1025_2048,
+    LB_W_2049_INF,
 } lbWidthIndex_t;
 
 typedef struct lbWidthBoundary {
@@ -379,12 +375,8 @@ typedef struct lbWidthBoundary {
 const std::map<lbWidthIndex_t, lbWidthBoundary_t> LB_WIDTH_INDEX_MAP = {
     {LB_W_8_512,     {8, 512}},
     {LB_W_513_1024,  {513, 1024}},
-    {LB_W_1025_1536, {1025, 1536}},
-    {LB_W_1537_2048, {1537, 2048}},
-    {LB_W_2049_2304, {2049, 2304}},
-    {LB_W_2305_2560, {2035, 2560}},
-    {LB_W_2561_3072, {2561, 3072}},
-    {LB_W_3073_INF,  {3073, 0xffff}},
+    {LB_W_1025_2048, {1025, 2048}},
+    {LB_W_2049_INF,  {2049, 0xffff}},
 };
 
 class sramAmountParams {
@@ -410,8 +402,6 @@ public:
 enum {
     SBWC_Y = 0,
     SBWC_UV,
-    NON_SBWC_Y,
-    NON_SBWC_UV,
 };
 
 const std::map<sramAmountParams, uint32_t> sramAmountMap = {
@@ -419,102 +409,43 @@ const std::map<sramAmountParams, uint32_t> sramAmountMap = {
     /** BIT8 = 32bit format **/
     {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_8_512),     4},
     {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_513_1024),  4},
-    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_1025_1536), 8},
-    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_1537_2048), 8},
-    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_2049_2304), 12},
-    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_2305_2560), 12},
-    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_2561_3072), 12},
-    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_3073_INF),  16},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_1025_2048), 8},
+    {sramAmountParams(TDM_ATTR_SAJC, RGB | BIT8, LB_W_2049_INF), 9},
 
-    /** 16bit format **/
-    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_8_512),     2},
-    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_513_1024),  2},
-    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_1025_1536), 4},
-    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_1537_2048), 4},
-    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_2049_2304), 6},
-    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_2305_2560), 6},
-    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_2561_3072), 6},
-    {sramAmountParams(TDM_ATTR_SAJC, RGB, LB_W_3073_INF),  8},
+    {sramAmountParams(TDM_ATTR_SBWC, BIT8, LB_W_8_512),     1},
+    {sramAmountParams(TDM_ATTR_SBWC, BIT8, LB_W_513_1024),  3},
+    {sramAmountParams(TDM_ATTR_SBWC, BIT8, LB_W_1025_2048), 3},
+    {sramAmountParams(TDM_ATTR_SBWC, BIT8, LB_W_2049_INF), 4},
 
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_8_512),     1},
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_513_1024),  1},
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_1025_1536), 1},
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_1537_2048), 1},
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_2049_2304), 2},
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_2305_2560), 2},
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_2561_3072), 2},
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_Y, LB_W_3073_INF),  2},
+    {sramAmountParams(TDM_ATTR_SBWC, BIT10, LB_W_8_512),     1},
+    {sramAmountParams(TDM_ATTR_SBWC, BIT10, LB_W_513_1024),  3},
+    {sramAmountParams(TDM_ATTR_SBWC, BIT10, LB_W_1025_2048), 3},
+    {sramAmountParams(TDM_ATTR_SBWC, BIT10, LB_W_2049_INF), 4},
 
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_8_512),     2},
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_513_1024),  2},
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_1025_1536), 2},
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_1537_2048), 2},
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_2049_2304), 2},
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_2305_2560), 2},
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_2561_3072), 2},
-    {sramAmountParams(TDM_ATTR_SBWC, SBWC_UV, LB_W_3073_INF),  2},
+    {sramAmountParams(TDM_ATTR_ROT_90, BIT8, LB_W_8_512),     6},
+    {sramAmountParams(TDM_ATTR_ROT_90, BIT8, LB_W_513_1024),  12},
+    {sramAmountParams(TDM_ATTR_ROT_90, BIT8, LB_W_1025_2048), 24},
+    {sramAmountParams(TDM_ATTR_ROT_90, BIT8, LB_W_2049_INF), 28},
 
-    /** Rotation **/
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_8_512),     4},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_513_1024),  8},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_1025_1536), 12},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_1537_2048), 16},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_2049_2304), 18},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_2305_2560), 18},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_2561_3072), 18},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT8, LB_W_3073_INF),  18},
-
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_8_512),     2},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_513_1024),  4},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_1025_1536), 6},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_1537_2048), 8},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_2049_2304), 10},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_2305_2560), 10},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_2561_3072), 10},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT8, LB_W_3073_INF),  10},
-
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_8_512),     2},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_513_1024),  4},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_1025_1536), 6},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_1537_2048), 8},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_2049_2304), 9},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_2305_2560), 9},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_2561_3072), 9},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_Y | BIT10, LB_W_3073_INF),  9},
-
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_8_512),     2},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_513_1024),  2},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_1025_1536), 4},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_1537_2048), 4},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_2049_2304), 6},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_2305_2560), 6},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_2561_3072), 6},
-    {sramAmountParams(TDM_ATTR_ROT_90, NON_SBWC_UV | BIT10, LB_W_3073_INF),  6},
+    {sramAmountParams(TDM_ATTR_ROT_90, BIT10, LB_W_8_512),     4},
+    {sramAmountParams(TDM_ATTR_ROT_90, BIT10, LB_W_513_1024),  6},
+    {sramAmountParams(TDM_ATTR_ROT_90, BIT10, LB_W_1025_2048), 12},
+    {sramAmountParams(TDM_ATTR_ROT_90, BIT10, LB_W_2049_INF), 15},
 
     {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_8_512),     2},
     {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_513_1024),  4},
-    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_1025_1536), 6},
-    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_1537_2048), 8},
-    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_2049_2304), 9},
-    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_2305_2560), 9},
-    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_2561_3072), 9},
-    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_3073_INF),  9},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_1025_2048), 8},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_Y, LB_W_2049_INF), 9},
 
     {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_8_512),     2},
     {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_513_1024),  2},
-    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_1025_1536), 4},
-    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_1537_2048), 4},
-    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_2049_2304), 6},
-    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_2305_2560), 6},
-    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_2561_3072), 6},
-    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_3073_INF),  6},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_1025_2048), 4},
+    {sramAmountParams(TDM_ATTR_ROT_90, SBWC_UV, LB_W_2049_INF), 6},
 
-    {sramAmountParams(TDM_ATTR_ITP, BIT8, LB_W_3073_INF),  2},
-    {sramAmountParams(TDM_ATTR_ITP, BIT10, LB_W_3073_INF), 2},
+    {sramAmountParams(TDM_ATTR_ITP, BIT8, LB_W_2049_INF),  2},
+    {sramAmountParams(TDM_ATTR_ITP, BIT10, LB_W_2049_INF), 2},
 
-    /* It's meaning like ow,
-     * FORMAT_YUV_MASK == has no alpha, FORMAT_RGB_MASK == has alpha */
-    {sramAmountParams(TDM_ATTR_SCALE, FORMAT_YUV_MASK, LB_W_3073_INF), 12},
-    {sramAmountParams(TDM_ATTR_SCALE, FORMAT_RGB_MASK, LB_W_3073_INF), 16}
+    {sramAmountParams(TDM_ATTR_SCALE, FORMAT_YUV_MASK, LB_W_2049_INF), 12},
+    {sramAmountParams(TDM_ATTR_SCALE, FORMAT_RGB_MASK, LB_W_2049_INF), 16}
 };
 #endif
