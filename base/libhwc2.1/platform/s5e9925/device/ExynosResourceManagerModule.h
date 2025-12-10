@@ -23,7 +23,6 @@ class ExynosResourceManagerModule : public ExynosResourceManager {
         ExynosResourceManagerModule();
         ~ExynosResourceManagerModule();
         virtual uint32_t getExceptionScenarioFlag(ExynosMPP *mpp) override;
-        virtual void setVirtualOtfMPPsRestrictions();
         virtual void preAssignWindows() override;
 
     protected:
