@@ -105,12 +105,6 @@ bool ExynosMPPModule::isSupportedTransform(struct exynos_image &src)
 
 uint32_t ExynosMPPModule::getSrcMaxCropSize(struct exynos_image &src)
 {
-
-    if ((mLogicalType == MPP_LOGICAL_DPP_VGS8K) ||
-            (mLogicalType == MPP_LOGICAL_DPP_VGFS8K) ||
-            (mLogicalType == MPP_LOGICAL_DPP_VGRFS8K))
-        return MAX_DPP_8K_SRC_SIZE;
-
     if ((mPhysicalType == MPP_DPP_VGRFS) &&
             (src.transform & HAL_TRANSFORM_ROT_90))
         return MAX_DPP_ROT_SRC_SIZE;
@@ -122,14 +116,6 @@ uint32_t ExynosMPPModule::getSrcMaxCropSize(struct exynos_image &src)
 
 uint32_t ExynosMPPModule::getSrcMaxCropHeight(struct exynos_image &src)
 {
-    if ((mLogicalType == MPP_LOGICAL_DPP_VGS8K) ||
-            (mLogicalType == MPP_LOGICAL_DPP_VGFS8K) ||
-            (mLogicalType == MPP_LOGICAL_DPP_VGRFS8K)) {
-        /* Height limitation is 7680 for 8K rotation */
-        if (src.transform & HAL_TRANSFORM_ROT_90)
-            return VIRTUAL_8K_WIDTH;
-    }
-
     if ((mMPPType == MPP_TYPE_OTF) &&
         (src.transform & HAL_TRANSFORM_ROT_90))
         return 2160;
@@ -155,48 +141,6 @@ bool ExynosMPPModule::hasEnoughCapa(DisplayInfo &display, struct exynos_image &s
 bool ExynosMPPModule::isSupportedCapability(DisplayInfo &display, struct exynos_image &src)
 {
     return true;
-}
-
-bool ExynosMPPModule::isSharedMPPUsed()
-{
-    /*
-     * In case of current MPP is virtual 8K MPP.
-     * If subMPPs are used then current MPP is forbidden
-     */
-    if (isVirtual8KOtf()) {
-        if ((mSubMPP[0] == nullptr) || (mSubMPP[1] == nullptr)) {
-            MPP_LOGE("Invalid virtual MPP, subMPP0(%p), subMPP1(%p)",
-                    mSubMPP[0], mSubMPP[1]);
-            /* Return true in order not to use virtual mpp */
-            return true;
-        }
-        /* Check subMPP */
-        if ((mSubMPP[0]->mAssignedState & MPP_ASSIGN_STATE_ASSIGNED) ||
-            (mSubMPP[1]->mAssignedState & MPP_ASSIGN_STATE_ASSIGNED)) {
-            HDEBUGLOGD(eDebugMPP, "Current MPP is virtaul 8K(%s), "
-                    "but sub MPP(%s: %d, %s: %d) is already assigned..",
-                    this->mName.c_str(), mSubMPP[0]->mName.c_str(),
-                    mSubMPP[0]->mAssignedState & MPP_ASSIGN_STATE_ASSIGNED,
-                    mSubMPP[1]->mName.c_str(),
-                    mSubMPP[1]->mAssignedState & MPP_ASSIGN_STATE_ASSIGNED);
-            return true;
-        }
-        return false;
-    }
-
-    /*
-     * In case of current MPP is sub-sharedMPPs.
-     * If virtual 8K MPP is used then current MPP is forbidden
-     */
-    if ((mVirtual8KMPP != nullptr) &&
-        (mVirtual8KMPP->mAssignedState & MPP_ASSIGN_STATE_ASSIGNED)) {
-        HDEBUGLOGD(eDebugMPP, "Current MPP is virtaul 8K(%s), "
-                "but sub MPP(%s) is already assigned..",
-                this->mName.c_str(), mVirtual8KMPP->mName.c_str());
-        return true;
-    }
-
-    return false;
 }
 
 int32_t ExynosMPPModule::setVotfLayerData(exynos_mpp_img_info *srcImgInfo)
