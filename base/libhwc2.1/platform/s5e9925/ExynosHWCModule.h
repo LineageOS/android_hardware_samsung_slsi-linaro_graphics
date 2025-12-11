@@ -37,11 +37,13 @@
 
 #define MSC_CLOCK   800000
 
-#define VPP_CLOCK       663000000
+#define VPP_CLOCK       800000000
 #define VPP_PIXEL_PER_CLOCK 2
 
 #define VPP_MARGIN 1.1
 #define VPP_DISP_FACTOR 1.0
+
+#define G2D_CLOCK       712024
 
 #define VOTF_BUF_INDEX_MAX 15
 
