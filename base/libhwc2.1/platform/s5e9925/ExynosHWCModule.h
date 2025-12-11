@@ -22,16 +22,8 @@
 #include "ExynosHWCHelper.h"
 
 #define VSYNC_DEV_PREFIX    "/sys/devices/platform/"
-#define DECON0_VSYNC_NODE  "19f00000.decon_0/vsync"
-#define DECON0_FB_NODE     "/dev/graphics/fb0"
-#define DECON1_VSYNC_NODE  "19f01000.decon_1/vsync"
-#define DECON1_FB_NODE     "/dev/graphics/fb1"
-#define DECON2_VSYNC_NODE  "19f02000.decon_2/vsync"
-#define DECON2_FB_NODE     "/dev/graphics/fb2"
-#define DECON3_VSYNC_NODE  "19f03000.decon_3/vsync"
-#define DECON3_FB_NODE     "/dev/graphics/fb3"
+#define DECON_DRM_NODE     "/dev/dri/card0"
 #define PSR_DEV_NAME        "19f00000.decon_0/psr_info"
-#define PSR_DEV_NAME_S      "19f01000.decon_1/psr_info"
 #define USE_DPU_SET_CONFIG
 
 #define HIBER_EXIT_NODE_NAME    "/sys/devices/platform/19f00000.drmdecon/hiber_exit"
@@ -227,13 +219,9 @@ const exynos_mpp_t AVAILABLE_M2M_MPP_UNITS[] = {
      3. For the process about preassigning OTFMPP resources, display that do not use DPU like as virtual display
         should be alligned at the end. */
 const exynos_display_t AVAILABLE_DISPLAY_UNITS[] = {
-    {HWC_DISPLAY_PRIMARY, 0, "PrimaryDisplay",      DECON0_FB_NODE, DECON0_VSYNC_NODE},
-#ifdef USES_DUAL_DISPLAY
-    {HWC_DISPLAY_PRIMARY, 1, "PrimaryDisplay2",     DECON1_FB_NODE, DECON1_VSYNC_NODE},
-#endif
-    {HWC_DISPLAY_EXTERNAL, 0, "ExternalDisplay",    DECON2_FB_NODE, DECON2_VSYNC_NODE},
-    {HWC_DISPLAY_EXTERNAL, 1, "ExternalDisplay2",   DECON3_FB_NODE, DECON3_VSYNC_NODE},
-    {HWC_DISPLAY_VIRTUAL, 0, "VirtualDisplay", DECON1_FB_NODE, {}},
+    {HWC_DISPLAY_PRIMARY, 0, "PrimaryDisplay",      DECON_DRM_NODE, ""},
+    {HWC_DISPLAY_EXTERNAL, 0, "ExternalDisplay",    DECON_DRM_NODE, ""},
+    {HWC_DISPLAY_VIRTUAL, 0, "VirtualDisplay", DECON_DRM_NODE, ""},
 };
 
 #define DISPLAY_COUNT sizeof(AVAILABLE_DISPLAY_UNITS)/sizeof(exynos_display_t)
@@ -255,15 +243,5 @@ struct display_resource_info_t {
 };
 
 const display_resource_info_t RESOURCE_INFO_TABLE[] = {
-#ifdef USES_DUAL_DISPLAY
-    {getDisplayId(HWC_DISPLAY_PRIMARY, 0), 0, 0, {0, 2}},
-    {getDisplayId(HWC_DISPLAY_PRIMARY, 1), 0, 1, {1, 3}},
-    {getDisplayId(HWC_DISPLAY_EXTERNAL, 0), 1, 2, {2, 0}},
-    {getDisplayId(HWC_DISPLAY_EXTERNAL, 1), 1, 3, {3, 1}},
-#else
-    {getDisplayId(HWC_DISPLAY_PRIMARY, 0), 0, 0, {0, 2}},
-    {getDisplayId(HWC_DISPLAY_EXTERNAL, 0), 1, 1, {1, 0}},
-    {getDisplayId(HWC_DISPLAY_EXTERNAL, 1), 1, 2, {2, 1}},
-#endif
 };
 #endif
