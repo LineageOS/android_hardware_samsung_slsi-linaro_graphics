@@ -103,7 +103,7 @@ struct exynos_display_t {
 #define EXTERNAL_MAIN_EXTERNAL_WINCNT  2
 #define PRIMARY_MAIN_VIRTUAL_WINCNT 2
 #define DEFAULT_MPP_DST_YUV_FORMAT HAL_PIXEL_FORMAT_EXYNOS_YCbCr_420_SPN_SBWC
-#define MSC_CLOCK   663000
+#define MSC_CLOCK   800000
 
 enum {
     DISPLAY_MODE_PRIMARY_MAIN = 0,  /* This is default mode */
