@@ -27,15 +27,7 @@ class ExynosPrimaryDisplayModule : public ExynosPrimaryDisplay {
         virtual void doPreProcessing(DeviceValidateInfo &validateInfo,
                 uint64_t &geometryChanged) override;
         virtual bool isEnabled() {
-#ifdef USES_DUAL_DISPLAY
-            if (!mPlugState) return false;
-            if ((mPowerModeState == HWC2_POWER_MODE_ON) ||
-                    (mPowerModeState == HWC2_POWER_MODE_DOZE))
-                return true;
-            return false;
-#else
             return mPlugState;
-#endif
         }
 };
 
