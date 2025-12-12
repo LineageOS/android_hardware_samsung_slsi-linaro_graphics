@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a979f875_149a0d2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 24387
+      },
+      "writtenOn": "2025-12-12T00:15:01Z",
+      "side": 1,
+      "message": "works with blobbed gralloc / mapper. bspp gralloc / mapper needs swizzle 4k mode but however current RE implementeation does not work.",
+      "revId": "abb8652b16cfa86ea1d73aee69ce0feb1c495b5b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
