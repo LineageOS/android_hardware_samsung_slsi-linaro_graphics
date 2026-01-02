@@ -241,15 +241,15 @@ cc_library_shared {
 soong_config_module_type {
     name: "hwcomposer_cc_library_shared",
     module_type: "cc_library_shared",
-    config_namespace: "ANDROID",
-    value_variables: ["target_board_platform"],
+    config_namespace: "exynos_hwc",
+    value_variables: ["target_soc_base"],
     properties: [
         "name",
     ],
 }
 
 hwcomposer_cc_library_shared {
-    name: "hwcomposer.target_board_platform",
+    name: "hwcomposer.target_soc_base",
     defaults: ["libhwc2_defaults"],
     relative_install_path: "hw",
 
@@ -266,10 +266,10 @@ hwcomposer_cc_library_shared {
     ] ,
 
     soong_config_variables: {
-        target_board_platform: {
+        target_soc_base: {
             name: "hwcomposer.%s",
             conditions_default: {
-                name: "hwcomposer.target_board_platform",
+                name: "hwcomposer.target_soc_base",
             },
         },
     },

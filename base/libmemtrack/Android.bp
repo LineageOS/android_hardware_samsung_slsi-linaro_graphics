@@ -18,15 +18,15 @@ cc_library {
 soong_config_module_type {
     name: "memtrack_cc_library_shared",
     module_type: "cc_library_shared",
-    config_namespace: "ANDROID",
-    value_variables: ["target_board_platform"],
+    config_namespace: "exynos_hwc",
+    value_variables: ["target_soc_base"],
     properties: [
         "name",
     ],
 }
 
 memtrack_cc_library_shared {
-    name: "memtrack.target_board_platform",
+    name: "memtrack.target_soc_base",
     relative_install_path: "hw",
     proprietary: true,
     compile_multilib: "both",
@@ -50,10 +50,10 @@ memtrack_cc_library_shared {
     ],
 
     soong_config_variables: {
-        target_board_platform: {
+        target_soc_base: {
             name: "memtrack.%s",
             conditions_default: {
-                name: "memtrack.target_board_platform",
+                name: "memtrack.target_soc_base",
             },
         },
     },
