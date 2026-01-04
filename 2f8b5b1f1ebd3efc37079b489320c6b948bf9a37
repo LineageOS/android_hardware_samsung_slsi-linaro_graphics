@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac81d296_09620656",
+        "filename": "base/libhwc2.1/display/ExynosDrmFramebufferManager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 34512
+      },
+      "writtenOn": "2026-01-04T17:31:51Z",
+      "side": 1,
+      "message": "Not consistent with \u0027if !defined\u0027 in other commits",
+      "revId": "2f8b5b1f1ebd3efc37079b489320c6b948bf9a37",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
