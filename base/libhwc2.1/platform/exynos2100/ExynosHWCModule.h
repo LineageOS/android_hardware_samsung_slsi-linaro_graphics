@@ -36,8 +36,8 @@
 
 #define HIBER_EXIT_NODE_NAME    "/sys/devices/platform/19f00000.drmdecon/hiber_exit"
 /* When use Brigntess, enable here */
-//#define BRIGHTNESS_NODE_BASE    "/sys/devices/virtual/backlight/panel_0/brightness"
-//#define MAX_BRIGHTNESS_NODE_BASE    "/sys/devices/virtual/backlight/panel_0/max_brightness"
+#define BRIGHTNESS_NODE_BASE    "/sys/class/backlight/panel/brightness"
+#define MAX_BRIGHTNESS_NODE_BASE    "/sys/class/backlight/panel/max_brightness"
 
 #define DP_LINK_NAME        "10ab0000.displayport"
 #define DP_UEVENT_NAME      "change@/devices/platform/%s/extcon/extcon0"
