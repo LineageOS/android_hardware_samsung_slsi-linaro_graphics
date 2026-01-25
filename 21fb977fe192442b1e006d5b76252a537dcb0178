@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2662eb7_99af6bb3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-01-25T11:43:44Z",
+      "side": 1,
+      "message": "```suggestion\nexynos2100: Define brightness paths\n```\n```suggestion\nexynos2100: Enable brightness paths\n```",
+      "revId": "21fb977fe192442b1e006d5b76252a537dcb0178",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
