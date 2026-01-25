@@ -32,14 +32,10 @@ typedef struct perfMap {
     uint32_t m2mCapa;
 } perfMap_t;
 
-/* If you need affinity settings for each refresh rates, Write CPU_CLUSTER[x]_MASK definitions
- * for example,
- * - If it's needed to set affinity to Middle and Big clusters, Write "CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK"
- * - If it's not needed to set affinity, write all MASKs */
 static std::map<uint32_t, perfMap> perfTable = {
-    {30, {CPU_CLUSTER0_MASK | CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK, {0, 0, 0}, 24}},
-    {60, {CPU_CLUSTER0_MASK | CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK, {0, 0, 0}, 8}},
-    {120, {CPU_CLUSTER0_MASK | CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK, {0, 0, 0}, 4}},
+    {30,  {CPU_CLUSTER0_MASK | CPU_CLUSTER1_MASK, {0, 0, 0}, 24}},
+    {60,  {CPU_CLUSTER1_MASK | CPU_CLUSTER2_MASK, {0, 0, 0}, 8}},
+    {120, {CPU_CLUSTER2_MASK, {0, 0, 0}, 4}},
 };
 
 #endif

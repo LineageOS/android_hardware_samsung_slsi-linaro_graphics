@@ -1767,24 +1767,41 @@ void ExynosDevice::performanceAssuranceInternal() {
         ALOGI("Use default fps instead of %d for setting performance", fps);
         fps = kDefaultDispFps;
     }
-    /* Affinity settings */
-    cpu_set_t mask;
-    CPU_ZERO(&mask);  // Clear mask
-    ALOGI("Set Affinity config for fps(%d) : cpuIDs : %d", fps, perfTable[fps].cpuIDs);
-    for (int cpu_no = 0; cpu_no < 32; cpu_no++) {
-        if (perfTable[fps].cpuIDs & (1 << cpu_no)) {
-            CPU_SET(cpu_no, &mask);
-            ALOGI("Set Affinity CPU ID : %d", cpu_no);
+
+    /*
+    * Update CPU affinity only when cpuIDs changes.
+    */
+    static uint32_t last_cpuIDs = 0;
+    uint32_t new_cpuIDs = perfTable[fps].cpuIDs;
+
+    if (new_cpuIDs != last_cpuIDs) {
+        cpu_set_t mask;
+        CPU_ZERO(&mask);
+
+        /* Clamp affinity mask to valid CPU range */
+        int num_cpus = sysconf(_SC_NPROCESSORS_ONLN);
+        int max_bits = sizeof(new_cpuIDs) * 8;
+
+        if (num_cpus < 0)
+            num_cpus = max_bits;
+
+        int max_check = std::min(num_cpus, max_bits);
+        for (int cpu_no = 0; cpu_no < max_check; cpu_no++) {
+            if (new_cpuIDs & (1U << cpu_no)) {
+                CPU_SET(cpu_no, &mask);
+            }
+        }
+
+        if (CPU_COUNT(&mask) == 0) {
+            ALOGW("Skip set Affinity: cpuIDs=0x%X", new_cpuIDs);
+            return;
+        } else {
+            ALOGI("Set Affinity config for fps(%d): cpuIDs: 0x%X", fps, new_cpuIDs);
+            sched_setaffinity(getpid(), sizeof(cpu_set_t), &mask);
+            last_cpuIDs = new_cpuIDs;
+            setGeometryChanged(GEOMETRY_MPP_CONFIG_CHANGED);
         }
     }
-    sched_setaffinity(getpid(), sizeof(cpu_set_t), &mask);
-
-    ALOGI("Set affinity HWC : %d", getpid());
-
-    /* TODO cluster modification in module */
-    setCPUClocksPerCluster(fps);
-
-    setGeometryChanged(GEOMETRY_MPP_CONFIG_CHANGED);
 #endif
 
     return;
