@@ -86,6 +86,9 @@ cc_defaults {
     }) + select(soong_config_variable("exynos_hwc", "USES_VIRTUAL_DISPLAY"), {
         true: ["-DUSES_VIRTUAL_DISPLAY"],
         default: [],
+    }) + select(soong_config_variable("exynos_hwc", "USES_VRR_WINCONFIG"), {
+        true: ["-DUSES_VRR_WINCONFIG"],
+        default: [],
     }),
 
     static_libs: [

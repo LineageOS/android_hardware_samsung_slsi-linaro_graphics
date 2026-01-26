@@ -171,6 +171,36 @@ int32_t ExynosDisplayFbInterface::setActiveConfig(ExynosDisplay &exynosDisplay,
     struct decon_win_config *win_config = win_data.config;
     memset(&win_data, 0, sizeof(win_data));
 
+#ifdef USES_VRR_WINCONFIG
+    // For devices with fixed resolution and variable refresh rate only
+    // Use VRR state based on FPS instead of MRESOL
+    int fps = (int)(1000000000 / displayConfig.vsyncPeriod);
+
+    /*
+     * Avoid invalid or zero vsync values during early display
+     * configuration by falling back to 60Hz.
+     */
+    if (fps <= 0) {
+        ALOGE("Invalid fps %d, using default: 60Hz", fps);
+        fps = 60;
+    }
+
+    if (fps > 60) {
+        win_config[DECON_WIN_UPDATE_IDX].state = decon_win_config::DECON_WIN_STATE_VRR_HSMODE;
+    } else {
+        win_config[DECON_WIN_UPDATE_IDX].state = decon_win_config::DECON_WIN_STATE_VRR_NORMALMODE;
+    }
+
+    win_config[DECON_WIN_UPDATE_IDX].dst.f_w = displayConfig.width;
+    win_config[DECON_WIN_UPDATE_IDX].dst.f_h = displayConfig.height;
+    win_config[DECON_WIN_UPDATE_IDX].plane_alpha = fps;
+    win_data.fps = fps;
+
+    HDEBUGLOGD(eDebugDisplayConfig, "(config %d, VRR 0x%x, fps %d): %dx%d",
+               config, win_config[DECON_WIN_UPDATE_IDX].state, fps,
+               displayConfig.width, displayConfig.height);
+#else
+    // For devices with multi-resolution support
     win_config[DECON_WIN_UPDATE_IDX].state = decon_win_config::DECON_WIN_STATE_MRESOL;
     win_config[DECON_WIN_UPDATE_IDX].dst.f_w = displayConfig.width;
     win_config[DECON_WIN_UPDATE_IDX].dst.f_h = displayConfig.height;
@@ -180,7 +210,7 @@ int32_t ExynosDisplayFbInterface::setActiveConfig(ExynosDisplay &exynosDisplay,
     HDEBUGLOGD(eDebugDisplayConfig, "(win_config %d) : %dx%d, fps:%d", config,
                win_config[DECON_WIN_UPDATE_IDX].dst.f_w,
                win_config[DECON_WIN_UPDATE_IDX].dst.f_h, win_data.fps);
-
+#endif
     ret = ioctl(mDisplayFd, S3CFB_WIN_CONFIG, &win_data);
 
     if (ret < 0) {
