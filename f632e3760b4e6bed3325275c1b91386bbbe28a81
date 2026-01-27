@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c24a37c2_8df003f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-01-27T12:51:33Z",
+      "side": 1,
+      "message": "```suggestion\nlibhwc2.1: exynos2100: DeconHeader: Adapt for decon_win_config_data extras\n```",
+      "revId": "f632e3760b4e6bed3325275c1b91386bbbe28a81",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
