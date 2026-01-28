@@ -69,6 +69,24 @@
       "message": "Yeah, I agree",
       "revId": "5abeb94f0e39454e0957f5a1d515da0196247c1c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb2ab71d_dc326545",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-01-28T06:44:31Z",
+      "side": 1,
+      "message": "You can pick https://review.lineageos.org/c/LineageOS/android_hardware_samsung_slsi-linaro_graphics/+/462586 fully.",
+      "parentUuid": "062eab52_0131a30b",
+      "revId": "5abeb94f0e39454e0957f5a1d515da0196247c1c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
