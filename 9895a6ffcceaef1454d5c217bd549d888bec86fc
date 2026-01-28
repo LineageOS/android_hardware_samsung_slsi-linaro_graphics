@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c50cd8f5_c09f07d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 34219
+      },
+      "writtenOn": "2026-01-28T09:40:49Z",
+      "side": 1,
+      "message": "Without this patch, HWC always sends DECON_WIN_STATE_MRESOL for all display\nconfiguration changes, including devices that only support variable refresh\nrate with a fixed resolution.\n\nOn such devices, refresh rate switches are interpreted as a mode change by\nthe kernel and get rejected, resulting in errors like:\n\n...\nI hwc-display: needChangeConfig, new config is set before previous config is applied (state: 2, desired: 0, requested: 1)\nI hwc-display: EXYNOS_GET_VSYNC_CHANGE_TIMELINE ioctl failed errno : 22\nI hwc-display: needChangeConfig, desired config is same with requested config : (desired : 0, requested : 0)\n....\n\nThis issue was previously handled by a kernel-side workaround that inferred\nthe VRR state from config_id in decon_set_vrr(). \nA similar kernel-side approach: https://github.com/ExtremeXT/android_kernel_samsung_universal9830/commit/fa7cca8cb24e501a0b5925c028a036e9f73216c5\n\nThis patch moves that logic to HWC and sends the correct VRR winconfig\nstates based on FPS for devices with fixed resolution displays. This avoids invalid MRESOL \nupdates and removes the need for kernel-side workarounds.\n\nIf a more appropriate solution is identified in the future, this change can be refined or replaced accordingly",
+      "revId": "9895a6ffcceaef1454d5c217bd549d888bec86fc",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
