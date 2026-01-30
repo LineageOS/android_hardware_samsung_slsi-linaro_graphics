@@ -51,6 +51,24 @@
       "message": "```suggestion\nlibhwc2.1: exynos2100: Define brightness paths\n```",
       "revId": "21fb977fe192442b1e006d5b76252a537dcb0178",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b617e56_12693ac8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 33569
+      },
+      "writtenOn": "2026-01-30T11:08:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3d5a181_69745d91",
+      "revId": "21fb977fe192442b1e006d5b76252a537dcb0178",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
