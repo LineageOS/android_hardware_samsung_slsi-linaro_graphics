@@ -185,8 +185,27 @@ int32_t ExynosDisplayFbInterface::setActiveConfig(ExynosDisplay &exynosDisplay,
         fps = 60;
     }
 
+    /*
+    * Select VRR mode from refresh rate and panel capability.
+    * HS mode is used for refresh rates above 60Hz.
+    * At 60Hz, PASSIVE is selected when higher refresh is supported, otherwise HS.
+    * Lower refresh rates use NORMAL mode.
+    */
     if (fps > 60) {
         win_config[DECON_WIN_UPDATE_IDX].state = decon_win_config::DECON_WIN_STATE_VRR_HSMODE;
+    } else if (fps == 60) {
+        bool supportsHighRefresh = false;
+        for (const auto& cfg : exynosDisplay.mDisplayConfigs) {
+            int cfgFps = (int)(1000000000 / cfg.second.vsyncPeriod);
+            if (cfgFps == 120) {
+                supportsHighRefresh = true;
+                break;
+            }
+        }
+        // Use PASSIVE for adaptive refresh, otherwise fixed 60Hz HS
+        win_config[DECON_WIN_UPDATE_IDX].state = supportsHighRefresh ? 
+                    decon_win_config::DECON_WIN_STATE_VRR_PASSIVEMODE : 
+                    decon_win_config::DECON_WIN_STATE_VRR_HSMODE;
     } else {
         win_config[DECON_WIN_UPDATE_IDX].state = decon_win_config::DECON_WIN_STATE_VRR_NORMALMODE;
     }
