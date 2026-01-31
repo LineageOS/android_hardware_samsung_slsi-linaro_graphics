@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fe2e248_63da1c4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-01-31T13:39:26Z",
+      "side": 1,
+      "message": "Changes in base/libhwc2.1/platform/exynos2100/DeconHeader.h should be a separate commit.\nCode quality -2, no need to duplicate so much.",
+      "revId": "74f50f8628428a48a5ea10a368849425c78e4a86",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
