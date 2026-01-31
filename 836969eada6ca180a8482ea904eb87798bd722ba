@@ -16,6 +16,23 @@
       "message": "Works fine with o1s.",
       "revId": "836969eada6ca180a8482ea904eb87798bd722ba",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49482468_8ea363d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-01-31T13:41:28Z",
+      "side": 1,
+      "message": "And the PHS modes should be used for 60 and lower instead of NS, otherwise you will get display \"flickering\" due to gamma changes.",
+      "revId": "836969eada6ca180a8482ea904eb87798bd722ba",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
