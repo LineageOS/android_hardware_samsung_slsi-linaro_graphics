@@ -169,13 +169,20 @@ int32_t ExynosDisplayFbInterface::setActiveConfig(ExynosDisplay &exynosDisplay,
     /* Use win_config ioctl */
     struct decon_win_config_data win_data;
     struct decon_win_config *win_config = win_data.config;
+    int fps = 1000000000 / displayConfig.vsyncPeriod;
     memset(&win_data, 0, sizeof(win_data));
 
-    win_config[DECON_WIN_UPDATE_IDX].state = decon_win_config::DECON_WIN_STATE_MRESOL;
+    if (fps > 60) {
+        win_config[DECON_WIN_UPDATE_IDX].state = decon_win_config::DECON_WIN_STATE_VRR_HSMODE;
+    }
+    else {
+        // OneUI uses PHS modes for VRR to avoid gamma changes causing flickering.
+        win_config[DECON_WIN_UPDATE_IDX].state = decon_win_config::DECON_WIN_STATE_VRR_PASSIVEMODE;
+    }
     win_config[DECON_WIN_UPDATE_IDX].dst.f_w = displayConfig.width;
     win_config[DECON_WIN_UPDATE_IDX].dst.f_h = displayConfig.height;
-    win_config[DECON_WIN_UPDATE_IDX].plane_alpha = (int)(1000000000 / displayConfig.vsyncPeriod);
-    win_data.fps = (int)(1000000000 / displayConfig.vsyncPeriod);
+    win_config[DECON_WIN_UPDATE_IDX].plane_alpha = fps;
+    win_data.fps = fps;
 
     HDEBUGLOGD(eDebugDisplayConfig, "(win_config %d) : %dx%d, fps:%d", config,
                win_config[DECON_WIN_UPDATE_IDX].dst.f_w,
