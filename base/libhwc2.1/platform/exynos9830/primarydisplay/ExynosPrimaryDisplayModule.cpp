@@ -15,14 +15,11 @@
  */
 
 #include <hardware/hardware.h>
-#include <hidl/HidlSupport.h>
-#include <android/hardware/power/1.0/IPower.h>
 #include "ExynosPrimaryDisplayModule.h"
 #include "ExynosHWCDebug.h"
 #include "ExynosLayer.h"
 #include "ExynosGraphicBuffer.h"
 
-using android::hardware::power::V1_0::IPower;
 using namespace vendor::graphics;
 
 ExynosPrimaryDisplayModule::ExynosPrimaryDisplayModule(DisplayIdentifier node)
