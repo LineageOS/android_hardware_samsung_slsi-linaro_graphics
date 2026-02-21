@@ -18,21 +18,11 @@
 #define EXYNOS_DEVICE_MODULE_H
 
 #include "ExynosDevice.h"
-#include "CpuPerfInfo.h"
 
 class ExynosDeviceModule : public ExynosDevice {
     public:
         ExynosDeviceModule();
         virtual ~ExynosDeviceModule();
-        virtual bool supportPerformaceAssurance() {
-            /* TODO : This feature support only 120hz display */
-#ifdef USES_HWC_CPU_PERF_MODE
-            return true;
-#else
-            return false;
-#endif
-        };
-        virtual void setCPUClocksPerCluster(uint32_t fps);
 };
 
 #endif

@@ -15,22 +15,9 @@
  */
 
 #include "ExynosDeviceModule.h"
-#include "ExynosDisplay.h"
-#include <cutils/properties.h>
 
 ExynosDeviceModule::ExynosDeviceModule() {
 }
 
 ExynosDeviceModule::~ExynosDeviceModule() {
-}
-
-void ExynosDeviceModule::setCPUClocksPerCluster(uint32_t fps) {
-
-    for (uint32_t i = 0; i < cpuPropTable.size(); i++) {
-        long cl_min_handle = mEPICRequestFcnPtr(cpuPropTable[i].minLockId);
-        mEPICAcquireOptionFcnPtr(cl_min_handle, perfTable[fps].minClock[i], 0);
-        ALOGI("CPU set : Cluster(%d), min_clock(%d)", i, perfTable[fps].minClock[i]);
-    }
-
-    return;
 }
