@@ -16,6 +16,23 @@
       "message": "Composition types other than device (e.g. solid color, cursor) should be tested before merging.",
       "revId": "51d217c5dc92481a243d61fea2fe8cd61d9a5334",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4482df0_76377515",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 28935
+      },
+      "writtenOn": "2026-05-16T12:47:05Z",
+      "side": 1,
+      "message": "this fixes blur and nightlight for activities with transparent background and window blur behind active\ntested on gta4xlswifi",
+      "revId": "51d217c5dc92481a243d61fea2fe8cd61d9a5334",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
