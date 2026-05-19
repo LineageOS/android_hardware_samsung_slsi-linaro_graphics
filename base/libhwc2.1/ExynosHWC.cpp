@@ -682,8 +682,10 @@ int32_t exynos_setLayerPlaneAlpha(hwc2_device_t *dev, hwc2_display_t display,
         ExynosDisplay *exynosDisplay = checkDisplay(exynosDevice, display);
         if (exynosDisplay) {
             ExynosLayer *exynosLayer = checkLayer(exynosDisplay, layer);
-            if (exynosLayer)
-                return exynosLayer->setLayerPlaneAlpha(alpha);
+            if (exynosLayer) {
+                uint64_t geometryFlag = 0;
+                return exynosLayer->setLayerPlaneAlpha(alpha, geometryFlag);
+           }
         }
     }
 
