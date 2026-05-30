@@ -51,57 +51,19 @@ uint32_t ExynosMPPModule::getDstWidthAlign(struct exynos_image &dst)
 
 bool ExynosMPPModule::isSupportedCompression(struct exynos_image &src)
 {
+    if (src.compressionInfo.type == COMP_TYPE_AFBC) {
+       return false;
+    }
     /* TODO : add 4K, 2K restriction here for DPPs */
     return ExynosMPP::isSupportedCompression(src);
 }
 
 bool ExynosMPPModule::isSupportedTransform(struct exynos_image &src)
 {
-    switch (mPhysicalType)
-    {
-    case MPP_MSC:
-    case MPP_G2D:
-        return true;
-    case MPP_DPP_G:
-    case MPP_DPP_GF:
-    case MPP_DPP_VG:
-    case MPP_DPP_VGS:
-    case MPP_DPP_VGF:
-    case MPP_DPP_VGFS:
-        /* If it's not a roatation, flip is allowed */
-        if ((src.transform & HAL_TRANSFORM_ROT_90) == 0)
-        {
-            /* but flip is not allowed for SBWC */
-            if (((src.exynosFormat.isSBWC()) || (src.compressionInfo.type == COMP_TYPE_SBWC))
-                && (src.transform != 0)) {
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return false;
-        }
-    case MPP_DPP_VGRFS:
-        /* Flip is not allowed for SBWC. but rotation is allowed. */
-        if ((src.transform & HAL_TRANSFORM_ROT_90) == 0) {
-            if (((src.exynosFormat.isSBWC()) || (src.compressionInfo.type == COMP_TYPE_SBWC))
-                && (src.transform != 0)) {
-                return false;
-            }
-        }
-        if (src.exynosFormat.isYUV420()) {
-            return true;
-        } else { /* RGB case */
-            if ((src.transform & HAL_TRANSFORM_ROT_90) == 0)
-            {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    default:
-            return true;
+    if ((src.exynosFormat == COMP_TYPE_SAJC) && (src.transform & HAL_TRANSFORM_ROT_90)) {
+        return false;
     }
+    return ExynosMPP::isSupportedTransform(src);
 }
 
 uint32_t ExynosMPPModule::getSrcMaxCropSize(struct exynos_image &src)
