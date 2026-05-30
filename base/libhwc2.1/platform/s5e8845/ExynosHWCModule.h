@@ -22,19 +22,20 @@
 #include "ExynosHWCHelper.h"
 
 #define VSYNC_DEV_PREFIX    "/sys/devices/platform/"
-#define DECON_DRM_NODE     "/dev/dri/card0"
-#define PSR_DEV_NAME        "19f00000.decon_0/psr_info"
-#define USE_DPU_SET_CONFIG
+#define DECON_DRM_NODE     "/dev/dri/card1"
+#define PSR_DEV_NAME        "14940000.decon_0/psr_info"
 
-#define HIBER_EXIT_NODE_NAME    "/sys/devices/platform/19f00000.drmdecon/hiber_exit"
+#define HIBER_EXIT_NODE_NAME    "/sys/devices/platform/14940000.drmdecon/hiber_exit"
 #define BRIGHTNESS_NODE_BASE    "/sys/class/backlight/panel/brightness"
 #define MAX_BRIGHTNESS_NODE_BASE    "/sys/class/backlight/panel/max_brightness"
 
-#define DP_LINK_NAME        "10ab0000.displayport"
+#define DP_LINK_NAME        "120b0000.displayport"
 #define DP_UEVENT_NAME      "change@/devices/platform/%s/extcon/extcon0"
 #define DP_CABLE_STATE_NAME "/sys/devices/platform/%s/extcon/extcon0/cable.%d/state"
 
 #define IDMA(x) static_cast<decon_idma_type>(x)
+
+#define USE_DPU_SET_CONFIG
 
 #define DEFAULT_MPP_DST_YUV_FORMAT HAL_PIXEL_FORMAT_EXYNOS_YCbCr_420_SPN_SBWC
 #define MSC_CLOCK   800000
