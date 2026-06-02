@@ -51,7 +51,14 @@ struct exynos_mpp_t {
     uint32_t pre_assign_info;
 };
 
-const dpp_channel_map_t IDMA_CHANNEL_MAP[] = {};
+const dpp_channel_map_t IDMA_CHANNEL_MAP[] = {
+    {MPP_DPP_G,     0, IDMA_G0,    IDMA(0)},
+    {MPP_DPP_G,     1, IDMA_G1,    IDMA(1)},
+    {MPP_DPP_VG,    0, IDMA_VG0,   IDMA(2)},
+    {MPP_DPP_VG,    1, IDMA_VG1,   IDMA(3)},
+    {MPP_DPP_VGFS,  0, IDMA_VGF0,  IDMA(4)},
+    {MPP_DPP_VGRFS, 0, IDMA_VGRF0, IDMA(5)},
+};
 
 #define MAX_NAME_SIZE   32
 struct exynos_display_t {
