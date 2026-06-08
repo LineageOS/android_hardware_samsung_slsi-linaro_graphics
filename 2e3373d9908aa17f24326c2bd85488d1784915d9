@@ -22,6 +22,30 @@
       },
       "revId": "2e3373d9908aa17f24326c2bd85488d1784915d9",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b2fe6e6_cda85b61",
+        "filename": "base/libhwc2.1/display/ExynosDrmFramebufferManager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 24387
+      },
+      "writtenOn": "2026-06-08T05:50:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a3e993d_a97b04d4",
+      "range": {
+        "startLine": 327,
+        "startChar": 69,
+        "endLine": 327,
+        "endChar": 73
+      },
+      "revId": "2e3373d9908aa17f24326c2bd85488d1784915d9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
