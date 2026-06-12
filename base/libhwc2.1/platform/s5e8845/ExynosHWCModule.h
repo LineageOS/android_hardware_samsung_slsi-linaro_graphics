@@ -35,8 +35,6 @@
 
 #define IDMA(x) static_cast<decon_idma_type>(x)
 
-#define USE_DPU_SET_CONFIG
-
 #define DEFAULT_MPP_DST_YUV_FORMAT HAL_PIXEL_FORMAT_EXYNOS_YCbCr_420_SPN_SBWC
 #define MSC_CLOCK   800000
 
