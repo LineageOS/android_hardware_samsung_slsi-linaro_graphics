@@ -38,10 +38,6 @@ ExynosMPPModule::~ExynosMPPModule()
 {
 }
 
-void ExynosMPPModule::initTDMInfo(uint32_t hwBlockIndex, uint32_t axiPortIndex) {
-    mHWBlockId = hwBlockIndex;
-    mAXIPortId = axiPortIndex;
-}
 
 uint32_t ExynosMPPModule::getDstWidthAlign(struct exynos_image &dst)
 {
