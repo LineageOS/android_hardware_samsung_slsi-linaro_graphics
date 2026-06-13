@@ -18,6 +18,24 @@
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30d2abf2_8737a57c",
+        "filename": "base/libhwc2.1/platform/s5e8845/resources/ExynosMPPModule.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 37184
+      },
+      "writtenOn": "2026-06-13T05:14:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb4c04b0_9fc15001",
+      "revId": "60111d798fed33f9239ebe8baa38b742b312a80d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4ca9ceb_054e278c",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-12T20:58:53Z",
       "side": 1,
       "message": "Remove extra spaces",
+      "revId": "60111d798fed33f9239ebe8baa38b742b312a80d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d05d91e1_423f2eb6",
+        "filename": "base/libhwc2.1/platform/s5e8845/resources/ExynosMPPModule.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 37184
+      },
+      "writtenOn": "2026-06-13T05:14:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4ca9ceb_054e278c",
       "revId": "60111d798fed33f9239ebe8baa38b742b312a80d",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
