@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c24979e_b8519517",
+        "filename": "base/libhwc2.1/platform/s5e8845/ExynosHWCModule.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-07-04T14:20:29Z",
+      "side": 1,
+      "message": "```suggestion\n```\n\nRedundant on DRM",
+      "revId": "f24bf34a312f98fdc1ce7ff0f99ccd1166fa138d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84b70863_869301b7",
         "filename": "base/libhwc2.1/platform/s5e8845/resources/ExynosMPPModule.cpp",
         "patchSetId": 2
