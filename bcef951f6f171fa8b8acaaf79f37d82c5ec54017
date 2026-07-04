@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4119ad26_215e48e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-07-04T14:22:46Z",
+      "side": 1,
+      "message": "Squash into \"Adapt to s5e8845\" as commented there",
+      "revId": "bcef951f6f171fa8b8acaaf79f37d82c5ec54017",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
