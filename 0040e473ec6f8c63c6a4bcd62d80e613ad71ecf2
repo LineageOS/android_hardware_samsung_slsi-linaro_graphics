@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a18bb9de_1e1e9a34",
+        "filename": "base/libhwc2.1/platform/s5e8845/ExynosHWCModule.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-07-04T14:22:23Z",
+      "side": 1,
+      "message": "```suggestion\n    {MPP_DPP_G,      0, IDMA_G0,     IDMA(L0)},\n```",
+      "revId": "0040e473ec6f8c63c6a4bcd62d80e613ad71ecf2",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38b97dce_b4ead3ec",
+        "filename": "base/libhwc2.1/platform/s5e8845/ExynosHWCModule.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-07-04T14:22:23Z",
+      "side": 1,
+      "message": "```suggestion\n    {MPP_P_TYPE_MAX, 0, ODMA_WB,     IDMA(WB)}, // not idma but..\n```",
+      "revId": "0040e473ec6f8c63c6a4bcd62d80e613ad71ecf2",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "437bd2bf_cce612b2",
+        "filename": "base/libhwc2.1/platform/s5e8845/ExynosHWCModule.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-07-04T14:22:23Z",
+      "side": 1,
+      "message": "Make elements of this array the same order as in IDMA_CHANNEL_MAP",
+      "revId": "0040e473ec6f8c63c6a4bcd62d80e613ad71ecf2",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
