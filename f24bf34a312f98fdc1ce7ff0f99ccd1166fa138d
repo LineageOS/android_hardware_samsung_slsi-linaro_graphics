@@ -16,6 +16,40 @@
       "message": "```suggestion\nlibhwc2.1: s5e8845: Adapt to s5e8845\n\n* Reverse engineered from A556E...\n```",
       "revId": "f24bf34a312f98fdc1ce7ff0f99ccd1166fa138d",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84b70863_869301b7",
+        "filename": "base/libhwc2.1/platform/s5e8845/resources/ExynosMPPModule.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-07-04T14:18:18Z",
+      "side": 1,
+      "message": "```suggestion\n    }\n```",
+      "revId": "f24bf34a312f98fdc1ce7ff0f99ccd1166fa138d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84b9f3d7_4dbb6ddf",
+        "filename": "base/libhwc2.1/platform/s5e8845/resources/ExynosMPPModule.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-07-04T14:18:18Z",
+      "side": 1,
+      "message": "```suggestion\n    /* TODO : add 4K, 2K restriction here for DPPs */\n```",
+      "revId": "f24bf34a312f98fdc1ce7ff0f99ccd1166fa138d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
