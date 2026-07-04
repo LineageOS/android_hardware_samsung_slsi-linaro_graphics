@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fd908c8_b019e77c",
+        "filename": "base/libhwc2.1/platform/s5e8845/device/ExynosResourceManagerModule.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-07-04T14:59:47Z",
+      "side": 1,
+      "message": "```suggestion\n\n```",
+      "revId": "faeecf4bc5170dfbaee9ac32536353c91afe3914",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
