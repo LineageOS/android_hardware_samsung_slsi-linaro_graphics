@@ -197,7 +197,7 @@ struct dpp_restriction {
     u32 blk_x_align;
     u32 blk_y_align;
     u32 src_h_rot_max;
-    //u32 src_w_rot_max;
+    u32 src_w_rot_max;
     u32 format[MAX_FMT_CNT];
     int format_cnt;
     u32 scale_down;

@@ -202,7 +202,7 @@ void ExynosDeviceDrmInterface::setDppChannelRestriction(struct dpp_ch_restrictio
     common_restriction.restriction.blk_x_align = drm_restriction.restriction.blk_x_align;
     common_restriction.restriction.blk_y_align = drm_restriction.restriction.blk_y_align;
     common_restriction.restriction.src_h_rot_max = drm_restriction.restriction.src_h_rot_max;
-    //common_restriction.restriction.src_w_rot_max = drm_restriction.restriction.src_w_rot_max;
+    common_restriction.restriction.src_w_rot_max = drm_restriction.restriction.src_w_rot_max;
     common_restriction.restriction.scale_down = drm_restriction.restriction.scale_down;
     common_restriction.restriction.scale_up = drm_restriction.restriction.scale_up;
     common_restriction.restriction.format_cnt = 0;
@@ -276,7 +276,7 @@ void ExynosDeviceDrmInterface::setDppChannelRestriction(struct dpp_ch_restrictio
     common_restriction.restriction.blk_x_align = u32_values[DPU_RES_BLK_X_ALIGN];
     common_restriction.restriction.blk_y_align = u32_values[DPU_RES_BLK_Y_ALIGN];
     common_restriction.restriction.src_h_rot_max = u32_values[DPU_RES_SRC_H_ROT_MAX];
-    //common_restriction.restriction.src_w_rot_max = u32_values[DPU_RES_SRC_W_ROT_MAX];
+    common_restriction.restriction.src_w_rot_max = u32_values[DPU_RES_SRC_W_ROT_MAX];
     common_restriction.restriction.scale_down = u32_values[DPU_RES_SCALE_DOWN];
     common_restriction.restriction.scale_up = u32_values[DPU_RES_SCALE_UP];
     common_restriction.restriction.format_cnt = 0;
