@@ -53,6 +53,9 @@ cc_binary {
     }) + select(soong_config_variable("exynos_hwc", "USE_NOT_RESERVED_FIELD"), {
         true: ["-DUSE_NOT_RESERVED_FIELD"],
         default: [],
+    }) + select(soong_config_variable("openmax", "USE_FULL_ST2094_40"), {
+        true: ["-DUSE_FULL_ST2094_40"],
+        default: [],
     }),
 
     shared_libs: [
