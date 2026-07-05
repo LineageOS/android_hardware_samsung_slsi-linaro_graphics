@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c90718fd_77c05a97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 24387
+      },
+      "writtenOn": "2026-07-05T21:36:52Z",
+      "side": 1,
+      "message": "Actually this can be uncommented as it is supported on 9925 and 9945 , but it is not on fb devices. but exynoscommonheader is common... so we need some ideas to make it coexist.",
+      "revId": "eb593cb549e4dfa08f8d87ebc9d591283a8d3444",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
