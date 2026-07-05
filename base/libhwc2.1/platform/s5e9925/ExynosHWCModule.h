@@ -48,6 +48,8 @@
 
 #define VOTF_BUF_INDEX_MAX 15
 
+#define HAS_FINGERPRINT_MASK_LAYER
+
 typedef enum assignOrderType {
     ORDER_SAJC,
     ORDER_WCG,
