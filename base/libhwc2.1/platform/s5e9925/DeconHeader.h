@@ -118,6 +118,7 @@ struct decon_win_config {
     DECON_WIN_STATE_CURSOR,
     DECON_WIN_STATE_BUFFER_LIBREQ,
     DECON_WIN_STATE_MRESOL = 0x10000,
+    DECON_WIN_STATE_FINGERPRINT = 0x30000,
   } state;
   union {
     __u32 color;
