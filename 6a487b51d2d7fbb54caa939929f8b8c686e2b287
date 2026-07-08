@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc8c8d92_b4811013",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 24387
+      },
+      "writtenOn": "2026-07-08T22:48:20Z",
+      "side": 1,
+      "message": "I slightly modified this patch. I removed the inclusion of deconcommonheader in the drm one. Then I dropped the 17th layer as it is round corner layer and needs to be threated separately, reference here: \nhttps://github.com/search?q\u003drepo%3ALineageOS%2Fandroid_hardware_google_graphics_common+RCD\u0026type\u003dcommits\u0026s\u003dcommitter-date\u0026o\u003dasc\nI think we need at least the first 2 commits, but i think porting them is too heavy.. To avoid hwc error it is possible to disable the RCD layer with this small patch: https://github.com/fcuzzocrea/android_kernel_samsung_s5e9945/commit/7e27601be91187e328a79e2a4ab6337805ca9409",
+      "revId": "6a487b51d2d7fbb54caa939929f8b8c686e2b287",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
