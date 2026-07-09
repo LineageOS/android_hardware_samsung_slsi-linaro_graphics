@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f389953_8d1c875d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-07-09T11:29:36Z",
+      "side": 1,
+      "message": "```suggestion\nlibhwc2.1: s5e9945: Set stock ppc_table_map\n```",
+      "revId": "0c28340fb9bbbb5a28323f2421cb5c829e425495",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
