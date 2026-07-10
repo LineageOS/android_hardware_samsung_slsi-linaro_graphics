@@ -34,6 +34,24 @@
       "parentUuid": "0f389953_8d1c875d",
       "revId": "0c28340fb9bbbb5a28323f2421cb5c829e425495",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc0c4e2b_7f77329e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 24387
+      },
+      "writtenOn": "2026-07-10T07:48:09Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "0f389953_8d1c875d",
+      "revId": "0c28340fb9bbbb5a28323f2421cb5c829e425495",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
