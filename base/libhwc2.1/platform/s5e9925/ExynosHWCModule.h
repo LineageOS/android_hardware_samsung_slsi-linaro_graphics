@@ -22,7 +22,7 @@
 #include "ExynosHWCHelper.h"
 
 #define VSYNC_DEV_PREFIX    "/sys/devices/platform/"
-#define DECON_DRM_NODE     "/dev/dri/card0"
+#define DECON_DRM_NODE     "/dev/dri/card1"
 #define PSR_DEV_NAME        "19f00000.decon_0/psr_info"
 
 #define HIBER_EXIT_NODE_NAME    "/sys/devices/platform/19f00000.drmdecon/hiber_exit"
