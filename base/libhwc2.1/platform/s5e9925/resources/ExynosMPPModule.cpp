@@ -224,10 +224,8 @@ bool ExynosMPPModule::scaleAllowedByDPPPerformance(DisplayInfo &display, struct 
     float vppResolClockFactor = fps * VPP_MARGIN;
     float resolClock = displayW * displayH * vppResolClockFactor;
 
-    if ((mPhysicalType == MPP_DPP_VGS) ||
-        (mPhysicalType == MPP_DPP_VGFS) ||
-        (mPhysicalType == MPP_DPP_VGRFS)) {
-        if (scaleRatio_H > 2 || scaleRatio_V > 2) {
+    if (mAttr & MPP_ATTR_SCALE) {
+        if ((scaleRatio_H > 2 || scaleRatio_V > 2)) {
             if ((float)VPP_CLOCK < ((resolClock * scaleRatio_H * scaleRatio_V * VPP_DISP_FACTOR)/VPP_PIXEL_PER_CLOCK))
                 return false;
         } else {
