@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e6b0b50_24b6dc1f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 36705
+      },
+      "writtenOn": "2026-07-26T20:09:39Z",
+      "side": 1,
+      "message": "```suggestion\nlibhwc2.1: s5e9925: Correct DECON_DRM_NODE\n```\nto match previous commits in this directory",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "9b9a7df768ce45d5caabc57f6d62d16315f24581",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
