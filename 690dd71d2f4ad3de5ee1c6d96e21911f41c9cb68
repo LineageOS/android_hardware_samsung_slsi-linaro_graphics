@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8c27211_0b978391",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 36705
+      },
+      "writtenOn": "2026-07-26T20:09:16Z",
+      "side": 1,
+      "message": "```suggestion\nlibhwc2.1: s5e9925: Correct virtual display interface class\n```\nto match previous commits in this directory",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "690dd71d2f4ad3de5ee1c6d96e21911f41c9cb68",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
