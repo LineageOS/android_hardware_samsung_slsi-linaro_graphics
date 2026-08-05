@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90847f08_4878eec0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 36705
+      },
+      "writtenOn": "2026-08-05T16:14:14Z",
+      "side": 1,
+      "message": "Uh sorry, I need to change-id to avoid this then",
+      "revId": "d2e5a6cb13d13d99c10223d3303dee8fbeb3be6d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
