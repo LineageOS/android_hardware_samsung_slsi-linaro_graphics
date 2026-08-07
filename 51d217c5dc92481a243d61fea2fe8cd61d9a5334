@@ -33,6 +33,23 @@
       "message": "this fixes blur and nightlight for activities with transparent background and window blur behind active\ntested on gta4xlswifi",
       "revId": "51d217c5dc92481a243d61fea2fe8cd61d9a5334",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fd046a5_2023abfa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-08-07T11:52:45Z",
+      "side": 1,
+      "message": "Change owner approved comment resolvation in private.",
+      "revId": "51d217c5dc92481a243d61fea2fe8cd61d9a5334",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
