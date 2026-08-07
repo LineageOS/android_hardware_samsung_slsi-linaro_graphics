@@ -50,6 +50,24 @@
       "message": "Change owner approved comment resolvation in private.",
       "revId": "51d217c5dc92481a243d61fea2fe8cd61d9a5334",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cde17e78_14a061f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-08-07T11:52:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51a9d70a_17bc1d92",
+      "revId": "51d217c5dc92481a243d61fea2fe8cd61d9a5334",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
