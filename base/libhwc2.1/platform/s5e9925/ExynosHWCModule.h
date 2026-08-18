@@ -22,7 +22,6 @@
 #include "ExynosHWCHelper.h"
 
 #define VSYNC_DEV_PREFIX    "/sys/devices/platform/"
-#define DECON_DRM_NODE     "/dev/dri/card1"
 #define PSR_DEV_NAME        "19f00000.decon_0/psr_info"
 
 #define HIBER_EXIT_NODE_NAME    "/sys/devices/platform/19f00000.drmdecon/hiber_exit"
@@ -315,9 +314,9 @@ const exynos_mpp_t AVAILABLE_M2M_MPP_UNITS[] = {
      3. For the process about preassigning OTFMPP resources, display that do not use DPU like as virtual display
         should be alligned at the end. */
 const exynos_display_t AVAILABLE_DISPLAY_UNITS[] = {
-    {HWC_DISPLAY_PRIMARY, 0, "PrimaryDisplay",      DECON_DRM_NODE, ""},
-    {HWC_DISPLAY_EXTERNAL, 0, "ExternalDisplay",    DECON_DRM_NODE, ""},
-    {HWC_DISPLAY_VIRTUAL, 0, "VirtualDisplay", DECON_DRM_NODE, ""},
+    {HWC_DISPLAY_PRIMARY, 0, "PrimaryDisplay",      "0", ""},
+    {HWC_DISPLAY_EXTERNAL, 0, "ExternalDisplay",    "1", ""},
+    {HWC_DISPLAY_VIRTUAL, 0, "VirtualDisplay", "2", ""},
 };
 
 #define DISPLAY_COUNT sizeof(AVAILABLE_DISPLAY_UNITS)/sizeof(exynos_display_t)
