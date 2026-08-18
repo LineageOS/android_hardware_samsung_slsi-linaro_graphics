@@ -373,12 +373,12 @@ typedef struct HWResourceAmounts {
  * Primary amount = total - others */
 
 const std::map<HWResourceIndexes, HWResourceAmounts_t> HWResourceTables = {
-    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 40}},
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, HWC_DISPLAY_PRIMARY),  {40, 80}},
     {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, HWC_DISPLAY_EXTERNAL), {40, 80}},
     {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF0, HWC_DISPLAY_VIRTUAL),  {40, 80}},
     {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, HWC_DISPLAY_PRIMARY),  {40, 80}},
-    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, HWC_DISPLAY_EXTERNAL), {0, 80}},
-    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, HWC_DISPLAY_VIRTUAL),  {0, 80}},
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, HWC_DISPLAY_EXTERNAL), {40, 80}},
+    {HWResourceIndexes(TDM_ATTR_SRAM_AMOUNT, DPUF1, HWC_DISPLAY_VIRTUAL),  {40, 80}},
 
     {HWResourceIndexes(TDM_ATTR_SCALE, DPUF0, HWC_DISPLAY_PRIMARY),  {0, 2}},
     {HWResourceIndexes(TDM_ATTR_SCALE, DPUF0, HWC_DISPLAY_EXTERNAL), {2, 2}},
