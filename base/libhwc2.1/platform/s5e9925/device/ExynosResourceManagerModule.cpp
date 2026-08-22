@@ -40,6 +40,12 @@ ExynosResourceManagerModule::ExynosResourceManagerModule()
 
     for (uint32_t i = 0; i < sizeof(product_layerAttributePriority)/sizeof(product_layerAttributePriority[0]); i++)
         mLayerAttributePriority.add(product_layerAttributePriority[i]);
+
+    for (size_t i = 0; i < mOtfMPPs.size(); i++) {
+        exynos_mpp_t exynos_mpp = AVAILABLE_OTF_MPP_UNITS[i];
+        ExynosMPPModule *exynosMPP = static_cast<ExynosMPPModule *>(mOtfMPPs[i]);
+        exynosMPP->initTDMInfo(exynos_mpp.hw_block_index, exynos_mpp.axi_port_index);
+    }
 }
 
 ExynosResourceManagerModule::~ExynosResourceManagerModule()
