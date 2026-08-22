@@ -16,6 +16,24 @@
       "message": "Don\u0027t you get this info from the driver?",
       "revId": "5df722aa539e8b0399ed013f499b42c3695d2333",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f78bde1_b9198d2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-08-22T22:38:01Z",
+      "side": 1,
+      "message": "This call sets mHWBlockId and mAXIPortId for base/libhwc2.1/platform/s5e9925/resources/ExynosMPPModule.cpp to use.",
+      "parentUuid": "dbfe1e39_7587f372",
+      "revId": "5df722aa539e8b0399ed013f499b42c3695d2333",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ],
   "submitRequirementResults": [
