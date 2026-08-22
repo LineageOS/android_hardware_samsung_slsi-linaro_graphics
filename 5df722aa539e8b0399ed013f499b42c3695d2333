@@ -34,6 +34,24 @@
       "parentUuid": "dbfe1e39_7587f372",
       "revId": "5df722aa539e8b0399ed013f499b42c3695d2333",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07cca589_4ddfc0eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 34207
+      },
+      "writtenOn": "2026-08-22T22:40:34Z",
+      "side": 1,
+      "message": "Yeah, but don\u0027t you get those from the driver too? 9945 does, for example. And isn\u0027t this incompatible with all devices that don\u0027t define those fields in their hwcmodule header?",
+      "parentUuid": "7f78bde1_b9198d2a",
+      "revId": "5df722aa539e8b0399ed013f499b42c3695d2333",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ],
   "submitRequirementResults": [
