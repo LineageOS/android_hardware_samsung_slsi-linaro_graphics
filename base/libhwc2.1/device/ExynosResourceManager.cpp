@@ -125,7 +125,6 @@ ExynosResourceManager::ExynosResourceManager() {
         ExynosMPP *exynosMPP = new ExynosMPPModule(exynos_mpp.physicalType,
                                                    exynos_mpp.logicalType, exynos_mpp.name, exynos_mpp.physical_index,
                                                    exynos_mpp.logical_index, exynos_mpp.pre_assign_info, MPP_TYPE_OTF);
-        exynosMPP->initTDMInfo(exynos_mpp.hw_block_index, exynos_mpp.axi_port_index);
         mOtfMPPs.add(exynosMPP);
         if (exynosMPP->isVirtual8KOtf())
             mVirtualMPPNum++;
