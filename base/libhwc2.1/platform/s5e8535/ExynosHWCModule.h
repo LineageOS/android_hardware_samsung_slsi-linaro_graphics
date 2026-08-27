@@ -148,9 +148,8 @@ const exynos_mpp_t AVAILABLE_M2M_MPP_UNITS[] = {
      3. For the process about preassigning OTFMPP resources, display that do not use DPU like as virtual display
         should be alligned at the end. */
 const exynos_display_t AVAILABLE_DISPLAY_UNITS[] = {
-    {HWC_DISPLAY_PRIMARY, 0, "PrimaryDisplay", "/dev/dri/card0", ""},
-    {HWC_DISPLAY_EXTERNAL, 0, "ExternalDisplay", "/dev/dri/card0", ""},
-    {HWC_DISPLAY_VIRTUAL, 0, "VirtualDisplay", "/dev/dri/card0", ""},
+    {HWC_DISPLAY_PRIMARY, 0, "PrimaryDisplay", "0", ""},
+    {HWC_DISPLAY_VIRTUAL, 0, "VirtualDisplay", "1", ""},
 };
 
 #define DISPLAY_COUNT sizeof(AVAILABLE_DISPLAY_UNITS)/sizeof(exynos_display_t)
