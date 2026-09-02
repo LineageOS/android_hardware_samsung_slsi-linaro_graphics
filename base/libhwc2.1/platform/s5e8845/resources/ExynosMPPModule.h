@@ -18,8 +18,6 @@
 
 #include "ExynosMPP.h"
 
-#define MAX_DPP_ROT_SRC_SIZE (3840*2160)
-
 class ExynosMPPModule : public ExynosMPP {
     public:
         ExynosMPPModule(uint32_t physicalType, uint32_t logicalType, const char *name,
@@ -27,21 +25,10 @@ class ExynosMPPModule : public ExynosMPP {
         ~ExynosMPPModule();
 
         virtual bool isSupportedTransform(struct exynos_image &src);
-        virtual bool isSupportedCompression(struct exynos_image &src);
         virtual uint32_t getDstWidthAlign(struct exynos_image &dst);
-        virtual uint32_t getSrcMaxCropSize(struct exynos_image &src);
-        virtual uint32_t getSrcMaxCropHeight(struct exynos_image &src);
+        virtual uint32_t getSrcMaxCropWidth(struct exynos_image &src);
         virtual bool hasEnoughCapa(DisplayInfo &display, struct exynos_image &src,
                 struct exynos_image &dst, float totalUsedCapa) override;
-        virtual bool isSupportedCapability(DisplayInfo &display,
-                struct exynos_image &src) override;
-        virtual int32_t setVotfLayerData(exynos_mpp_img_info *srcImgInfo);
-        virtual bool canUseVotf(struct exynos_image &src) override;
-        virtual uint32_t getMaxDownscale(DisplayInfo &display,
-                struct exynos_image &src, struct exynos_image &dst) override;
-        virtual bool isCapacityExceptionCondition(float totalUsedCapacity, float requiredCapacity, struct exynos_image &src);
-        virtual bool scaleAllowedByDPPPerformance(DisplayInfo &display,
-                struct exynos_image &src, struct exynos_image &dst) override;
 };
 
 #endif
