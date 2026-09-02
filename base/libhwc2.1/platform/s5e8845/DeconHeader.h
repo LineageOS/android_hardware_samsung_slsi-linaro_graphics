@@ -61,20 +61,12 @@ struct decon_rect {
 };
 enum decon_idma_type {
   IDMA_GF0 = 0,
-  IDMA_GF1,
-  IDMA_GF2,
-  IDMA_GF3,
-  IDMA_GF4,
-  IDMA_GF5,
-  IDMA_GF6,
-  IDMA_GF7,
-  IDMA_VGFS0,
-  IDMA_VGFS1,
-  IDMA_VGFS2,
-  IDMA_VGFS3,
   IDMA_VGRFS0,
+  IDMA_GF1,
   IDMA_VGRFS1,
+  IDMA_GF2,
   IDMA_VGRFS2,
+  IDMA_GF3,
   IDMA_VGRFS3,
   ODMA_WB,
   MAX_DECON_DMA_TYPE,
@@ -141,9 +133,6 @@ struct decon_win_config {
   bool protection;
   bool compression;
   int plane_alpha;
-  /* vOTF */
-  bool votf_en;
-  u32 hwfc_buf_idx;
 };
 struct decon_win_config_data {
   int present_fence;
