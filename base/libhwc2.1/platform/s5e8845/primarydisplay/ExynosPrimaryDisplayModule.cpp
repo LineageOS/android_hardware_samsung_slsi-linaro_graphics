@@ -28,28 +28,3 @@ ExynosPrimaryDisplayModule::ExynosPrimaryDisplayModule(DisplayIdentifier node)
 
 ExynosPrimaryDisplayModule::~ExynosPrimaryDisplayModule () {
 }
-
-int32_t ExynosPrimaryDisplayModule::validateWinConfigData()
-{
-    if (mDisplayConfigPending) {
-        setActiveConfigInternal(mActiveConfig);
-    }
-
-    return ExynosDisplay::validateWinConfigData();
-}
-
-void ExynosPrimaryDisplayModule::doPreProcessing(DeviceValidateInfo &validateInfo,
-        uint64_t &geometryChanged)
-{
-
-    bool prevAdjustDisplayFrame = mDisplayControl.adjustDisplayFrame;
-    if (validateInfo.nonPrimaryDisplays.size() > 0) {
-        mDisplayControl.adjustDisplayFrame = true;
-    } else {
-        mDisplayControl.adjustDisplayFrame = false;
-    }
-    if (prevAdjustDisplayFrame != mDisplayControl.adjustDisplayFrame)
-        setGeometryChanged(GEOMETRY_DISPLAY_ADJUST_SIZE_CHANGED, geometryChanged);
-
-    ExynosDisplay::doPreProcessing(validateInfo, geometryChanged);
-}
