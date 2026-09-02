@@ -23,15 +23,6 @@ ExynosMPPModule::ExynosMPPModule(uint32_t physicalType, uint32_t logicalType, co
         uint32_t preAssignInfo, uint32_t mppType)
     : ExynosMPP(physicalType, logicalType, name, physicalIndex, logicalIndex, preAssignInfo, mppType)
 {
-    const vOtfInfo_t *info = std::find_if(std::begin(VOTF_INFO_MAP),
-            std::end(VOTF_INFO_MAP), [=](auto &it){
-            return ((it.type == mPhysicalType) && (it.index == mPhysicalIndex));
-            });
-
-    if (info != std::end(VOTF_INFO_MAP)) {
-        mVotfInfo.dmaIndex = info->dma_idx;
-        mVotfInfo.trsIndex = info->trs_idx;
-    }
 }
 
 ExynosMPPModule::~ExynosMPPModule()
@@ -49,80 +40,19 @@ uint32_t ExynosMPPModule::getDstWidthAlign(struct exynos_image &dst)
     return  ExynosMPP::getDstWidthAlign(dst);
 }
 
-bool ExynosMPPModule::isSupportedCompression(struct exynos_image &src)
+uint32_t ExynosMPPModule::getSrcMaxCropWidth(struct exynos_image &src)
 {
-    /* TODO : add 4K, 2K restriction here for DPPs */
-    return ExynosMPP::isSupportedCompression(src);
+    if ((getRestrictionClassification(src) == 1) && (src.compressionInfo.type == COMP_TYPE_SAJC))
+        return 2048;
+    return ExynosMPP::getSrcMaxCropWidth(src);
 }
 
 bool ExynosMPPModule::isSupportedTransform(struct exynos_image &src)
 {
-    switch (mPhysicalType)
-    {
-    case MPP_MSC:
-    case MPP_G2D:
-        return true;
-    case MPP_DPP_G:
-    case MPP_DPP_GF:
-    case MPP_DPP_VG:
-    case MPP_DPP_VGS:
-    case MPP_DPP_VGF:
-    case MPP_DPP_VGFS:
-        /* If it's not a roatation, flip is allowed */
-        if ((src.transform & HAL_TRANSFORM_ROT_90) == 0)
-        {
-            /* but flip is not allowed for SBWC */
-            if (((src.exynosFormat.isSBWC()) || (src.compressionInfo.type == COMP_TYPE_SBWC))
-                && (src.transform != 0)) {
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return false;
-        }
-    case MPP_DPP_VGRFS:
-        /* Flip is not allowed for SBWC. but rotation is allowed. */
-        if ((src.transform & HAL_TRANSFORM_ROT_90) == 0) {
-            if (((src.exynosFormat.isSBWC()) || (src.compressionInfo.type == COMP_TYPE_SBWC))
-                && (src.transform != 0)) {
-                return false;
-            }
-        }
-        if (src.exynosFormat.isYUV420()) {
-            return true;
-        } else { /* RGB case */
-            if ((src.transform & HAL_TRANSFORM_ROT_90) == 0)
-            {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    default:
-            return true;
+    if ((src.exynosFormat == COMP_TYPE_SAJC) && (src.transform & HAL_TRANSFORM_ROT_90)) {
+        return false;
     }
-}
-
-uint32_t ExynosMPPModule::getSrcMaxCropSize(struct exynos_image &src)
-{
-    if ((mPhysicalType == MPP_DPP_VGRFS) &&
-            (src.transform & HAL_TRANSFORM_ROT_90))
-        return MAX_DPP_ROT_SRC_SIZE;
-    else
-        return ExynosMPP::getSrcMaxCropSize(src);
-
-    return ExynosMPP::getSrcMaxCropSize(src);
-}
-
-uint32_t ExynosMPPModule::getSrcMaxCropHeight(struct exynos_image &src)
-{
-    if ((mMPPType == MPP_TYPE_OTF) &&
-        (src.transform & HAL_TRANSFORM_ROT_90))
-        return 2160;
-
-    uint32_t idx = getRestrictionClassification(src);
-    return mSrcSizeRestrictions[idx].maxCropHeight;
+    return ExynosMPP::isSupportedTransform(src);
 }
 
 bool ExynosMPPModule::hasEnoughCapa(DisplayInfo &display, struct exynos_image &src,
@@ -137,99 +67,4 @@ bool ExynosMPPModule::hasEnoughCapa(DisplayInfo &display, struct exynos_image &s
     ret = ExynosMPP::hasEnoughCapa(display, src, dst, totalUsedCapa);
     mCapacity = capacity;
     return ret;
-}
-
-bool ExynosMPPModule::isSupportedCapability(DisplayInfo &display, struct exynos_image &src)
-{
-    return true;
-}
-
-int32_t ExynosMPPModule::setVotfLayerData(exynos_mpp_img_info *srcImgInfo)
-{
-    if (mPhysicalType == MPP_MSC) {
-        HDEBUGLOGD(eDebugMPP, "%s, %d, %d, %d, %d", __func__,
-                mVotfInfo.enable, mVotfInfo.dmaIndex, mVotfInfo.trsIndex,
-                mVotfInfo.bufIndex);
-    }
-
-    if ((mPhysicalType != MPP_MSC) || !mVotfInfo.enable)
-        return NO_ERROR;
-
-    /*
-     * First parameter(void *) of setLayerData shouldn't be destroyed before
-     * libacryl addresses the current frame in Acrylic::execute.
-     */
-    srcImgInfo->mppLayer->setLayerData(&mVotfInfo.data, sizeof(mVotfInfo.data));
-
-    return NO_ERROR;
-}
-
-bool ExynosMPPModule::canUseVotf(struct exynos_image &src)
-{
-    if (mPhysicalType != MPP_MSC)
-        return false;
-
-    if (((src.transform & HAL_TRANSFORM_ROT_90) == 0) &&
-        (src.w == 7680)) {
-        return true;
-    }
-
-    return false;
-}
-
-bool ExynosMPPModule::isCapacityExceptionCondition(float totalUsedCapacity, float requiredCapacity, struct exynos_image &src)
-{
-    if ((hasHdrInfo(src) &&
-        (totalUsedCapacity == 0) &&
-        (requiredCapacity < (mCapacity * MPP_HDR_MARGIN)))) {
-        return true;
-    } else if (canUseVotf(src)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-uint32_t ExynosMPPModule::getMaxDownscale(DisplayInfo &display, struct exynos_image &src, struct exynos_image &dst)
-{
-    if (canUseVotf(src))
-        return 4;
-    return ExynosMPP::getMaxDownscale(display, src, dst);
-}
-
-bool ExynosMPPModule::scaleAllowedByDPPPerformance(DisplayInfo &display, struct exynos_image &src, struct exynos_image &dst)
-{
-    bool isPerpendicular = !!(dst.transform & HAL_TRANSFORM_ROT_90);
-    float scaleRatio_H = 1;
-    float scaleRatio_V = 1;
-    if (isPerpendicular) {
-        scaleRatio_H = (float)src.w/(float)dst.h;
-        scaleRatio_V = (float)src.h/(float)dst.w;
-    } else {
-        scaleRatio_H = (float)src.w/(float)dst.w;
-        scaleRatio_V = (float)src.h/(float)dst.h;
-    }
-
-    float dstW = (float)dst.w;
-    float displayW = (float)display.xres;
-    float displayH = (float)display.yres;
-
-    uint32_t vsyncPeriod = display.workingVsyncPeriod;
-    int fps = (int)(1000000000 / vsyncPeriod);
-
-    float vppResolClockFactor = fps * VPP_MARGIN;
-    float resolClock = displayW * displayH * vppResolClockFactor;
-
-    if ((mPhysicalType == MPP_DPP_VGS) ||
-        (mPhysicalType == MPP_DPP_VGFS) ||
-        (mPhysicalType == MPP_DPP_VGRFS)) {
-        if (scaleRatio_H > 2 || scaleRatio_V > 2) {
-            if ((float)VPP_CLOCK < ((resolClock * scaleRatio_H * scaleRatio_V * VPP_DISP_FACTOR)/VPP_PIXEL_PER_CLOCK))
-                return false;
-        } else {
-            if ((float)VPP_CLOCK < ((resolClock * scaleRatio_H * scaleRatio_V * VPP_DISP_FACTOR)/VPP_PIXEL_PER_CLOCK * (dstW/displayW)))
-                return false;
-        }
-    }
-    return true;
 }
