@@ -26,7 +26,7 @@ ExynosVirtualDisplayModule::ExynosVirtualDisplayModule(DisplayIdentifier node)
 
     mUseDpu = true;
     mBaseWindowIndex = 0;
-    mMaxWindowNum = 5;
+    mMaxWindowNum = 2;
 }
 
 ExynosVirtualDisplayModule::~ExynosVirtualDisplayModule ()

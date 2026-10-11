@@ -22,11 +22,7 @@ class ExynosResourceManagerModule : public ExynosResourceManager {
     public:
         ExynosResourceManagerModule();
         ~ExynosResourceManagerModule();
-        virtual uint32_t getExceptionScenarioFlag(ExynosMPP *mpp) override;
-        virtual void preAssignWindows() override;
-
-    protected:
-        virtual void setFrameRateForPerformance(ExynosMPP &mpp, AcrylicPerformanceRequestFrame *frame);
+        void preAssignWindows() override;
 };
 
 #endif // _EXYNOS_RESOURCE_MANAGER_MODULE_H
