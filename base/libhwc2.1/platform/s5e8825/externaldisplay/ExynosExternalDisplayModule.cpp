@@ -29,8 +29,6 @@
 ExynosExternalDisplayModule::ExynosExternalDisplayModule(DisplayIdentifier node)
     :    ExynosExternalDisplay(node)
 {
-    mBaseWindowIndex = node.index * PRIMARY_MAIN_EXTERNAL_WINCNT;
-    ALOGI("[SCTEST][ExynosExternalDisplayModule] mBaseWindowIndex(%d)", mBaseWindowIndex);
 }
 
 ExynosExternalDisplayModule::~ExynosExternalDisplayModule ()
@@ -55,7 +53,7 @@ int32_t ExynosExternalDisplayModule::validateWinConfigData()
                 if ((mppType == MPP_DPP_GF) ||
                     (mppType == MPP_DPP_VG) ||
                     (mppType == MPP_DPP_VGF)) {
-                    DISPLAY_LOGE("WIN_CONFIG error: invalid assign id : %zu,  s_w : %d, d_w : %d, s_h : %d, d_h : %d, mppType : %d",
+                    DISPLAY_LOGE("WIN_CONFIG error: invalid assign id : %zu,  s_w : %d, d_w : %d, s_h : %d, d_h : %d, type : %d",
                             i, config.src.w, config.dst.w, config.src.h, config.dst.h, mppType);
                     configInvalid = true;
                 }

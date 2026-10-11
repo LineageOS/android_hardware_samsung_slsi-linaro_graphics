@@ -24,8 +24,6 @@ class ExynosPrimaryDisplayModule : public ExynosPrimaryDisplay {
         ExynosPrimaryDisplayModule(DisplayIdentifier node);
         ~ExynosPrimaryDisplayModule();
         virtual int32_t validateWinConfigData();
-        virtual void doPreProcessing(DeviceValidateInfo &validateInfo,
-                uint64_t &geometryChanged) override;
         virtual bool isEnabled() {
             return mPlugState;
         }
