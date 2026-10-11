@@ -29,8 +29,6 @@
 ExynosExternalDisplayModule::ExynosExternalDisplayModule(DisplayIdentifier node)
     :    ExynosExternalDisplay(node)
 {
-    mBaseWindowIndex = node.index * PRIMARY_MAIN_EXTERNAL_WINCNT;
-    ALOGI("[SCTEST][ExynosExternalDisplayModule] mBaseWindowIndex(%d)", mBaseWindowIndex);
 }
 
 ExynosExternalDisplayModule::~ExynosExternalDisplayModule ()
