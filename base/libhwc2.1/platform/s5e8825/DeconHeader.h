@@ -60,22 +60,14 @@ struct decon_rect {
   u32 bottom;
 };
 enum decon_idma_type {
-  IDMA_GF0 = 0,
+  IDMA_G0 = 0,
+  IDMA_G1,
+  IDMA_GF0,
   IDMA_GF1,
-  IDMA_GF2,
-  IDMA_GF3,
-  IDMA_GF4,
-  IDMA_GF5,
-  IDMA_GF6,
-  IDMA_GF7,
+  IDMA_VG0,
+  IDMA_VGS0,
   IDMA_VGFS0,
-  IDMA_VGFS1,
-  IDMA_VGFS2,
-  IDMA_VGFS3,
   IDMA_VGRFS0,
-  IDMA_VGRFS1,
-  IDMA_VGRFS2,
-  IDMA_VGRFS3,
   ODMA_WB,
   MAX_DECON_DMA_TYPE,
 };
@@ -92,15 +84,6 @@ struct dpp_params {
   u32 min_luminance;
   u32 max_luminance;
 };
-enum dpp_split_en {
-    DPP_SPLIT_OFF = 0,
-    DPP_SPLIT_LEFT = 1,
-    DPP_SPLIT_RIGHT = 2,
-};
-enum dpp_split_direction {
-    DPP_SPLIT_VERTICAL = 0,
-    DPP_SPLIT_HORIZONTAL = 1,
-};
 struct decon_frame {
   int x;
   int y;
@@ -116,7 +99,6 @@ struct decon_win_config {
     DECON_WIN_STATE_BUFFER,
     DECON_WIN_STATE_UPDATE,
     DECON_WIN_STATE_CURSOR,
-    DECON_WIN_STATE_BUFFER_LIBREQ,
     DECON_WIN_STATE_MRESOL = 0x10000,
     DECON_WIN_STATE_FINGERPRINT = 0x30000,
   } state;
@@ -141,9 +123,6 @@ struct decon_win_config {
   bool protection;
   bool compression;
   int plane_alpha;
-  /* vOTF */
-  bool votf_en;
-  u32 hwfc_buf_idx;
 };
 struct decon_win_config_data {
   int present_fence;
