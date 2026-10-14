@@ -26,6 +26,24 @@ ExynosResourceManagerModule::~ExynosResourceManagerModule()
 {
 }
 
+int32_t ExynosResourceManagerModule::assignCompositionTarget(
+        ExynosDisplay *display, uint32_t targetType)
+{
+    if (display->mType != HWC_DISPLAY_EXTERNAL ||
+            targetType != COMPOSITION_CLIENT || !display->mUseDpu)
+        return ExynosResourceManager::assignCompositionTarget(display, targetType);
+
+    auto &compositionInfo = display->mClientCompositionInfo;
+    const compressionInfo_t compressionInfo = compositionInfo.mCompressionInfo;
+
+    /* The new client target arrives after resource validation. */
+    /* Reserve a channel that also supports an AFBC replacement. */
+    compositionInfo.mCompressionInfo.type = COMP_TYPE_AFBC;
+    int32_t ret = ExynosResourceManager::assignCompositionTarget(display, targetType);
+    compositionInfo.mCompressionInfo = compressionInfo;
+    return ret;
+}
+
 void ExynosResourceManagerModule::preAssignWindows()
 {
     ExynosPrimaryDisplayModule *primaryDisplay =

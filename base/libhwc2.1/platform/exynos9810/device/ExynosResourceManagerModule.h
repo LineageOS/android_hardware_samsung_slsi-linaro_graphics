@@ -23,6 +23,8 @@ class ExynosResourceManagerModule : public ExynosResourceManager {
         ExynosResourceManagerModule();
         virtual ~ExynosResourceManagerModule();
         virtual void preAssignWindows() override;
+        virtual int32_t assignCompositionTarget(ExynosDisplay *display,
+                uint32_t targetType) override;
 };
 
 #endif // _EXYNOS_RESOURCE_MANAGER_MODULE_H
