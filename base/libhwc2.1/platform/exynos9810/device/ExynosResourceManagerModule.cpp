@@ -26,6 +26,18 @@ ExynosResourceManagerModule::~ExynosResourceManagerModule()
 {
 }
 
+bool ExynosResourceManagerModule::isHWResourceAvailable(
+        ExynosDisplay *display, ExynosMPP *currentMPP, ExynosMPPSource *mppSrc)
+{
+    /* A replacement client target can be AFBC after resource validation. */
+    if (display->mType == HWC_DISPLAY_EXTERNAL && display->mUseDpu &&
+            mppSrc == &display->mClientCompositionInfo &&
+            !(currentMPP->mAttr & MPP_ATTR_AFBC))
+        return false;
+
+    return ExynosResourceManager::isHWResourceAvailable(display, currentMPP, mppSrc);
+}
+
 void ExynosResourceManagerModule::preAssignWindows()
 {
     ExynosPrimaryDisplayModule *primaryDisplay =
