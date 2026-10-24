@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1271ac9_bde682e9",
+        "filename": "base/libhwc2.1/platform/s5e8825/device/ExynosResourceManagerModule.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-10-24T18:45:10Z",
+      "side": 1,
+      "message": "```suggestion\n        virtual void preAssignWindows() override;\n```\nTypo?",
+      "revId": "af73f39ee9505e6623a93d70adda3ef06e9136ad",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}

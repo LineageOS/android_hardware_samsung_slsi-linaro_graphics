@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67dc6227_b18af32b",
+        "filename": "base/libhwc2.1/platform/s5e8825/externaldisplay/ExynosExternalDisplayModule.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-10-24T18:45:10Z",
+      "side": 0,
+      "message": "/* *(int *)(this + 0x178c) \u003d *(int *)(param_2 + 1) \u003c\u003c 1; */\n\nmBaseWindowIndex \u003d node.index * 2;\n\n                             DAT_00125478                                    XREF[2]:     preAssignWindows:001b7c34(*), \n                                                                                          preAssignWindows:001b7c44(*)  \n        00125478 02              ??         02h\n        00125479 00              ??         00h\n        0012547a 00              ??         00h\n        0012547b 00              ??         00h\n        0012547c 02              ??         02h\n        0012547d 00              ??         00h\n        0012547e 00              ??         00h\n        0012547f 00              ??         00h\n\n\nHence, set in ExynosHWCModule.h:\n#define PRIMARY_MAIN_EXTERNAL_WINCNT   2\n#define PRIMARY_MAIN_VIRTUAL_WINCNT  2",
+      "revId": "3faf5d795e9ffde8f4a3384e88d9c08e15cc9b6b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
