@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "879e70cc_7ce25416",
+        "filename": "base/libhwc2.1/device/ExynosResourceManager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2606,
+      "author": {
+        "id": 34207
+      },
+      "writtenOn": "2026-10-27T14:11:02Z",
+      "side": 1,
+      "message": "Any platforms that call initTDMInfo earlier will have to work around this somehow.",
+      "range": {
+        "startLine": 2606,
+        "startChar": 0,
+        "endLine": 2606,
+        "endChar": 2
+      },
+      "revId": "3025bcb052cba3a3d3f1bec6e00e2e64049c35a8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
