@@ -1063,7 +1063,8 @@ int32_t ExynosDisplay::configureHandle(ExynosLayer &layer, int fence_fd,
         h -= crop;
     }
 
-    if ((layer.mExynosCompositionType == HWC2_COMPOSITION_DEVICE) &&
+    if ((mDisplayControl.cursorSupport == true) &&
+        (layer.mExynosCompositionType == HWC2_COMPOSITION_DEVICE) &&
         (layer.mCompositionType == HWC2_COMPOSITION_CURSOR))
         cfg.state = cfg.WIN_STATE_CURSOR;
     else
