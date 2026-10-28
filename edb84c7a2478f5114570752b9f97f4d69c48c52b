@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab390d73_146d3ba5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2026-10-28T17:38:42Z",
+      "side": 1,
+      "message": "this smells a bit like llm, if so, Assisted-by: LLM at the bottom?",
+      "revId": "edb84c7a2478f5114570752b9f97f4d69c48c52b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
