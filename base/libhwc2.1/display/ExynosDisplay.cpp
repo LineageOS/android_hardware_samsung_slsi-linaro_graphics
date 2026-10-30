@@ -686,6 +686,15 @@ int ExynosDisplay::handleStaticLayers(ExynosCompositionInfo &compositionInfo) {
         DISPLAY_LOGD(eDebugSkipStaicLayer, "there is no client composition");
         return NO_ERROR;
     }
+    if (compositionInfo.mSkipFlag &&
+        ((compositionInfo.mFirstIndex < 0) ||
+         (compositionInfo.mLastIndex < compositionInfo.mFirstIndex) ||
+         (static_cast<size_t>(compositionInfo.mLastIndex) >= mLayers.size()) ||
+         ((compositionInfo.mLastIndex - compositionInfo.mFirstIndex + 1) > NUM_SKIP_STATIC_LAYER))) {
+        compositionInfo.mSkipFlag = false;
+        compositionInfo.mSkipStaticInitFlag = false;
+        return -EINVAL;
+    }
     if ((compositionInfo.mWindowIndex < 0) ||
         (compositionInfo.mWindowIndex >= (int32_t)mDpuData.configs.size())) {
         DISPLAY_LOGE("invalid mWindowIndex(%d)", compositionInfo.mWindowIndex);
@@ -754,6 +763,12 @@ int ExynosDisplay::handleStaticLayers(ExynosCompositionInfo &compositionInfo) {
 }
 
 bool ExynosDisplay::skipStaticLayerChanged(ExynosCompositionInfo &compositionInfo) {
+    if ((compositionInfo.mFirstIndex < 0) ||
+        (compositionInfo.mLastIndex < compositionInfo.mFirstIndex) ||
+        (static_cast<size_t>(compositionInfo.mLastIndex) >= mLayers.size()) ||
+        ((compositionInfo.mLastIndex - compositionInfo.mFirstIndex + 1) > NUM_SKIP_STATIC_LAYER))
+        return true;
+
     if ((int)compositionInfo.mSkipSrcInfo.srcNum !=
         (compositionInfo.mLastIndex - compositionInfo.mFirstIndex + 1)) {
         DISPLAY_LOGD(eDebugSkipStaicLayer, "Client composition number is changed (%d -> %d)",
@@ -834,7 +849,8 @@ int ExynosDisplay::skipStaticLayers(ExynosCompositionInfo &compositionInfo) {
 
     if ((compositionInfo.mHasCompositionLayer == false) ||
         (compositionInfo.mFirstIndex < 0) ||
-        (compositionInfo.mLastIndex < 0) ||
+        (compositionInfo.mLastIndex < compositionInfo.mFirstIndex) ||
+        (static_cast<size_t>(compositionInfo.mLastIndex) >= mLayers.size()) ||
         ((compositionInfo.mLastIndex - compositionInfo.mFirstIndex + 1) > NUM_SKIP_STATIC_LAYER)) {
         DISPLAY_LOGD(eDebugSkipStaicLayer, "mHasCompositionLayer(%d), mFirstIndex(%d), mLastIndex(%d)",
                      compositionInfo.mHasCompositionLayer,
