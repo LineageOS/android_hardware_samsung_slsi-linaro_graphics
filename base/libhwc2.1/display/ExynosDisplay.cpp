@@ -502,12 +502,13 @@ ExynosLayer *ExynosDisplay::checkLayer(hwc2_layer_t addr, bool printError) {
     return NULL;
 }
 
-void ExynosDisplay::checkIgnoreLayers() {
+void ExynosDisplay::checkIgnoreLayers(uint64_t &geometryChanged) {
     for (auto it = mIgnoreLayers.begin(); it != mIgnoreLayers.end();) {
         ExynosLayer *layer = *it;
         if ((layer->mLayerFlag & EXYNOS_HWC_IGNORE_LAYER) == 0) {
             mLayers.push_back(layer);
             it = mIgnoreLayers.erase(it);
+            setGeometryChanged(GEOMETRY_LAYER_IGNORE_CHANGED, geometryChanged);
         } else {
             it++;
         }
@@ -530,6 +531,7 @@ void ExynosDisplay::checkIgnoreLayers() {
             layer->mReleaseFence = -1;
             mIgnoreLayers.push_back(layer);
             mLayers.removeAt(index);
+            setGeometryChanged(GEOMETRY_LAYER_IGNORE_CHANGED, geometryChanged);
         } else {
             index++;
         }

@@ -1222,7 +1222,6 @@ int32_t ExynosDevice::validateDisplay(
         return ret;
     }
 
-    display->checkIgnoreLayers();
     if (isFirstValidate(display)) {
         /*
          * Validate all of displays
@@ -1365,6 +1364,7 @@ int32_t ExynosDevice::validateAllDisplays(ExynosDisplay *firstDisplay,
             continue;
         /* No skips validate and present */
         mDisplays[i]->mNeedSkipValidatePresent = false;
+        mDisplays[i]->checkIgnoreLayers(mGeometryChanged);
         mDisplays[i]->preProcessValidate(mDeviceValidateInfo, mGeometryChanged);
         if ((mDisplays[i]->mType == HWC_DISPLAY_VIRTUAL) &&
             !(mDisplays[i]->mUseDpu)) {

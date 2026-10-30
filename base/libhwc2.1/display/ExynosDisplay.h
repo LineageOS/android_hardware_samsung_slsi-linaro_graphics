@@ -584,7 +584,7 @@ class ExynosDisplay : public ExynosVsyncHandler {
          */
     ExynosLayer *checkLayer(hwc2_layer_t addr, bool printError = true);
 
-    void checkIgnoreLayers();
+    void checkIgnoreLayers(uint64_t &geometryChanged);
     virtual void doPreProcessing(DeviceValidateInfo &validateInfo,
                                  uint64_t &geometryChanged);
 
