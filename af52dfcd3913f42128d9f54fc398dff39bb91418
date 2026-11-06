@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1b1cec6_9e3411a8",
+        "filename": "base/libhwc2.1/platform/s5e8845/resources/ExynosMPPModule.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 36705
+      },
+      "writtenOn": "2026-11-06T20:43:45Z",
+      "side": 0,
+      "message": "Remove this line",
+      "revId": "af52dfcd3913f42128d9f54fc398dff39bb91418",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
