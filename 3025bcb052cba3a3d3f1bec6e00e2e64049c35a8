@@ -22,6 +22,30 @@
       },
       "revId": "3025bcb052cba3a3d3f1bec6e00e2e64049c35a8",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f56aca8_7c23f1f8",
+        "filename": "base/libhwc2.1/device/ExynosResourceManager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2606,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-11-06T20:08:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "879e70cc_7ce25416",
+      "range": {
+        "startLine": 2606,
+        "startChar": 0,
+        "endLine": 2606,
+        "endChar": 2
+      },
+      "revId": "3025bcb052cba3a3d3f1bec6e00e2e64049c35a8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
