@@ -23,6 +23,12 @@ class ExynosResourceManagerModule : public ExynosResourceManager {
         ExynosResourceManagerModule();
         ~ExynosResourceManagerModule();
         virtual void preAssignWindows() override;
+        virtual bool isHWResourceAvailable(ExynosDisplay *display, ExynosMPP *currentMPP,
+                                           ExynosMPPSource *mppSrc) override;
+
+    private:
+        bool checkBandwidth(ExynosDisplay *display);
+        bool checkOverlapLimitation(ExynosDisplay *display, ExynosMPPSource *mppSrc);
 };
 
 #endif // _EXYNOS_RESOURCE_MANAGER_MODULE_H
