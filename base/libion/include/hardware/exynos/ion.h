@@ -68,6 +68,8 @@ int exynos_ion_sync_start(int ion_fd, int fd, int direction);
 int exynos_ion_sync_end(int ion_fd, int fd, int direction);
 
 const char *exynos_ion_get_heap_name(unsigned int legacy_heap_id);
+/* returns the heap id mask of the (ion) heap whose name starts with heap_name, 0 on failure */
+unsigned int exynos_ion_get_heap_mask(const char *heap_name);
 
 int exynos_ion_dma_buf_track(int fd);
 int exynos_ion_dma_buf_untrack(int fd);
