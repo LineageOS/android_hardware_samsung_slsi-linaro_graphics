@@ -19,7 +19,9 @@ cc_library {
         "ion.cpp",
         "dmabuf_container.c",
     ],
-    shared_libs: ["liblog", "libion"],
+    shared_libs: ["liblog"],
+    // only the kernel uapi headers (linux/ion.h, linux/ion_4.19.h) are needed
+    header_libs: ["libion_headers"],
     local_include_dirs: [
         "include",
     ],
