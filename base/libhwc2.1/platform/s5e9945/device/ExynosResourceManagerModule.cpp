@@ -19,10 +19,29 @@
 #include "ExynosMPPModule.h"
 #include "ExynosVirtualDisplay.h"
 #include "ExynosGraphicBuffer.h"
+#include "ExynosLayer.h"
+
+/* Same margin as the stock s5e9945 HWC (0x44 lines) */
+constexpr int32_t TDM_OVERLAP_MARGIN = 68;
+
+constexpr uint32_t kSramSBWCWidthAlign = 32;
+constexpr uint32_t kSramSBWCWidthMargin = kSramSBWCWidthAlign - 1;
+constexpr uint32_t kSramSBWCRotWidthAlign = 4;
+constexpr uint32_t kSramSAJC8B4BAlign = 8;
+constexpr uint32_t kSramSAJC8B4BMargin = kSramSAJC8B4BAlign - 1;
+constexpr uint32_t kSramSAJC2BAlign = 16;
+constexpr uint32_t kSramSAJC2BMargin = kSramSAJC2BAlign - 1;
 
 ExynosResourceManagerModule::ExynosResourceManagerModule()
         : ExynosResourceManager()
 {
+    /*
+     * The DPUF (HW block) and AXI port of every OTF MPP are set by
+     * ExynosResourceManager::makeDPURestrictions() from the "restrictions"
+     * plane property of the kernel (dpuf,id / port in the DPP DT nodes).
+     */
+    mHWResourceTables = &HWResourceTables;
+
     mLayerAttributePriority.resize(sizeof(product_layerAttributePriority)/sizeof(product_layerAttributePriority[0]));
 
     for (uint32_t i = 0; i < sizeof(product_layerAttributePriority)/sizeof(product_layerAttributePriority[0]); i++)
@@ -174,4 +193,341 @@ void ExynosResourceManagerModule::preAssignWindows()
             EXTERNAL_WINDOW_COUNT[mDeviceInfo.displayMode];
         primaryDisplay->mMaxWindowNum -= EXTERNAL_WINDOW_COUNT[mDeviceInfo.displayMode];
     }
+}
+
+bool ExynosResourceManagerModule::isOverlaped(ExynosDisplay *display, ExynosMPPSource *current,
+                                              ExynosMPPSource *compare)
+{
+    /* The stock HWC treats every layer of an external display as overlapped */
+    if (display->mType == HWC_DISPLAY_EXTERNAL)
+        return true;
+
+    int CT = current->mDstImg.y - TDM_OVERLAP_MARGIN;
+    CT = (CT < 0) ? 0 : CT;
+    int CB = current->mDstImg.y + current->mDstImg.h + TDM_OVERLAP_MARGIN;
+    CB = (CB > (int)display->mYres) ? (int)display->mYres : CB;
+    int LT = compare->mDstImg.y;
+    int LB = compare->mDstImg.y + compare->mDstImg.h;
+
+    if (((LT <= CT && CT <= LB) || (LT <= CB && CB <= LB)) ||
+        ((CT <= LT && LT <= CB) || (CT < LB && LB <= CB))) {
+        HDEBUGLOGD(eDebugTDM, "%s, current %p and compare %p is overlaped", __func__,
+                   current->mSrcImg.bufferHandle, compare->mSrcImg.bufferHandle);
+        return true;
+    }
+
+    return false;
+}
+
+uint32_t ExynosResourceManagerModule::getAmounts(ExynosDisplay *display, ExynosMPP *otfMPP,
+                                                 uint32_t currentBlockId, ExynosMPPSource *compare,
+                                                 ExynosMPPSource *current,
+                                                 std::map<tdm_attr_t, uint32_t> &amounts)
+{
+    uint32_t blockId = otfMPP->getHWBlockId();
+    if ((currentBlockId == blockId) && (isOverlaped(display, compare, current))) {
+        for (auto attr = HWAttrs.begin(); attr != HWAttrs.end(); attr++) {
+            uint32_t currentAmount = compare->getHWResourceAmount(attr->first);
+            HDEBUGLOGD(eDebugTDM, "%s, attr %s %d(+ %d)", otfMPP->mName.c_str(),
+                       attr->second.c_str(), amounts[attr->first], currentAmount);
+            amounts[attr->first] += currentAmount;
+        }
+    }
+
+    return 0;
+}
+
+bool ExynosResourceManagerModule::isHWResourceAvailable(ExynosDisplay *display,
+                                                        ExynosMPP *currentMPP,
+                                                        ExynosMPPSource *mppSrc)
+{
+    uint32_t currentBlockId = currentMPP->getHWBlockId();
+    std::map<tdm_attr_t, uint32_t> accumulatedAmount;
+
+    HDEBUGLOGD(eDebugTDM, "%s : %p trying to assign to %s, compare with layers", __func__,
+               mppSrc->mSrcImg.bufferHandle, currentMPP->mName.c_str());
+    for (auto layer : display->mLayers) {
+        ExynosMPP *otfMPP = layer->mOtfMPP;
+        if (!otfMPP) continue;
+        getAmounts(display, otfMPP, currentBlockId, layer, mppSrc, accumulatedAmount);
+    }
+
+    HDEBUGLOGD(eDebugTDM,
+               "%s : %p trying to assign to %s, compare with ExynosComposition Target buffer",
+               __func__, mppSrc->mSrcImg.bufferHandle, currentMPP->mName.c_str());
+    if (display->mExynosCompositionInfo.mHasCompositionLayer) {
+        ExynosMPP *otfMPP = display->mExynosCompositionInfo.mOtfMPP;
+        if (otfMPP)
+            getAmounts(display, otfMPP, currentBlockId, &display->mExynosCompositionInfo, mppSrc,
+                       accumulatedAmount);
+    }
+
+    HDEBUGLOGD(eDebugTDM,
+               "%s : %p trying to assign to %s, compare with ClientComposition Target buffer",
+               __func__, mppSrc->mSrcImg.bufferHandle, currentMPP->mName.c_str());
+    if (display->mClientCompositionInfo.mHasCompositionLayer) {
+        ExynosMPP *otfMPP = display->mClientCompositionInfo.mOtfMPP;
+        if (otfMPP)
+            getAmounts(display, otfMPP, currentBlockId, &display->mClientCompositionInfo, mppSrc,
+                       accumulatedAmount);
+    }
+
+    displayTDMInfo::resourceAmount_t amount = {
+            0,
+    };
+
+    for (auto attr = HWAttrs.begin(); attr != HWAttrs.end(); attr++) {
+        uint32_t currentAmount = mppSrc->getHWResourceAmount(attr->first);
+
+        amount = display->mDisplayTDMInfo[currentBlockId].getAvailableAmount(attr->first);
+
+        HDEBUGLOGD(eDebugTDM, "%s, layer[%p] attr[%s], accumulated : %d, current : %d, total : %d",
+                   __func__, mppSrc->mSrcImg.bufferHandle, attr->second.c_str(),
+                   accumulatedAmount[attr->first], currentAmount, amount.totalAmount);
+
+        if (accumulatedAmount[attr->first] + currentAmount > amount.totalAmount) {
+            HDEBUGLOGD(eDebugTDM, "%s, %s could not assigned by attr[%s]", __func__,
+                       currentMPP->mName.c_str(), attr->second.c_str());
+            return false;
+        }
+    }
+
+    return true;
+}
+
+uint32_t ExynosResourceManagerModule::setDisplaysTDMInfo()
+{
+    ExynosDisplay *addedDisplay = nullptr;
+
+    /*
+     * Checking display connections,
+     * Assume that WFD and External are not connected at the same time
+     * If non-primary display is connected, primary display's HW resource is looted
+     */
+    for (auto &display : mDisplays) {
+        if (display->mType == HWC_DISPLAY_PRIMARY) continue;
+        if (display->isEnabled()) {
+            addedDisplay = display;
+            break;
+        }
+    }
+
+    /*
+     * Update Primary's resource amount. primary = total - loot(other display's HW resource)
+     * Other's aready defined at initDisplaysTDMInfo()
+     */
+    ExynosDisplay *primaryDisplay = getDisplay(getDisplayId(HWC_DISPLAY_PRIMARY, 0));
+    if (primaryDisplay == nullptr)
+        return 0;
+
+    for (auto attr = HWAttrs.begin(); attr != HWAttrs.end(); attr++) {
+        for (auto blockId = DPUBlocks.begin(); blockId != DPUBlocks.end(); blockId++) {
+            if (mHWResourceTables->find(
+                        HWResourceIndexes(attr->first, blockId->first, primaryDisplay->mType)) !=
+                mHWResourceTables->end()) {
+                uint32_t total = mHWResourceTables
+                                         ->at(HWResourceIndexes(attr->first, blockId->first,
+                                                                primaryDisplay->mType))
+                                         .totalAmount;
+
+                if (addedDisplay != nullptr) {
+                    total = total -
+                            addedDisplay->mDisplayTDMInfo[blockId->first]
+                                    .getAvailableAmount(attr->first)
+                                    .totalAmount;
+                }
+
+                displayTDMInfo::resourceAmount_t amount = {
+                        0,
+                };
+                amount.totalAmount = total;
+                primaryDisplay->mDisplayTDMInfo[blockId->first].initTDMInfo(amount, attr->first);
+                HDEBUGLOGD(eDebugTDM, "Primary display (block : %d) : %s amount is updated to %d",
+                           blockId->first, attr->second.c_str(), amount.totalAmount);
+            }
+        }
+    }
+
+    if (hwcCheckDebugMessages(eDebugTDM)) {
+        for (auto &display : mDisplays) {
+            for (auto attr = HWAttrs.begin(); attr != HWAttrs.end(); attr++) {
+                for (auto blockId = DPUBlocks.begin(); blockId != DPUBlocks.end(); blockId++) {
+                    displayTDMInfo::resourceAmount_t amount = {
+                            0,
+                    };
+                    amount = display->mDisplayTDMInfo[blockId->first].getAvailableAmount(
+                            attr->first);
+                    HDEBUGLOGD(eDebugTDM, "%s : [%s] display: %d, block : %d, amount : %d(%s)",
+                               __func__, attr->second.c_str(), display->mType, blockId->first,
+                               amount.totalAmount, display->isEnabled() ? "used" : "not used");
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
+uint32_t ExynosResourceManagerModule::initDisplaysTDMInfo()
+{
+    /*
+     * Initialize as predefined value at table
+     * Primary's resource will be changed at setDisplaysTDMInfo() function
+     */
+    for (auto &display : mDisplays) {
+        for (auto attr = HWAttrs.begin(); attr != HWAttrs.end(); attr++) {
+            for (auto blockId = DPUBlocks.begin(); blockId != DPUBlocks.end(); blockId++) {
+                if (mHWResourceTables->find(
+                            HWResourceIndexes(attr->first, blockId->first, display->mType)) !=
+                    mHWResourceTables->end()) {
+                    displayTDMInfo::resourceAmount_t amount = {
+                            0,
+                    };
+                    amount.totalAmount = mHWResourceTables
+                                                 ->at(HWResourceIndexes(attr->first, blockId->first,
+                                                                        display->mType))
+                                                 .maxAssignedAmount;
+                    display->mDisplayTDMInfo[blockId->first].initTDMInfo(amount, attr->first);
+                    HDEBUGLOGD(eDebugTDM, "%s, [attr:%d] display : %d, block : %d, amount : %d",
+                               __func__, attr->first, display->mType, blockId->first,
+                               amount.totalAmount);
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
+static lbWidthIndex_t findWidthIndex(int32_t w)
+{
+    for (auto it = LB_WIDTH_INDEX_MAP.begin(); it != LB_WIDTH_INDEX_MAP.end(); it++) {
+        if ((uint32_t)w >= it->second.widthDownto && (uint32_t)w <= it->second.widthUpto)
+            return it->first;
+    }
+    return LB_W_4097_INF;
+}
+
+static uint32_t getSramAmount(tdm_attr_t attr, uint32_t formatProperty, lbWidthIndex_t widthIndex)
+{
+    auto it = sramAmountMap.find(sramAmountParams(attr, formatProperty, widthIndex));
+    return (it != sramAmountMap.end()) ? it->second : 0;
+}
+
+/*
+ * SRAM amounts and keys follow the table of the stock s5e9945 HWC. Where the
+ * exact stock key selection is unknown the larger (more conservative) amount
+ * is used, which can only make the HWC fall back to another DPUF or to GPU
+ * composition earlier, never overcommit the SRAM.
+ */
+uint32_t ExynosResourceManagerModule::calculateHWResourceAmount(ExynosDisplay *display,
+                                                                ExynosMPPSource *mppSrc)
+{
+    uint32_t SRAMtotal = 0;
+
+    if (mppSrc == NULL) return SRAMtotal;
+
+    HDEBUGLOGD(eDebugTDM, "mppSrc(%p) SRAM calculation start", mppSrc->mSrcImg.bufferHandle);
+
+    int32_t transform = mppSrc->mSrcImg.transform;
+    bool compressed = (mppSrc->mSrcImg.compressionInfo.type == COMP_TYPE_SAJC);
+    bool rotation = (transform & HAL_TRANSFORM_ROT_90) ? true : false;
+
+    int32_t width = mppSrc->mSrcImg.w;
+    int32_t height = mppSrc->mSrcImg.h;
+    uint32_t format = mppSrc->mSrcImg.exynosFormat.halFormat();
+    uint32_t formatBPP = isFormat10Bit(format) ? BIT10 : BIT8;
+
+    if (rotation) {
+        /* Rotation reads the source column-wise, only YUV rotation is supported */
+        width = height;
+        if (isFormatSBWC(format)) {
+            int32_t width_y = pixel_align(width + kSramSBWCRotWidthAlign, kSramSBWCRotWidthAlign);
+            int32_t width_c =
+                    pixel_align(width / 2 + kSramSBWCRotWidthAlign, kSramSBWCRotWidthAlign);
+            SRAMtotal += getSramAmount(TDM_ATTR_ROT_90, SBWC_Y, findWidthIndex(width_y));
+            SRAMtotal += getSramAmount(TDM_ATTR_ROT_90, SBWC_UV, findWidthIndex(width_c));
+        } else {
+            lbWidthIndex_t widthIndex = findWidthIndex(width);
+            SRAMtotal += getSramAmount(TDM_ATTR_ROT_90, formatBPP | ROT_Y, widthIndex);
+            SRAMtotal += getSramAmount(TDM_ATTR_ROT_90, formatBPP | ROT_UV, widthIndex);
+        }
+        HDEBUGLOGD(eDebugTDM, "+ rotation : %d", SRAMtotal);
+    } else {
+        if (isFormatSBWC(format)) {
+            width = pixel_align(width + kSramSBWCWidthMargin, kSramSBWCWidthAlign);
+        } else if (compressed) {
+            /* Align for 8,4Byte/pixel formats */
+            if (formatToBpp(format) > 16) {
+                width = pixel_align(width + kSramSAJC8B4BMargin, kSramSAJC8B4BAlign);
+            } else {
+                /* Align for 2Byte/pixel formats */
+                width = pixel_align(width + kSramSAJC2BMargin, kSramSAJC2BAlign);
+            }
+        }
+        lbWidthIndex_t widthIndex = findWidthIndex(width);
+
+        /* SAJC amount */
+        if (compressed) {
+            uint32_t formatIndex = (formatToBpp(format) > 16) ? (RGB | BIT8) : RGB;
+            SRAMtotal += getSramAmount(TDM_ATTR_SAJC, formatIndex, widthIndex);
+            HDEBUGLOGD(eDebugTDM, "+ SAJC : %d", SRAMtotal);
+        }
+
+        /* SBWC amount (luma and chroma line buffers) */
+        if (isFormatSBWC(format)) {
+            SRAMtotal += getSramAmount(TDM_ATTR_SBWC, SBWC_Y, widthIndex);
+            SRAMtotal += getSramAmount(TDM_ATTR_SBWC, SBWC_UV, widthIndex);
+            HDEBUGLOGD(eDebugTDM, "+ SBWC : %d", SRAMtotal);
+        }
+    }
+
+    /* ITP (CSC) amount */
+    if (isFormatYUV(format)) {
+        SRAMtotal += getSramAmount(TDM_ATTR_ITP, formatBPP, LB_W_4097_INF);
+        HDEBUGLOGD(eDebugTDM, "+ YUV : %d", SRAMtotal);
+    }
+
+    /* Scale amount */
+    int srcW = mppSrc->mSrcImg.w;
+    int srcH = mppSrc->mSrcImg.h;
+    int dstW = mppSrc->mDstImg.w;
+    int dstH = mppSrc->mDstImg.h;
+
+    if (!!(transform & HAL_TRANSFORM_ROT_90)) {
+        int tmp = dstW;
+        dstW = dstH;
+        dstH = tmp;
+    }
+
+    bool isScaled = ((srcW != dstW) || (srcH != dstH));
+
+    if (isScaled) {
+        uint32_t formatIndex = formatHasAlphaChannel(format) ? FORMAT_RGB_MASK : FORMAT_YUV_MASK;
+        SRAMtotal += getSramAmount(TDM_ATTR_SCALE, formatIndex, LB_W_4097_INF);
+        HDEBUGLOGD(eDebugTDM, "+ Scale : %d", SRAMtotal);
+    }
+
+    for (auto it = HWAttrs.begin(); it != HWAttrs.end(); it++) {
+        uint32_t amount = 0;
+        if (it->first == TDM_ATTR_SRAM_AMOUNT) {
+            amount = SRAMtotal;
+        } else {
+            amount = needHWResource(display, mppSrc->mSrcImg, mppSrc->mDstImg, it->first);
+        }
+        mppSrc->setHWResourceAmount(it->first, amount);
+    }
+
+    HDEBUGLOGD(eDebugTDM,
+               "mppSrc(%p) needed SRAM(%d), SCALE(%d), SAJC(%d), CSC(%d), SBWC(%d), WCG(%d), "
+               "ROT(%d)",
+               mppSrc->mSrcImg.bufferHandle, SRAMtotal,
+               mppSrc->getHWResourceAmount(TDM_ATTR_SCALE),
+               mppSrc->getHWResourceAmount(TDM_ATTR_SAJC),
+               mppSrc->getHWResourceAmount(TDM_ATTR_ITP),
+               mppSrc->getHWResourceAmount(TDM_ATTR_SBWC),
+               mppSrc->getHWResourceAmount(TDM_ATTR_WCG),
+               mppSrc->getHWResourceAmount(TDM_ATTR_ROT_90));
+
+    return SRAMtotal;
 }

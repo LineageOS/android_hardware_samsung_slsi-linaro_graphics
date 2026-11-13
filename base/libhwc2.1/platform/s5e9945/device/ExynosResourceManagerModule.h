@@ -17,6 +17,7 @@
 #define _EXYNOS_RESOURCE_MANAGER_MODULE_H
 
 #include "ExynosResourceManager.h"
+#include "ExynosHWCModule.h"
 
 class ExynosResourceManagerModule : public ExynosResourceManager {
     public:
@@ -25,8 +26,22 @@ class ExynosResourceManagerModule : public ExynosResourceManager {
         virtual uint32_t getExceptionScenarioFlag(ExynosMPP *mpp) override;
         virtual void setVirtualOtfMPPsRestrictions();
         virtual void preAssignWindows() override;
+        /* TDM (Time-Division Multiplexing) based Resource Management */
+        virtual bool isHWResourceAvailable(ExynosDisplay *display, ExynosMPP *currentMPP,
+                                           ExynosMPPSource *mppSrc) override;
+        virtual uint32_t setDisplaysTDMInfo() override;
+        virtual uint32_t initDisplaysTDMInfo() override;
+        virtual uint32_t calculateHWResourceAmount(ExynosDisplay *display,
+                                                   ExynosMPPSource *mppSrc) override;
+
+        bool isOverlaped(ExynosDisplay *display, ExynosMPPSource *current,
+                         ExynosMPPSource *compare);
+        uint32_t getAmounts(ExynosDisplay *display, ExynosMPP *otfMPP, uint32_t currentBlockId,
+                            ExynosMPPSource *compare, ExynosMPPSource *current,
+                            std::map<tdm_attr_t, uint32_t> &amounts);
 
     protected:
+        const std::map<HWResourceIndexes, HWResourceAmounts_t> *mHWResourceTables = nullptr;
         virtual void setFrameRateForPerformance(ExynosMPP &mpp, AcrylicPerformanceRequestFrame *frame);
 };
 
