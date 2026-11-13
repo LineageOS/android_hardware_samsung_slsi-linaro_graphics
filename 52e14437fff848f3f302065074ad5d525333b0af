@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3e64dcf_1ce83f8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 36705
+      },
+      "writtenOn": "2026-11-13T12:36:54Z",
+      "side": 1,
+      "message": "https://review.lineageos.org/c/LineageOS/android_hardware_samsung_slsi-linaro_graphics/+/467698\nhttps://review.lineageos.org/c/LineageOS/android_hardware_samsung_slsi-linaro_graphics/+/467699\nhttps://github.com/LineageOS/charter/blob/main/ai-coding-assistants.md",
+      "revId": "52e14437fff848f3f302065074ad5d525333b0af",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
