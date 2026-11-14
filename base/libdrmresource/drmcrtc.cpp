@@ -84,8 +84,9 @@ int DrmCrtc::Init() {
     ALOGI("Failed to get &dqe_fd_property");
   if (drm_->GetCrtcProperty(*this, "render intent", &render_intent_property_))
     ALOGI("Failed to get &render_intent_property");
-  if (drm_->GetCrtcProperty(*this, "modeset_only", &modeset_only_property_))
-    ALOGI("Failed to get &modeset_only_property");
+  if (drm_->GetCrtcProperty(*this, "skip_frameupdate", &modeset_only_property_) &&
+      drm_->GetCrtcProperty(*this, "modeset_only", &modeset_only_property_))
+    ALOGI("Failed to get skip_frameupdate/modeset_only property");
   if (drm_->GetCrtcProperty(*this, "bts_fps", &bts_fps_property_))
     ALOGI("Failed to get &bts_fps_property");
 
