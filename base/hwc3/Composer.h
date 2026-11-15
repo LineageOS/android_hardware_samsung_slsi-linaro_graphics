@@ -34,6 +34,9 @@ public:
     ndk::ScopedAStatus createClient(std::shared_ptr<IComposerClient>* client) override;
     ndk::ScopedAStatus getCapabilities(std::vector<Capability>* caps) override;
 
+    // Power off all physical displays, e.g. before the service gets terminated
+    void powerOffDisplays();
+
 protected:
     ::ndk::SpAIBinder createBinder() override;
 

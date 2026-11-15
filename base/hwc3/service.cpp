@@ -18,7 +18,11 @@
 #include <android/binder_manager.h>
 #include <android/binder_process.h>
 #include <binder/ProcessState.h>
+#include <pthread.h>
 #include <sched.h>
+#include <signal.h>
+
+#include <thread>
 
 #include "Composer.h"
 
@@ -32,6 +36,15 @@ using android::sp;
 int main(int /*argc*/, char* argv[]) {
     InitLogging(argv, android::base::LogdLogger(android::base::SYSTEM));
     LOG(INFO) << "hwc3 starting up";
+
+    /*
+     * Handle SIGTERM on a dedicated thread, block it before any other thread
+     * gets created so they all inherit the mask.
+     */
+    sigset_t termSet;
+    sigemptyset(&termSet);
+    sigaddset(&termSet, SIGTERM);
+    pthread_sigmask(SIG_BLOCK, &termSet, nullptr);
 
     // same as SF main thread
     struct sched_param param = {0};
@@ -50,6 +63,25 @@ int main(int /*argc*/, char* argv[]) {
     binder_status_t status =
             AServiceManager_addService(composer->asBinder().get(), instance.c_str());
     CHECK(status == STATUS_OK);
+
+    /*
+     * When init stops all services for a reboot or shutdown, surface flinger
+     * and the composer get SIGTERM at about the same time. The composer then
+     * usually dies before it handles the death of its client, which would
+     * present a final empty frame, and the panel keeps showing the last frame
+     * (a frozen shutdown animation) until the kernel reboots. Power off the
+     * displays first, then terminate as before.
+     */
+    std::thread([composer, termSet]() {
+        int sig = 0;
+        if (sigwait(&termSet, &sig) == 0) {
+            LOG(INFO) << "SIGTERM received, powering off the displays";
+            composer->powerOffDisplays();
+        }
+        signal(SIGTERM, SIG_DFL);
+        pthread_sigmask(SIG_UNBLOCK, &termSet, nullptr);
+        raise(SIGTERM);
+    }).detach();
 
     // Thread pool for vendor libbinder for internal vendor services
     android::ProcessState::self()->setThreadPoolMaxThreadCount(2);
