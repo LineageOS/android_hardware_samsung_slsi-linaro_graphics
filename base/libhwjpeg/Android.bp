@@ -23,6 +23,9 @@ cc_library_shared {
     }) + select(soong_config_variable("libhwjpeg", "HWJPEG_ANDROID_VERSION"), {
         any @ hwjpeg_android_version: ["-DHWJPEG_ANDROID_VERSION=" + hwjpeg_android_version],
         default: ["-DHWJPEG_ANDROID_VERSION=13"],
+    }) + select((arch(), soong_config_variable("libhwjpeg", "HWJPEG_SAMSUNG_LEGACY_V4L2")), {
+        ("arm64", true): ["-DEXYNOS_LEGACY_V4L2"],
+        (default, default): [],
     }),
     shared_libs: [
         "liblog",
@@ -37,7 +40,10 @@ cc_library_shared {
         "libsystem_headers",
         "libhardware_headers",
         "libexynos_headers",
-    ],
+    ] + select((arch(), soong_config_variable("libhwjpeg", "HWJPEG_SAMSUNG_LEGACY_V4L2")), {
+        ("arm64", true): ["device_kernel_headers"],
+        (default, default): [],
+    }),
 
     export_include_dirs: ["include"],
 
