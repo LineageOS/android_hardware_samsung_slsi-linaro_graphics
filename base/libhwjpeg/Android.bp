@@ -23,6 +23,12 @@ cc_library_shared {
     }) + select(soong_config_variable("libhwjpeg", "HWJPEG_ANDROID_VERSION"), {
         any @ hwjpeg_android_version: ["-DHWJPEG_ANDROID_VERSION=" + hwjpeg_android_version],
         default: ["-DHWJPEG_ANDROID_VERSION=13"],
+    }) + select((arch(), soong_config_variable("libhwjpeg", "HWJPEG_SAMSUNG_LEGACY_V4L2")), {
+        ("arm64", true): [
+            "-DHWJPEG_SAMSUNG_LEGACY_V4L2",
+            "-DEXYNOS_LEGACY_V4L2",
+        ],
+        (default, default): [],
     }),
     shared_libs: [
         "liblog",
@@ -38,6 +44,13 @@ cc_library_shared {
         "libhardware_headers",
         "libexynos_headers",
     ],
+
+    arch: {
+        arm64: {
+            // The legacy V4L2 layout comes from the device kernel headers.
+            header_libs: ["device_kernel_headers"],
+        },
+    },
 
     export_include_dirs: ["include"],
 

@@ -37,6 +37,10 @@
 #error VIDEO_MAX_PLANES should not be smaller than 6
 #endif
 
+#if defined(HWJPEG_SAMSUNG_LEGACY_V4L2) && VIDEO_MAX_PLANES != 17
+#error HWJPEG_SAMSUNG_LEGACY_V4L2 needs kernel headers with the EXYNOS_LEGACY_V4L2 layout
+#endif
+
 // Exynos JPEG specific device capabilities
 // Defined in the driver. Not in videodev2.h
 #define V4L2_CAP_EXYNOS_JPEG_DECOMPRESSION       0x0100
