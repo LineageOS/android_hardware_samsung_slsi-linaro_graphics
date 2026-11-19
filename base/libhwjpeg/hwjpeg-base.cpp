@@ -119,7 +119,7 @@ bool WriteToFile(const char *path, const char *data, size_t len)
         return false;
     }
 
-    ALOGI("%zu/%zu bytes from ptr %p are written to '%s'", written, len, data, path);
+    ALOGI("%zu/%zu bytes from ptr %p are written to '%s'", static_cast<size_t>(written), len, data, path);
 
     return true;
 }
@@ -143,7 +143,8 @@ bool WriteToFile(const char *path, int dmabuf, size_t len)
     if (written < 0)
         ALOGERR("Failed to write %zu bytes to '%s'", len, path);
     else
-        ALOGI("%zu/%zu bytes from dmabuf fd %d are written to '%s'", written, len, dmabuf, path);
+        ALOGI("%zu/%zu bytes from dmabuf fd %d are written to '%s'",
+              static_cast<size_t>(written), len, dmabuf, path);
 
     munmap(p, len);
     close(fd);

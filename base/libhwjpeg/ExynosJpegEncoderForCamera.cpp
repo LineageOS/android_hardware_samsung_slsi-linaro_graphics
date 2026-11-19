@@ -450,7 +450,7 @@ int ExynosJpegEncoderForCamera::encode(int *size, exif_attribute_t *exifInfo,
 
     ssize_t mainlen = GetCompressor().Compress(&thumblen, block_mode);
     if (mainlen < 0) {
-        ALOGE("Error occured while JPEG compression: %zd", mainlen);
+        ALOGE("Error occured while JPEG compression: %ld", static_cast<long>(mainlen));
         return -1;
     }
 
@@ -806,7 +806,7 @@ size_t ExynosJpegEncoderForCamera::CompressThumbnailOnly(size_t limit, int quali
             quality = min(50, quality - 10);
             ALOGI_IF(quality >= 20,
                      "Too large thumbnail stream size %zu. Retrying with quality factor %d...",
-                     thumbsize, quality);
+                     static_cast<size_t>(thumbsize), quality);
         } else {
             return thumbsize;
         }
