@@ -21,6 +21,7 @@ cc_library_shared {
     ],
 
     header_libs: [
+        "device_kernel_headers",
         "libcutils_headers",
         "libsystem_headers",
         "libhardware_headers",
