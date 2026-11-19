@@ -16,6 +16,24 @@
       "message": "I\u0027m not sure about this, can\u0027t it be modified in the kernel instead?",
       "revId": "538c21985fe79773f20a497f89e76249feb5274b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b234b965_2363b1fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 38440
+      },
+      "writtenOn": "2026-11-19T11:47:51Z",
+      "side": 1,
+      "message": "can\u0027t be done in the kernel only: the ioctls are already translated\nthere, but the camera blob inlines ExynosJpegEncoder accessors, so the\nv4l2_format layout inside the object must match (17 planes). I also\ntried the stock libhwjpeg blob, the camera provider segfaults with it.",
+      "parentUuid": "55f259eb_d53c96be",
+      "revId": "538c21985fe79773f20a497f89e76249feb5274b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
