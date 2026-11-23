@@ -52,6 +52,24 @@
       "parentUuid": "b234b965_2363b1fa",
       "revId": "538c21985fe79773f20a497f89e76249feb5274b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bcf416e_b1ea31f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 38440
+      },
+      "writtenOn": "2026-11-23T19:15:53Z",
+      "side": 1,
+      "message": "By \"original kernel\", do you mean Samsung\u0027s stock 4.4 kernel or the current 5.10 kernel?\n\nThe stock 4.4 headers match the 17-plane layout expected by the camera blob. In PS5, I didn\u0027t port the 4.4 headers. Instead, I selected the same 17-plane layout only for the ARM64 libhwjpeg in the 5.10 headers, while keeping the kernel\u0027s own ABI at 8 planes.\n\nIf you mean the current 5.10 headers, PS10 already uses them, but without the 17-plane selection, it ends up using 8 planes.\n\nI also tested this on the same ROM by changing only the ARM64 library. PS5 successfully saved photos, while PS10 caused the camera service to crash.",
+      "parentUuid": "4ed0c7e3_daf1aeb2",
+      "revId": "538c21985fe79773f20a497f89e76249feb5274b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
