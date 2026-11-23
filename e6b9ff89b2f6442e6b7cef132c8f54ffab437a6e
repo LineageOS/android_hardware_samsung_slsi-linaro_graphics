@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75b07aa1_e9e0c415",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-11-23T10:43:42Z",
+      "side": 1,
+      "message": "What does EXYNOS_LEGACY_V4L2 do? I can\u0027t find anything while grepping \n\nAnd what\u0027s with the new casts? I\u0027m honestly a bit confused why this isn\u0027t just as simple as 510879",
+      "revId": "e6b9ff89b2f6442e6b7cef132c8f54ffab437a6e",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
