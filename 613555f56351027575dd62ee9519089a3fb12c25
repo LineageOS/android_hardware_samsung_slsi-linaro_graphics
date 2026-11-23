@@ -18,6 +18,24 @@
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6662f416_1ef51a0a",
+        "filename": "base/libhwjpeg/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 38440
+      },
+      "writtenOn": "2026-11-23T10:42:03Z",
+      "side": 1,
+      "message": "Removed in PS4. The kernel handles both legacy ioctl layouts: 376 bytes on ARM and 384 bytes on ARM64. All ten libhwjpeg sources passed compile checks for both ABIs.",
+      "parentUuid": "580837c0_48fdffc0",
+      "revId": "613555f56351027575dd62ee9519089a3fb12c25",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a2b66c8_bb6286f3",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-11-23T09:42:24Z",
       "side": 1,
       "message": "Why is this needed?",
+      "revId": "613555f56351027575dd62ee9519089a3fb12c25",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9adb432a_05290807",
+        "filename": "base/libhwjpeg/include/exynos-hwjpeg.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 38440
+      },
+      "writtenOn": "2026-11-23T10:42:03Z",
+      "side": 1,
+      "message": "Removed in PS4. The opt-in now selects the device kernel headers and the legacy V4L2 define together. I verified that both ABIs use 17 planes with the opt-in and 8 without it.",
+      "parentUuid": "6a2b66c8_bb6286f3",
       "revId": "613555f56351027575dd62ee9519089a3fb12c25",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
