@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "580837c0_48fdffc0",
+        "filename": "base/libhwjpeg/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-11-23T09:42:24Z",
+      "side": 1,
+      "message": "Do we really need the ARM64 guard?",
+      "revId": "613555f56351027575dd62ee9519089a3fb12c25",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a2b66c8_bb6286f3",
+        "filename": "base/libhwjpeg/include/exynos-hwjpeg.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 35850
+      },
+      "writtenOn": "2026-11-23T09:42:24Z",
+      "side": 1,
+      "message": "Why is this needed?",
+      "revId": "613555f56351027575dd62ee9519089a3fb12c25",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
