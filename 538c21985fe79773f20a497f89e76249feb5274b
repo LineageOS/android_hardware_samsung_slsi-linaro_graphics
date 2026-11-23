@@ -34,6 +34,24 @@
       "parentUuid": "55f259eb_d53c96be",
       "revId": "538c21985fe79773f20a497f89e76249feb5274b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ed0c7e3_daf1aeb2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 37560
+      },
+      "writtenOn": "2026-11-23T19:08:36Z",
+      "side": 1,
+      "message": "Couldn\u0027t this be solved by using the headers that match your original kernel?",
+      "parentUuid": "b234b965_2363b1fa",
+      "revId": "538c21985fe79773f20a497f89e76249feb5274b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
