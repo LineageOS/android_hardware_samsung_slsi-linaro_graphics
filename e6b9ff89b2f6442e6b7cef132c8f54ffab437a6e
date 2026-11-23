@@ -16,6 +16,24 @@
       "message": "What does EXYNOS_LEGACY_V4L2 do? I can\u0027t find anything while grepping \n\nAnd what\u0027s with the new casts? I\u0027m honestly a bit confused why this isn\u0027t just as simple as 510879",
       "revId": "e6b9ff89b2f6442e6b7cef132c8f54ffab437a6e",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "334019c2_e0187748",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 38440
+      },
+      "writtenOn": "2026-11-23T10:53:53Z",
+      "side": 1,
+      "message": "EXYNOS_LEGACY_V4L2 is defined in the companion kernel change, 514482.\n\nOn 22.2, Samsung’s kernel headers already defined VIDEO_MAX_PLANES as 17, so 510879 only needed to add the header dependency. With kernel 5.10, the default is 8, so libhwjpeg needs to explicitly opt in to 17 for compatibility with the prebuilt camera HAL.\n\nPatch Set 5 limits both the override and the kernel header dependency to the ARM64 variant used by the blob. The casts have been removed, and the 32-bit variant retains its original headers.\n\nCompile checks passed for ARM64 with and without the opt-in, and for ARM without it.",
+      "parentUuid": "75b07aa1_e9e0c415",
+      "revId": "e6b9ff89b2f6442e6b7cef132c8f54ffab437a6e",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
