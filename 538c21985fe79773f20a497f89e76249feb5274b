@@ -70,6 +70,24 @@
       "parentUuid": "4ed0c7e3_daf1aeb2",
       "revId": "538c21985fe79773f20a497f89e76249feb5274b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2899f71a_72031d3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 37560
+      },
+      "writtenOn": "2026-11-24T09:14:08Z",
+      "side": 1,
+      "message": "Of course I mean the 4.4 headers, those are what all of your blobs were compiled against so therefore ideally what you should compile everything else against for compatibility.",
+      "parentUuid": "4bcf416e_b1ea31f5",
+      "revId": "538c21985fe79773f20a497f89e76249feb5274b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
