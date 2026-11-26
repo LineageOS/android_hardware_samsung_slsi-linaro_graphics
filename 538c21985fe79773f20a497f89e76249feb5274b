@@ -124,6 +124,24 @@
       "parentUuid": "e4fd479b_e32416ca",
       "revId": "538c21985fe79773f20a497f89e76249feb5274b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9de96b23_51a11984",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 38440
+      },
+      "writtenOn": "2026-11-26T14:27:45Z",
+      "side": 1,
+      "message": "I tested that too: with the kernel switched to the 17-plane layout it booted, but the camera preview was black. VIDEO_MAX_PLANES is part of the kernel UAPI, and bionic and the other V4L2 users (codecs, OMX) are built for 8, so moving the kernel to 17 just moves the mismatch somewhere else.\n\nThe blob patch only touches the 27 known offsets in the two camera libs and refuses anything unexpected, and rear/front photo and video all work with it. ExtremeXT said he wanted that route instead, so could you two agree on one direction? I\u0027ll follow whichever you pick.",
+      "parentUuid": "682113ec_dc17ad1d",
+      "revId": "538c21985fe79773f20a497f89e76249feb5274b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
