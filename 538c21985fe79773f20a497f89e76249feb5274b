@@ -106,6 +106,24 @@
       "parentUuid": "2899f71a_72031d3c",
       "revId": "538c21985fe79773f20a497f89e76249feb5274b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "682113ec_dc17ad1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 37560
+      },
+      "writtenOn": "2026-11-26T10:43:33Z",
+      "side": 1,
+      "message": "Using the correct headers and adjusting your kernel to them would fix it without any blob patches and also prevent potential incompatibilities outside of this specific one.",
+      "parentUuid": "e4fd479b_e32416ca",
+      "revId": "538c21985fe79773f20a497f89e76249feb5274b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
