@@ -142,6 +142,24 @@
       "parentUuid": "682113ec_dc17ad1d",
       "revId": "538c21985fe79773f20a497f89e76249feb5274b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8340e7be_a2e49052",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 37560
+      },
+      "writtenOn": "2026-11-26T22:34:03Z",
+      "side": 1,
+      "message": "Of course it wasn\u0027t going to work if you limited it to only libhwjpeg, with all due respect, you shouldn\u0027t need to test anything to know that. What I\u0027m saying is that you using 5.10 headers on a device with blobs compiled against 4.4 headers is wrong in general, not just here.",
+      "parentUuid": "9de96b23_51a11984",
+      "revId": "538c21985fe79773f20a497f89e76249feb5274b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
